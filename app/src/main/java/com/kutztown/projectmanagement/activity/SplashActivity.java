@@ -1,10 +1,6 @@
 package com.kutztown.projectmanagement.activity;
 
 import android.app.Activity;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -36,5 +32,19 @@ public class SplashActivity extends Activity {
 
         // Create content view
         setContentView(R.layout.activity_splash);
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+        // TODO - Maybe add a progressbar down the line
+
+        // Once activity starts, stop the UIThread for loading purposes
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            // Just move into next activity if waiting fails
+        }
     }
 }
