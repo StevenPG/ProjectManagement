@@ -15,7 +15,8 @@
         </activity>
         <activity
             android:name="com.kutztown.projectmanagement.activity.SplashActivity"
-            android:label="Project Management">
+            android:label="Project Management"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER" />

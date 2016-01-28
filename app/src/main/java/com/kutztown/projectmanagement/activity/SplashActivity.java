@@ -11,6 +11,16 @@ import android.view.WindowManager;
 
 import com.kutztown.project.projectmanagement.R;
 
+/**
+ * The splash screen will stay in place for a few
+ * seconds before moving on to the rest of the
+ * application.
+ *
+ * This activity is removed from the activity stack
+ * as soon as it leaves, allowing the user to back
+ * out of the next activity directly to the previous
+ * application or instance.
+ */
 public class SplashActivity extends Activity {
 
     @Override
