@@ -4,8 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
+
+import java.text.Normalizer;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * The splash screen will stay in place for a few
@@ -40,11 +46,29 @@ public class SplashActivity extends Activity {
 
         // TODO - Maybe add a progressbar down the line
 
+        // Set the current date
+        TextView date = (TextView) findViewById(R.id.date);
+
+        // Code Source:
+        //  http://stackoverflow.com/questions/8654990/how-can-i-get-current-date-in-android
+
+        Calendar c = Calendar.getInstance();
+        System.out.println("Current time => " + c.getTime());
+
+        SimpleDateFormat df = new SimpleDateFormat("MMM/dd/yyyy");
+        String formattedDate = df.format(c.getTime());
+
+        // - end
+
+        date.setText(formattedDate);
+
         // Once activity starts, stop the UIThread for loading purposes
         try {
-            Thread.sleep(1000);
+            Thread.sleep(1500);
         } catch (InterruptedException e) {
             // Just move into next activity if waiting fails
         }
+
+        // Start next activity
     }
 }
