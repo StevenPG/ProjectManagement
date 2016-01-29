@@ -1,17 +1,20 @@
 package com.kutztown.projectmanagement.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
+import com.kutztown.projectmanagement.data.ApplicationData;
+import com.kutztown.projectmanagement.graphing.GraphingTest;
 
-import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * The splash screen will stay in place for a few
@@ -41,7 +44,7 @@ public class SplashActivity extends Activity {
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
 
         // TODO - Maybe add a progressbar down the line
@@ -55,7 +58,8 @@ public class SplashActivity extends Activity {
         Calendar c = Calendar.getInstance();
         System.out.println("Current time => " + c.getTime());
 
-        SimpleDateFormat df = new SimpleDateFormat("MMM/dd/yyyy");
+        // This just removes an error since we are using the device's timezone (supposed to specify)
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat("MMM/dd/yyyy");
         String formattedDate = df.format(c.getTime());
 
         // - end
@@ -63,12 +67,16 @@ public class SplashActivity extends Activity {
         date.setText(formattedDate);
 
         // Once activity starts, stop the UIThread for loading purposes
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            // Just move into next activity if waiting fails
-        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(SplashActivity.this,
+                        GraphingTest.class);
+                startActivity(intent);
 
-        // Start next activity
+                // Close activity
+                finish();
+            }
+        }, ApplicationData.SPLASH_TIME_OUT);
     }
 }

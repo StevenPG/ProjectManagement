@@ -14,6 +14,10 @@ import com.kutztown.projectmanagement.graphing.GraphingTest;
  */
 public class ActivityController extends Application{
 
+    /**
+     * Debug class that opens the graphing test activity
+     * @return
+     */
     public static Intent openGraphingTest(){
         Intent intent = new Intent(mContext, GraphingTest.class);
         return intent;

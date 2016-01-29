@@ -21,5 +21,10 @@ public final class ApplicationData {
     /**
      * IP address of web service
      */
-    final static String SERVER_IP = "127.0.0.1";
+    final static public String SERVER_IP = "127.0.0.1";
+
+    /**
+     * How long the splash screen will display
+     */
+    final static public int SPLASH_TIME_OUT = 3000;
 }
