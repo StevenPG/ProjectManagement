@@ -16,11 +16,10 @@ public class ActivityController extends Application{
 
     /**
      * Debug class that opens the graphing test activity
-     * @return
+     * @return graphing test activity intent
      */
     public static Intent openGraphingTest(){
-        Intent intent = new Intent(mContext, GraphingTest.class);
-        return intent;
+        return new Intent(mContext, GraphingTest.class);
     }
 
     /**
@@ -29,6 +28,7 @@ public class ActivityController extends Application{
      */
     private static Context mContext;
     public void onCreate(){
+        super.onCreate();
         mContext = this.getApplicationContext();
     }
     public static Context getAppContext(){
