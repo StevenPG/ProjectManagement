@@ -25,6 +25,8 @@ public final class ApplicationData {
 
     /**
      * How long the splash screen will display
+     * 3000ms seems to be the best length of time
+     * debug: 500ms
      */
-    final static public int SPLASH_TIME_OUT = 3000;
+    final static public int SPLASH_TIME_OUT = 500;
 }

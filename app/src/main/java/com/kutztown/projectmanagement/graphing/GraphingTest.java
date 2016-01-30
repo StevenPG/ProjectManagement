@@ -25,7 +25,7 @@ public class GraphingTest extends Activity {
 
         PieGraph chart = new PieGraph(xData, yData,
                 (RelativeLayout) findViewById(R.id.layout),
-                this, "Market Average of Phones");
+                this, 500);
         chart.setBackgroundColor("#CCFFFF");
         chart.setDescription("Market Average of Cell Phones");
     }

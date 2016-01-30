@@ -67,15 +67,16 @@ public class SplashActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //Intent intent = new Intent(SplashActivity.this,
-                //        GraphingTest.class);
-                //startActivity(intent);
 
-                startActivity(ActivityController.openGraphingTest(getApplicationContext()));
+                startActivity(ActivityController.openProgressActivity(getApplicationContext()));
 
-                // Close activity
+                // Close activity and remove from the stack
                 finish();
             }
         }, ApplicationData.SPLASH_TIME_OUT);
+    }
+
+    private void debugActivityOpen(){
+        startActivity(ActivityController.openGraphingTest(getApplicationContext()));
     }
 }

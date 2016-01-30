@@ -58,6 +58,11 @@ public class PieGraph {
     private PieChart chart;
 
     /**
+     * How long the animation should last
+     */
+    private int animationLength;
+
+    /**
      * Calling activity context
      */
     protected static Context context;
@@ -67,13 +72,14 @@ public class PieGraph {
      * and their corresponding labels as its
      * input and generates a pie graph using
      * a third party library.
-     * @param xData String array of x values
-     * @param yData float array of y values
+     * @param xData String array of x values (Can be null)
+     * @param yData float array of y values (cannot be null)
      * @param layout main activity layout object
      */
-    PieGraph(String[] xData, float[] yData, RelativeLayout layout,
-             Context context, String dataSetName) {
+    public PieGraph(String[] xData, float[] yData, RelativeLayout layout,
+             Context context, int animationLength) {
         PieGraph.context = context;
+        this.animationLength = animationLength;
 
         // Assign values
         this.mainLayout = layout;
@@ -109,20 +115,19 @@ public class PieGraph {
         this.chart.setOnChartValueSelectedListener(
                 new OnChartValueSelectedListener() {
                     @Override
-                    public void onValueSelected(Entry entry, int i, Highlight highlight) { }
+                    public void onValueSelected(Entry entry, int i, Highlight highlight) {
+                    }
                     @Override
-                    public void onNothingSelected() {}
+                    public void onNothingSelected() {
+                    }
                 }
         );
 
         // Add general data
-        addChartData(dataSetName);
+        addChartData();
 
         // customize legends
-        Legend legend = this.chart.getLegend();
-        legend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
-        legend.setXEntrySpace(70);
-        legend.setYEntrySpace(50);
+        this.chart.getLegend().setEnabled(false);
     }
 
     /**
@@ -142,40 +147,53 @@ public class PieGraph {
         this.chart.setDescription(description);
     }
 
-    private void addChartData(String dataSetName){
+    private void addChartData() {
 
         // Add the y value data directly
         ArrayList<Entry> yVals = new ArrayList<>();
-        for(int i = 0; i < yData.length; i++){
+        for (int i = 0; i < yData.length; i++) {
             yVals.add(new Entry(this.yData[i], i));
         }
 
-        // Add the x value data directly
+        // Add the x value data directly (can be null)
         ArrayList<String> xVals = new ArrayList<>();
         Collections.addAll(xVals, xData);
 
         // create the pie data set
-        PieDataSet dataSet = new PieDataSet(yVals, dataSetName);
+        PieDataSet dataSet = new PieDataSet(yVals, "Pie Chart Legend");
         dataSet.setSliceSpace(3);
-        dataSet.setSelectionShift(5);
+        dataSet.setSelectionShift(10);
+        dataSet.setValueTextSize(42f);
 
         // add many colors
         ArrayList<Integer> colors = new ArrayList<>();
-        for(int c : ColorTemplate.VORDIPLOM_COLORS) { colors.add(c); }
-        for (int c : ColorTemplate.JOYFUL_COLORS) { colors.add(c); }
-        for (int c : ColorTemplate.COLORFUL_COLORS) { colors.add(c); }
-        for (int c : ColorTemplate.LIBERTY_COLORS) { colors.add(c); }
-        for (int c : ColorTemplate.PASTEL_COLORS) { colors.add(c); }
+        for (int c : ColorTemplate.VORDIPLOM_COLORS) {
+            colors.add(c);
+        }
+        for (int c : ColorTemplate.JOYFUL_COLORS) {
+            colors.add(c);
+        }
+        for (int c : ColorTemplate.COLORFUL_COLORS) {
+            colors.add(c);
+        }
+        for (int c : ColorTemplate.LIBERTY_COLORS) {
+            colors.add(c);
+        }
+        for (int c : ColorTemplate.PASTEL_COLORS) {
+            colors.add(c);
+        }
         colors.add(ColorTemplate.getHoloBlue());
         dataSet.setColors(colors);
 
-        // Instantiate pie data object
         PieData data = new PieData(xVals, dataSet);
         data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(16f);
+        data.setValueTextSize(15f);
         data.setValueTextColor(Color.GRAY);
 
         this.chart.setData(data);
+
+        this.chart.animateXY(this.animationLength,
+                this.animationLength);
 
         // undo all highlights
         this.chart.highlightValues(null);
