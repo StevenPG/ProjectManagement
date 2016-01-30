@@ -1,5 +1,6 @@
 package com.kutztown.projectmanagement.controller;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -18,21 +19,7 @@ public class ActivityController extends Application{
      * Debug class that opens the graphing test activity
      * @return graphing test activity intent
      */
-    public static Intent openGraphingTest(){
-        return new Intent(mContext, GraphingTest.class);
+    public static Intent openGraphingTest(Context appContext){
+        return new Intent(appContext, GraphingTest.class);
     }
-
-    /**
-     * Application context resources to allow
-     * this class to function as a static access class.
-     */
-    private static Context mContext;
-    public void onCreate(){
-        super.onCreate();
-        mContext = this.getApplicationContext();
-    }
-    public static Context getAppContext(){
-        return mContext;
-    }
-
 }

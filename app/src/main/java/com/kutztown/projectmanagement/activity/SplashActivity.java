@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
+import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.graphing.GraphingTest;
 
@@ -47,8 +48,6 @@ public class SplashActivity extends Activity {
     protected void onStart() {
         super.onStart();
 
-        // TODO - Maybe add a progressbar down the line
-
         // Set the current date
         TextView date = (TextView) findViewById(R.id.date);
 
@@ -56,8 +55,6 @@ public class SplashActivity extends Activity {
         //  http://stackoverflow.com/questions/8654990/how-can-i-get-current-date-in-android
 
         Calendar c = Calendar.getInstance();
-        System.out.println("Current time => " + c.getTime());
-
         // This just removes an error since we are using the device's timezone (supposed to specify)
         @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat("MMM/dd/yyyy");
         String formattedDate = df.format(c.getTime());
@@ -70,9 +67,11 @@ public class SplashActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this,
-                        GraphingTest.class);
-                startActivity(intent);
+                //Intent intent = new Intent(SplashActivity.this,
+                //        GraphingTest.class);
+                //startActivity(intent);
+
+                startActivity(ActivityController.openGraphingTest(getApplicationContext()));
 
                 // Close activity
                 finish();
