@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ProjectManagement</string>
+    <string name="title_activity_graphing_test">GraphingTest</string>
 </resources>
