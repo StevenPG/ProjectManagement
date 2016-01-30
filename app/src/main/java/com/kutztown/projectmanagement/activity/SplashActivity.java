@@ -68,7 +68,7 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
 
-                startActivity(ActivityController.openProgressActivity(getApplicationContext()));
+                debugActivityOpen();
 
                 // Close activity and remove from the stack
                 finish();
@@ -77,6 +77,7 @@ public class SplashActivity extends Activity {
     }
 
     private void debugActivityOpen(){
-        startActivity(ActivityController.openGraphingTest(getApplicationContext()));
+        // startActivity(ActivityController.openGraphingTest(getApplicationContext()));
+        startActivity(ActivityController.openProgressActivity(getApplicationContext()));
     }
 }

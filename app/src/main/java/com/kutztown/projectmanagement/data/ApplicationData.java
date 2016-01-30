@@ -28,5 +28,5 @@ public final class ApplicationData {
      * 3000ms seems to be the best length of time
      * debug: 500ms
      */
-    final static public int SPLASH_TIME_OUT = 500;
+    final static public int SPLASH_TIME_OUT = 3000;
 }
