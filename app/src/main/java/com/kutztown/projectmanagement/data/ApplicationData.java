@@ -3,13 +3,13 @@ package com.kutztown.projectmanagement.data;
  * Created by Steven Gantz on 1/28/2016.
  *
  * This class contains all data data used
- * by the application that can be altered in
+ * by the application that can be altered
  * between compilations.
  *
  * Note: All values are final, const, and data, that is
  *  they cannot be changed or updated and are constant.
  *  All attributes should be in ALL_CAPS to denote their
- *  immutable status.
+ *  immutable status
  *
  * Usage:
  *
@@ -29,4 +29,6 @@ public final class ApplicationData {
      * debug: 500ms
      */
     final static public int SPLASH_TIME_OUT = 3000;
+    final static public String PREFERENCE_FILENAME = "UserName";
+    final static public SharePreferenceCheck myPreference = new SharePreferenceCheck();
 }

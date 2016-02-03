@@ -67,7 +67,7 @@ public class SplashActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
+                ApplicationData.myPreference.preference();
                 debugActivityOpen();
 
                 // Close activity and remove from the stack
