@@ -3,7 +3,7 @@ package com.kutztown.projectmanagement.data;
  * Created by Steven Gantz on 1/28/2016.
  *
  * This class contains all data data used
- * by the application that can be altered in
+ * by the application that can be altered
  * between compilations.
  *
  * Note: All values are final, const, and data, that is
