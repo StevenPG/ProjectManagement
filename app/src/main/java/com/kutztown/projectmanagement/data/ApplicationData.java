@@ -9,7 +9,7 @@ package com.kutztown.projectmanagement.data;
  * Note: All values are final, const, and data, that is
  *  they cannot be changed or updated and are constant.
  *  All attributes should be in ALL_CAPS to denote their
- *  immutable status.
+ *  immutable status
  *
  * Usage:
  *
