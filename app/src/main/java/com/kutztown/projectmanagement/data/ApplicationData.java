@@ -29,4 +29,6 @@ public final class ApplicationData {
      * debug: 500ms
      */
     final static public int SPLASH_TIME_OUT = 3000;
+    final static public String PREFERENCE_FILENAME = "UserName";
+    final static public SharePreferenceCheck myPreference = new SharePreferenceCheck();
 }
