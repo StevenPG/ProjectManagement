@@ -9,7 +9,7 @@ import com.kutztown.projectmanagement.graphing.GraphingTest;
 
 /**
  * Created by Steven Gantz on 1/26/2016.
- *
+ * HELLO
  * This class controls which activity is being brought to
  * the forefront next.
  */
