@@ -29,8 +29,9 @@
         </activity>
         <activity android:name="com.kutztown.projectmanagement.activity.ProgressActivity" />
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:name="com.kutztown.projectmanagement.activity.LoginActivity"
+            android:label="@string/title_activity_login">
+        </activity>
     </application>
 
 </manifest>

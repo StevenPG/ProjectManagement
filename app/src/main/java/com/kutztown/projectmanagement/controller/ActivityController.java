@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 
+import com.kutztown.projectmanagement.activity.LoginActivity;
 import com.kutztown.projectmanagement.activity.ProgressActivity;
 import com.kutztown.projectmanagement.graphing.GraphingTest;
 
@@ -15,6 +16,16 @@ import com.kutztown.projectmanagement.graphing.GraphingTest;
  */
 public class ActivityController extends Application{
 
+    public static Intent openLoginActivity(Context appContext){
+        return new Intent(appContext, LoginActivity.class);
+    }
+
+    /**
+     * TODO - THIS IS A DEBUG METHOD
+     * Open a progress activity
+     * @param appContext
+     * @return
+     */
     public static Intent openProgressActivity(Context appContext){
         return new Intent(appContext, ProgressActivity.class);
     }

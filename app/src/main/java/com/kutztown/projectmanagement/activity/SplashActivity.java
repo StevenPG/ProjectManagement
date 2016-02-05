@@ -67,17 +67,15 @@ public class SplashActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                ApplicationData.myPreference.preference();
-                debugActivityOpen();
+                // TODO - This line is causing a null pointer error (commenting out to work further)
+                //ApplicationData.myPreference.preference();
+
+                // Open up the login activity
+                startActivity(ActivityController.openLoginActivity(getApplicationContext()));
 
                 // Close activity and remove from the stack
                 finish();
             }
         }, ApplicationData.SPLASH_TIME_OUT);
-    }
-
-    private void debugActivityOpen(){
-        // startActivity(ActivityController.openGraphingTest(getApplicationContext()));
-        startActivity(ActivityController.openProgressActivity(getApplicationContext()));
     }
 }

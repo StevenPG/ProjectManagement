@@ -14,7 +14,8 @@
     public class SharePreferenceCheck extends PreferenceActivity {
         public void preference()
         {
-            SharedPreferences setting = getSharedPreferences(ApplicationData.PREFERENCE_FILENAME, MODE_PRIVATE);
+            //TODO - Attempting to debug null pointer error, getSharedPreferences was throwing an exception
+            SharedPreferences setting = getApplicationContext().getSharedPreferences(ApplicationData.PREFERENCE_FILENAME, MODE_PRIVATE);
             if (setting.contains(ApplicationData.PREFERENCE_FILENAME))
             {
                 // Intent myIntent = new Intent(SplashActivity.this, SplashActivity.class);
