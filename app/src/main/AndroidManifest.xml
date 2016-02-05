@@ -30,7 +30,10 @@
         <activity android:name="com.kutztown.projectmanagement.activity.ProgressActivity" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.LoginActivity"
-            android:label="@string/title_activity_login">
+            android:label="@string/title_activity_login"></activity>
+        <activity
+            android:name="com.kutztown.projectmanagement.activity.CreateAccountActivity"
+            android:label="@string/title_activity_create_account">
         </activity>
     </application>
 
