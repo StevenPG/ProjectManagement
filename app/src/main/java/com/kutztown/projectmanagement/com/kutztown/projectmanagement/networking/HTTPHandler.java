@@ -30,20 +30,23 @@ public class HTTPHandler {
                 try {
                     url = new URL("http://104.238.131.94:5000/databasetest");
                 } catch (MalformedURLException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
+                    return;
                 }
                 HttpURLConnection urlConnection = null;
                 try {
                     urlConnection = (HttpURLConnection) url.openConnection();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
+                    return;
                 }
 
                 InputStream in = null;
                 try {
                     in = new BufferedInputStream(urlConnection.getInputStream());
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
+                    return;
                 }
 
                 //convert stream to string
@@ -51,7 +54,8 @@ public class HTTPHandler {
                 try {
                     IOUtils.copy(in,writer,"UTF-8");
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
+                    return;
                 }
                 String theString = writer.toString();
 
