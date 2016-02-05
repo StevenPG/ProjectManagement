@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
+import com.kutztown.projectmanagement.com.kutztown.projectmanagement.networking.HTTPHandler;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.graphing.GraphingTest;
@@ -69,6 +70,9 @@ public class SplashActivity extends Activity {
             public void run() {
                 // TODO - This line is causing a null pointer error (commenting out to work further)
                 //ApplicationData.myPreference.preference();
+
+                // HTTP debug
+                HTTPHandler test = new HTTPHandler();
 
                 // Open up the login activity
                 startActivity(ActivityController.openLoginActivity(getApplicationContext()));
