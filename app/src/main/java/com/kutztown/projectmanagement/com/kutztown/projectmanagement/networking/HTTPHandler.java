@@ -23,50 +23,22 @@ import java.net.URLConnection;
  */
 public class HTTPHandler {
 
-    //TODO - THIS IS A DEBUG FOR NOW WHILE THIS COMMENT EXISTS
+    /**
+     * General empty constructor
+     */
     public HTTPHandler(){
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                URL url = null;
-                try {
-                    url = new URL("http://104.238.131.94:5000/databasetest");
-                } catch (MalformedURLException e) {
-                    //e.printStackTrace();
-                    return;
-                }
-                HttpURLConnection urlConnection = null;
-                try {
-                    urlConnection = (HttpURLConnection) url.openConnection();
-                } catch (IOException e) {
-                    //e.printStackTrace();
-                    return;
-                }
 
-                InputStream in = null;
-                try {
-                    in = new BufferedInputStream(urlConnection.getInputStream());
-                } catch (IOException e) {
-                    //e.printStackTrace();
-                    return;
-                }
+    }
 
-                //convert stream to string
-                StringWriter writer = new StringWriter();
-                try {
-                    IOUtils.copy(in,writer,"UTF-8");
-                } catch (IOException e) {
-                    //e.printStackTrace();
-                    return;
-                }
-                String theString = writer.toString();
+    /**
+     * Attempt to create an account on the server
+     *
+     * @return 0 - if create account was successful
+     * @return 1 - if account already exists
+     * @return -1 - if an error occurred
+     */
+    public int createAccount(){
 
-                urlConnection.disconnect();
-
-                Log.d("debug",theString);
-            }
-        });
-        t.start();
     }
 
     /**

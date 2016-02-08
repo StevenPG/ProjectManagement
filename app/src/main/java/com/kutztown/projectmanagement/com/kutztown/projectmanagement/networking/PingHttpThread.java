@@ -28,7 +28,7 @@ public class PingHttpThread implements Runnable {
      * if there is a failure to ping an external server.
      */
     public PingHttpThread(){
-        this.success = true;
+
     }
 
     public void run(){
@@ -39,15 +39,21 @@ public class PingHttpThread implements Runnable {
             // Generate the connection
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
+            // THIS will throw the exception
+            urlConnection.getContent();
+
             // Exception will be thrown just before this line. Otherwise close the connection.
             urlConnection.disconnect();
+            this.success = true;
 
         } catch (MalformedURLException m) {
-            Log.v("Error", "Some exception was thrown while building the URL");
+            Log.d("debug", "Some exception was thrown while building the URL");
             this.success = false;
+            return;
         } catch (IOException e) {
-            Log.v("Error", "The server is not up and running, attempting to make a connection has failed.");
+            Log.d("debug", "The server is not up and running, attempting to make a connection has failed.");
             this.success = false;
+            return;
         }
     }
 
