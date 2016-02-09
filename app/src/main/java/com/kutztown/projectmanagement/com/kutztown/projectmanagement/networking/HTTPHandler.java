@@ -38,8 +38,7 @@ public class HTTPHandler {
      * @return -1 - if an error occurred
      */
     public int createAccount(){
-        
-
+        return 0;
     }
 
     /**
