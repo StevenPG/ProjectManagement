@@ -27,4 +27,19 @@ public class CommaListParser {
         }
         return newList;
     }
+
+    /**
+     * This method allows for an ArrayList to be easily
+     *
+     * @param list - arraylist of strings
+     * @return - each element of arraylist in a comma separated string
+     */
+    public static String parseList(ArrayList<String> list){
+        StringBuilder stringBuilder = new StringBuilder();
+        for(String string : list){
+            stringBuilder.append(string);
+            stringBuilder.append(", ");
+        }
+        return stringBuilder.toString();
+    }
 }
