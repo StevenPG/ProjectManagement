@@ -34,7 +34,7 @@ public class PingHttpThread implements Runnable {
     public void run(){
         try {
             // Build URL for ping
-            URL url = HTTPHandler.buildURL(ApplicationData.SERVER_IP, ApplicationData.SERVER_PORT, "", false);
+            URL url = HTTPHandler.buildURL(ApplicationData.SERVER_IP, ApplicationData.SERVER_PORT, "", false, null);
 
             // Generate the connection
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();

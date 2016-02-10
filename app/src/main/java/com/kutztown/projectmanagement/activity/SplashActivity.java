@@ -77,7 +77,7 @@ public class SplashActivity extends Activity {
                 Log.d("debug", Boolean.toString(test.pingServer(ApplicationData.SERVER_IP)));
 
                 // Open up the login activity
-                startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+                startActivity(ActivityController.openCreateAccountActivity(getApplicationContext()));
 
                 // Close activity and remove from the stack
                 finish();

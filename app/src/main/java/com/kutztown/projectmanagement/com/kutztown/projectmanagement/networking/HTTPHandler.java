@@ -7,8 +7,10 @@ import com.kutztown.projectmanagement.data.ApplicationData;
 import org.apache.commons.io.IOUtils;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -37,8 +39,50 @@ public class HTTPHandler {
      * @return 1 - if account already exists
      * @return -1 - if an error occurred
      */
-    public int createAccount(){
-        return 0;
+    public String createAccount(String parameterString){
+
+        String data = null;
+
+        try {
+            URL url = buildURL(ApplicationData.SERVER_IP, ApplicationData.SERVER_PORT, "createaccount", false, parameterString);
+
+            // Generate the connection
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+            data = readFromURLConnection(urlConnection);
+
+        } catch (MalformedURLException e) {
+            Log.v("error", "Error forming URL");
+        } catch (IOException e) {
+            Log.v("error", "Error accessing url");
+        }
+
+        return String.valueOf(data.charAt(0));
+    }
+
+    /**
+     *
+     * @param url - url to read from
+     * @return - String returned from a web service
+     */
+    private String readFromURLConnection(HttpURLConnection url) throws IOException {
+        BufferedReader reader =
+                new BufferedReader(new InputStreamReader(
+                        url.getInputStream()
+                ));
+
+        // Build String
+        String inputLine;
+        StringBuilder builder = new StringBuilder();
+        while ((inputLine = reader.readLine()) != null){
+            builder.append(inputLine);
+        }
+
+        // Close reader and return built string
+        reader.close();
+        return builder.toString();
+
+
     }
 
     /**
@@ -77,9 +121,10 @@ public class HTTPHandler {
      * @param port - The port of the web service
      * @param path - The app route for an application
      * @param useHttps - Whether or not to use Https in the URL
+     * @param getParameters - null string if no params, formatted parameter string if valid
      * @return a URL object that is created using the parameters
      */
-    public static URL buildURL(String url, String port, String path, boolean useHttps) throws MalformedURLException {
+    public static URL buildURL(String url, String port, String path, boolean useHttps, String getParameters) throws MalformedURLException {
         StringBuilder builder = new StringBuilder();
 
         // Add the protocol
@@ -98,6 +143,12 @@ public class HTTPHandler {
         // Add the app route
         builder.append("/");
         builder.append(path);
+
+        // Add the parameter list if getParameters is not null
+        if(getParameters != null){
+            builder.append("?");
+            builder.append(getParameters);
+        }
 
         return new URL(builder.toString());
     }

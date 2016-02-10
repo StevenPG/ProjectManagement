@@ -19,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kutztown.project.projectmanagement.R;
+import com.kutztown.projectmanagement.com.kutztown.projectmanagement.networking.HTTPHandler;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -308,25 +310,23 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+            // Attempt login through HTTPHandler TODO
+            HTTPHandler handler = new HTTPHandler();
+            StringBuilder builder = new StringBuilder();
+            builder.append("user=");
+            builder.append(this.mEmail);
+            builder.append("&");
+            builder.append("passwd=");
+            builder.append(this.mPassword);
+            String out = handler.createAccount(builder.toString());
+
+            if("0".equals(out)){
+                return true;
+            }
+            else{
                 return false;
             }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
         }
 
         @Override
@@ -335,9 +335,11 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
             showProgress(false);
 
             if (success) {
-                finish();
+                // This happens when the thread ends
+                //finish();
+                Log.v("debug", "Successfully executed");
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.setError("This account already exists...");
                 mPasswordView.requestFocus();
             }
         }
