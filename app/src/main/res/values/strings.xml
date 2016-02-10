@@ -17,4 +17,5 @@
         completions."
     </string>
     <string name="title_activity_create_account">Create Account</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>

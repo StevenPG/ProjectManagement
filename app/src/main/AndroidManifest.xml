@@ -31,11 +31,14 @@
         <activity android:name="com.kutztown.projectmanagement.activity.ProgressActivity" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.CreateAccountActivity"
-            android:label="@string/title_activity_create_account">
-        </activity>
+            android:label="@string/title_activity_create_account"></activity>
+        <activity
+            android:name="com.kutztown.projectmanagement.activity.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
