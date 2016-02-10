@@ -4,18 +4,12 @@ import android.util.Log;
 
 import com.kutztown.projectmanagement.data.ApplicationData;
 
-import org.apache.commons.io.IOUtils;
-
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 
 /**
  * @author Steven Gantz on 2/4/2016.
@@ -95,10 +89,10 @@ public class HTTPHandler {
     /**
      * The method allows the caller to quickly check whether
      * a server is available for access or not.
-     * @param serverIP - the ip address to attempt to read
+     * @param serverIp - the ip address to attempt to read
      * @return boolean value representing the server being up or not
      */
-    public boolean pingServer(String serverIP) {
+    public boolean pingServer(String serverIp) {
 
         // Flag variable for ping success
         boolean success = false;
