@@ -37,11 +37,16 @@ public class HTTPHandler {
      *
      * @return 0 - if create account was successful
      * @return 1 - if account already exists
-     * @return -1 - if an error occurred
+     * @return 2 - if an error occurred
+     * @return 3 - if the server is down
      */
     public String createAccount(String parameterString){
 
-        String data = null;
+        String data;
+        boolean isServerUp = this.pingServer(ApplicationData.SERVER_IP);
+        if(!isServerUp){
+            return "3";
+        }
 
         try {
             URL url = buildURL(ApplicationData.SERVER_IP, ApplicationData.SERVER_PORT, "createaccount", false, parameterString);
@@ -53,8 +58,10 @@ public class HTTPHandler {
 
         } catch (MalformedURLException e) {
             Log.v("error", "Error forming URL");
+            return "2";
         } catch (IOException e) {
             Log.v("error", "Error accessing url");
+            return "2";
         }
 
         return String.valueOf(data.charAt(0));

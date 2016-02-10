@@ -35,6 +35,7 @@ import java.util.List;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.com.kutztown.projectmanagement.networking.HTTPHandler;
+import com.kutztown.projectmanagement.controller.ActivityController;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -50,7 +51,6 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
 
     /**
      * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
      */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
@@ -170,6 +170,17 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
             cancel = true;
         }
 
+        // Check for a valid password.
+        if (TextUtils.isEmpty(password)) {
+            mPasswordView.setError(getString(R.string.error_field_required));
+            focusView = mPasswordView;
+            cancel = true;
+        } else if (!isPasswordValid(password)) {
+            mPasswordView.setError("Passwords must be longer than 4 characters");
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
@@ -195,12 +206,10 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
@@ -303,6 +312,9 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
         private final String mEmail;
         private final String mPassword;
 
+        // Status code held internally for reporting
+        private String statusCode;
+
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
@@ -311,7 +323,7 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
         @Override
         protected Boolean doInBackground(Void... params) {
 
-            // Attempt login through HTTPHandler TODO
+            // Attempt login through HTTPHandler
             HTTPHandler handler = new HTTPHandler();
             StringBuilder builder = new StringBuilder();
             builder.append("user=");
@@ -321,10 +333,12 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
             builder.append(this.mPassword);
             String out = handler.createAccount(builder.toString());
 
-            if("0".equals(out)){
+            // Assign status code for error printing
+            this.statusCode = out;
+
+            if("0".equals(out)) {
                 return true;
-            }
-            else{
+            } else {
                 return false;
             }
         }
@@ -338,9 +352,26 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
                 // This happens when the thread ends
                 //finish();
                 Log.v("debug", "Successfully executed");
+                // TODO - This is where the next activity is opened
+                startActivity(ActivityController.openProgressActivity(getApplicationContext()));
             } else {
-                mPasswordView.setError("This account already exists...");
                 mPasswordView.requestFocus();
+
+                // @return 0 - if create account was successful
+                // @return 1 - if account already exists
+                // @return 2 - if an error occurred
+                // @return 3 - if the server is down
+                if("1".equals(this.statusCode)){
+                    mPasswordView.setError("This account already exists...");
+                }
+                else if("2".equals(this.statusCode)){
+                    mPasswordView.setError("Some error occurred...");
+                }
+                else if("3".equals(this.statusCode)){
+                    mPasswordView.setError("The server is currently down");
+                }
+
+
             }
         }
 
