@@ -42,7 +42,7 @@ public class ProjectTableEntry {
     /**
      * General constructor, requires
      * only entries that cannot be null.
-     * All others are set to null.
+     * All others are set to empty.
      *
      * @param projectId   Id of the project (This does not get passed into the database EVER
      * @param leaderList  List of leaders (comma separated)
