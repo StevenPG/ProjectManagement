@@ -50,12 +50,6 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
     private static final int REQUEST_READ_CONTACTS = 0;
 
     /**
-     * A dummy authentication store containing known user names and passwords.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-    /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
@@ -300,7 +294,6 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
         };
 
         int ADDRESS = 0;
-        int IS_PRIMARY = 1;
     }
 
     /**
@@ -325,22 +318,12 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
 
             // Attempt login through HTTPHandler
             HTTPHandler handler = new HTTPHandler();
-            StringBuilder builder = new StringBuilder();
-            builder.append("user=");
-            builder.append(this.mEmail);
-            builder.append("&");
-            builder.append("passwd=");
-            builder.append(this.mPassword);
-            String out = handler.createAccount(builder.toString());
+            String out = handler.createAccount("user=" + this.mEmail + "&" + "passwd=" + this.mPassword);
 
             // Assign status code for error printing
             this.statusCode = out;
 
-            if("0".equals(out)) {
-                return true;
-            } else {
-                return false;
-            }
+            return "0".equals(out);
         }
 
         @Override
@@ -352,8 +335,7 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
                 // This happens when the thread ends
                 //finish();
                 Log.v("debug", "Successfully executed");
-                // TODO - This is where the next activity is opened
-                startActivity(ActivityController.openProgressActivity(getApplicationContext()));
+                startActivity(ActivityController.openMainActivity(getApplicationContext()));
             } else {
                 mPasswordView.requestFocus();
 
@@ -370,8 +352,6 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
                 else if("3".equals(this.statusCode)){
                     mPasswordView.setError("The server is currently down");
                 }
-
-
             }
         }
 

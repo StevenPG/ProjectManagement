@@ -27,8 +27,43 @@ public class HTTPHandler {
     }
 
     /**
+     *
+     * @param parameterString - formatted parameter string
+     * @return 0 - if the user is not found
+     * @return 1 - if the user is found
+     * @return 2 - if the server is down
+     * @return 3 - if another error occurred
+     */
+    public String login(String parameterString){
+
+        String data;
+        if(!this.pingServer(ApplicationData.SERVER_IP)){
+            return "2";
+        }
+
+        try {
+            URL url = buildURL(ApplicationData.SERVER_IP, ApplicationData.SERVER_PORT, "login", false, parameterString);
+
+            // Generate the connection
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+            data = readFromURLConnection(urlConnection);
+
+        } catch (MalformedURLException e) {
+            Log.v("error", "Error forming URL");
+            return "3";
+        } catch (IOException e) {
+            Log.v("error", "Error accessing url");
+            return "3";
+        }
+
+        return String.valueOf(data.charAt(0));
+    }
+
+    /**
      * Attempt to create an account on the server
      *
+     * @param parameterString - formatted parameter string
      * @return 0 - if create account was successful
      * @return 1 - if account already exists
      * @return 2 - if an error occurred
@@ -37,8 +72,7 @@ public class HTTPHandler {
     public String createAccount(String parameterString){
 
         String data;
-        boolean isServerUp = this.pingServer(ApplicationData.SERVER_IP);
-        if(!isServerUp){
+        if(!this.pingServer(ApplicationData.SERVER_IP)){
             return "3";
         }
 

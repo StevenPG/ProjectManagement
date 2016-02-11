@@ -69,15 +69,16 @@ public class SplashActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // TODO - This line is causing a null pointer error (commenting out to work further)
-                //ApplicationData.myPreference.preference();
+                //TODO - I still don't fully understand what this does, Hector will have to manually implement this
+                //ApplicationData.myPreference.preference(getApplicationContext());
 
                 // HTTP debug
                 HTTPHandler test = new HTTPHandler();
                 Log.d("debug", Boolean.toString(test.pingServer(ApplicationData.SERVER_IP)));
 
                 // Open up the login activity
-                startActivity(ActivityController.openCreateAccountActivity(getApplicationContext()));
+                //startActivity(ActivityController.openCreateAccountActivity(getApplicationContext()));
+                startActivity(ActivityController.openLoginActivity(getApplicationContext()));
 
                 // Close activity and remove from the stack
                 finish();

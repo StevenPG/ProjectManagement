@@ -34,7 +34,7 @@
         // this method will be used in the create account screen. its purpose is to
         // save a key, value of the user's name in the sharepreference database. it will be
         // use to allow the user to go to the main screen of the app without having to login.
-        public void WriteToSharePrefference(View myView)
+        public void WriteToSharePreference(View myView)
         {
             SharedPreferences setting = getSharedPreferences(ApplicationData.PREFERENCE_FILENAME, MODE_PRIVATE);
             SharedPreferences.Editor editor = setting.edit();

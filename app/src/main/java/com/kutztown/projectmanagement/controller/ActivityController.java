@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import com.kutztown.projectmanagement.activity.CreateAccountActivity;
 import com.kutztown.projectmanagement.activity.LoginActivity;
+import com.kutztown.projectmanagement.activity.MainActivity;
 import com.kutztown.projectmanagement.activity.ProgressActivity;
 import com.kutztown.projectmanagement.graphing.GraphingTest;
 
@@ -23,6 +24,10 @@ public class ActivityController extends Application{
 
     public static Intent openCreateAccountActivity(Context appContext){
         return new Intent(appContext, CreateAccountActivity.class);
+    }
+
+    public static Intent openMainActivity(Context appContext){
+        return new Intent(appContext, MainActivity.class);
     }
 
     /**
