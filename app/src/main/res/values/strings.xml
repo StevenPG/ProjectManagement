@@ -29,12 +29,8 @@
 
 
     <string name="project_name">Project Name:</string>
-    <string name="project_leader">Project Leader:</string>
-    <string name="project_member_list">Project MemberList:</string>
     <string name="project_description">Project Description:</string>
-    <string name="project_progress">Project Progress</string>
-    <string name="project_goal">Project Goals:</string>
-    <string name="project_cost">Project Cost:</string>
+    <string name="project_leader">Project Leader:</string>
     <string name="project_add">Add Members:</string>
     <string name="title_activity_leader_view">LeaderView</string>
     <string name="title_activity_member_view">MemberView</string>
