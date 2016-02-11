@@ -36,6 +36,7 @@ import java.util.List;
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.com.kutztown.projectmanagement.networking.HTTPHandler;
 import com.kutztown.projectmanagement.controller.ActivityController;
+import com.kutztown.projectmanagement.data.ApplicationData;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -85,6 +86,8 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
             @Override
             public void onClick(View view) {
                 attemptLogin();
+                TextView userId = (TextView) findViewById(R.id.email);
+                ApplicationData.myPreference.WriteToSharePrefference(getApplicationContext(),userId.toString());
             }
         });
 

@@ -14,6 +14,7 @@ import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.com.kutztown.projectmanagement.networking.HTTPHandler;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
+import com.kutztown.projectmanagement.data.SharePreferenceCheck;
 import com.kutztown.projectmanagement.graphing.GraphingTest;
 
 import java.text.SimpleDateFormat;
@@ -30,7 +31,7 @@ import java.util.Calendar;
  * application or instance.
  */
 public class SplashActivity extends Activity {
-
+    public SharePreferenceCheck  methodO = new SharePreferenceCheck();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,8 +70,13 @@ public class SplashActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //TODO - I still don't fully understand what this does, Hector will have to manually implement this
-                //ApplicationData.myPreference.preference(getApplicationContext());
+                //TODO - I still don't fully understand what this does, Hector will have to manually implement this.
+             // ApplicationData.answer =   ApplicationData.myPreference.preference(SplashActivity.this);
+              //  if (ApplicationData.answer)
+                //    startActivity(ActivityController.openCreateProject(getApplicationContext()));
+               // else
+               //     startActivity(ActivityController.openCreateAccount(getApplicationContext()));
+
 
                 // HTTP debug
                 HTTPHandler test = new HTTPHandler();

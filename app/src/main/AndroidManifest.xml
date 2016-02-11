@@ -34,10 +34,22 @@
             android:label="@string/title_activity_login" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.CreateAccountActivity"
-            android:label="@string/title_activity_create_account"></activity>
+            android:label="@string/title_activity_create_account" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.MainActivity"
             android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.kutztown.projectmanagement.activity.CreateProject"
+            android:label="@string/title_activity_create_project"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.kutztown.projectmanagement.activity.LeaderView"
+            android:label="@string/title_activity_leader_view"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.kutztown.projectmanagement.activity.MemberView"
+            android:label="@string/title_activity_member_view"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

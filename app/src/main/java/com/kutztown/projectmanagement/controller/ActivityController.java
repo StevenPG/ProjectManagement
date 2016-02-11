@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.kutztown.projectmanagement.activity.CreateAccountActivity;
+import com.kutztown.projectmanagement.activity.CreateProject;
 import com.kutztown.projectmanagement.activity.LoginActivity;
 import com.kutztown.projectmanagement.activity.MainActivity;
 import com.kutztown.projectmanagement.activity.ProgressActivity;
@@ -46,5 +47,11 @@ public class ActivityController extends Application{
      */
     public static Intent openGraphingTest(Context appContext){
         return new Intent(appContext, GraphingTest.class);
+    }
+    public static Intent openCreateProject(Context appContext){
+        return new Intent(appContext, CreateProject.class);
+    }
+    public static Intent openCreateAccount(Context appContext){
+        return new Intent(appContext, CreateAccountActivity.class);
     }
 }
