@@ -27,6 +27,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name="com.kutztown.projectmanagement.activity.ProgressActivity" />
         <activity
@@ -50,7 +51,13 @@
         <activity
             android:name="com.kutztown.projectmanagement.activity.MemberView"
             android:label="@string/title_activity_member_view"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+          <activity
+            android:name="com.kutztown.projectmanagement.activity.MemberList"
+            android:label="@string/title_activity_member_list"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
     </application>
 
 </manifest>

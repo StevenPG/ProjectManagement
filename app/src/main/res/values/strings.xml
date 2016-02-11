@@ -39,4 +39,5 @@
     <string name="title_activity_leader_view">LeaderView</string>
     <string name="title_activity_member_view">MemberView</string>
     <string name="other">Other</string>
+    <string name="title_activity_member_list">MemberList</string>
 </resources>
