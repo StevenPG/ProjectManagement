@@ -64,7 +64,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/project_goal"
+            android:text="@string/project_leader"
             android:paddingLeft="15dp"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -77,22 +77,6 @@
             android:id="@+id/editText02"
             />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/project_cost"
-            android:lines="1"
-            android:paddingLeft="15dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:id="@+id/editText03"
-            />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
