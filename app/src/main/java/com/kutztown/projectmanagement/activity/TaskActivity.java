@@ -15,24 +15,23 @@ import android.widget.SimpleCursorAdapter;
 
 import com.kutztown.project.projectmanagement.R;
 
-public class MemberList extends ListActivity {
+public class TaskActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_member_list);
+        setContentView(R.layout.activity_task);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
 
         CursorLoader loader = new CursorLoader(this, ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                 null, null, null,null);
-              Cursor Contacts = loader.loadInBackground();
+        Cursor Contacts = loader.loadInBackground();
         // geting the data from the contact list for now. it will be replace with a call to the database
-        ListAdapter adapter = new SimpleCursorAdapter(this, R.layout.name, Contacts, new String[]{
+        ListAdapter task_adapter = new SimpleCursorAdapter(this, R.layout.task, Contacts, new String[]{
                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME},
-                new int[]{ R.id.nameD},0);
-        setListAdapter(adapter);
-
-
+                new int[]{ R.id.task},0);
+        setListAdapter(task_adapter);
     }
 
 }

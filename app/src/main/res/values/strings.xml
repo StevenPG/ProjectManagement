@@ -35,5 +35,11 @@
     <string name="title_activity_leader_view">LeaderView</string>
     <string name="title_activity_member_view">MemberView</string>
     <string name="other">Other</string>
+    <string name="task_name">Task</string>
     <string name="title_activity_member_list">MemberList</string>
+    <string name="title_activity_task">TaskActivity</string>
+    <string name="title_activity_calendar">CalendarActivity</string>
+    <string name="title_activity_profile_activitty">ProfileActivitty</string>
+    <string name="member_name">Member Name</string>
+    <string name="member_profile">Profile</string>
 </resources>
