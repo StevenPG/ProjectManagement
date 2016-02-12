@@ -37,7 +37,7 @@ public class CalendarActivity extends AppCompatActivity {
             public void onSelectedDayChange(CalendarView view, int year, int month,
                                             int dayOfMonth) {
 
-                
+
             }
         });
 
