@@ -26,6 +26,31 @@ public class HTTPHandler {
 
     }
 
+    public String getWSVersion(){
+        String version = null;
+        if(!this.pingServer(ApplicationData.SERVER_IP)){
+            return "X";
+        }
+
+        try {
+            URL url = buildURL(ApplicationData.SERVER_IP,
+                    ApplicationData.SERVER_PORT,"version",
+                    false, "");
+
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+            version = readFromURLConnection(httpURLConnection);
+        } catch (MalformedURLException e) {
+            //e.printStackTrace();
+            return "URL Error";
+        } catch (IOException e) {
+            //e.printStackTrace();
+            return "Can't reach page";
+        }
+
+        return version;
+    }
+
     /**
      *
      * @param parameterString - formatted parameter string
