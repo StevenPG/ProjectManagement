@@ -5,13 +5,13 @@ import java.util.ArrayList;
 /**
  * @author Steven Gantz
  * @date 2/11/2016
- *
+ * <p/>
  * This object will contain everything required to have a full
  * entry in the project table. Each resource can be accessed, and
  * it can be transformed into a get string to be passed to
  * the web service.
  */
-public class ProjectTableEntry {
+public class ProjectTableEntry implements TableEntry {
 
     // List of all attributes within the database
     // These attributes are private and don't appear in the javadoc
@@ -22,22 +22,6 @@ public class ProjectTableEntry {
     private String projectName;
     private String projectDesc;
     private String projectProgress;
-
-    // Getters and setters for each method for ease of use and manipulation
-    public int getProjectId() { return projectId; }
-    public void setProjectId(int projectId) { this.projectId = projectId; }
-    public String getLeaderList() { return leaderList; }
-    public void setLeaderList(String leaderList) { this.leaderList = leaderList; }
-    public String getMemberList() { return memberList; }
-    public void setMemberList(String memberList) { this.memberList = memberList; }
-    public String getTaskList() { return taskList; }
-    public void setTaskList(String taskList) { this.taskList = taskList; }
-    public String getProjectName() { return projectName; }
-    public void setProjectName(String projectName) { this.projectName = projectName; }
-    public String getProjectDesc() { return projectDesc; }
-    public void setProjectDesc(String projectDesc) { this.projectDesc = projectDesc; }
-    public String getProjectProgress() { return projectProgress; }
-    public void setProjectProgress(String projectProgress) { this.projectProgress = projectProgress; }
 
     /**
      * General constructor, requires
@@ -83,12 +67,13 @@ public class ProjectTableEntry {
 
     /**
      * Tertiary constructor, takes an arraylist of each element in an entry and builds the object.
+     *
      * @param projectTableEntry - the arraylist of entries
      **/
-    public ProjectTableEntry(ArrayList<String> projectTableEntry){
+    public ProjectTableEntry(ArrayList<String> projectTableEntry) {
 
         // Raise an exception if the array does not contain all of the required values
-        if(projectTableEntry.size() != 7){
+        if (projectTableEntry.size() != 7) {
             throw new RuntimeException();
         }
 
@@ -108,6 +93,7 @@ public class ProjectTableEntry {
      *
      * @return completed string that can be used for a get request
      */
+    @Override
     public String writeAsGet() {
         return "leaderlist=" + this.leaderList +
                 "&memberlist=" + this.memberList +
@@ -115,5 +101,62 @@ public class ProjectTableEntry {
                 "&projectname=" + this.projectName +
                 "&projectdesc=" + this.projectDesc +
                 "&projectprogress" + this.projectProgress;
+    }
+
+    // Getters and setters for each method for ease of use and manipulation
+    public int getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
+    }
+
+    public String getLeaderList() {
+        return leaderList;
+    }
+
+    public void setLeaderList(String leaderList) {
+        this.leaderList = leaderList;
+    }
+
+    public String getMemberList() {
+        return memberList;
+    }
+
+    public void setMemberList(String memberList) {
+        this.memberList = memberList;
+    }
+
+    public String getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(String taskList) {
+        this.taskList = taskList;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public String getProjectDesc() {
+        return projectDesc;
+    }
+
+    public void setProjectDesc(String projectDesc) {
+        this.projectDesc = projectDesc;
+    }
+
+    public String getProjectProgress() {
+        return projectProgress;
+    }
+
+    public void setProjectProgress(String projectProgress) {
+        this.projectProgress = projectProgress;
     }
 }
