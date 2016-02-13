@@ -34,7 +34,15 @@ public final class ApplicationData {
      * debug: 500ms
      */
     final static public int SPLASH_TIME_OUT = 3000;
+
+    // Share preference check attributes
     final static public String PREFERENCE_FILENAME = "UserName";
     final static public SharePreferenceCheck myPreference = new SharePreferenceCheck();
     static public boolean answer = false;
+
+    /**
+     * Global element that effectively "caches" the current user's data. Should it
+     * be used, it must be updated whenever the user's account is updated.
+     */
+    static public UserTableEntry currentUser;
 }

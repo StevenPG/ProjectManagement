@@ -15,6 +15,9 @@ import com.kutztown.projectmanagement.com.kutztown.projectmanagement.networking.
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.data.SharePreferenceCheck;
+import com.kutztown.projectmanagement.data.UserTableEntry;
+import com.kutztown.projectmanagement.exception.ServerNotRunningException;
+import com.kutztown.projectmanagement.exception.UserNotFoundException;
 import com.kutztown.projectmanagement.graphing.GraphingTest;
 
 import java.text.SimpleDateFormat;
@@ -78,9 +81,32 @@ public class SplashActivity extends Activity {
                //     startActivity(ActivityController.openCreateAccount(getApplicationContext()));
 
 
-                // HTTP debug
+                // HTTP test if surver up
                 HTTPHandler test = new HTTPHandler();
                 Log.d("debug", Boolean.toString(test.pingServer(ApplicationData.SERVER_IP)));
+
+                // TODO - testing the usertableentry object and webservice usage
+                Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            UserTableEntry user = new HTTPHandler().selectUser("alex", "email");
+                            if(user != null){
+                                Log.d("debug", user.getEmail());
+                                Log.d("debug", user.getBio());
+                                Log.d("debug", Integer.toString(user.getUserId()));
+
+                            }
+                        } catch (ServerNotRunningException e) {
+                            //e.printStackTrace();
+                            Log.d("debug", "Server isn't running");
+                        } catch (UserNotFoundException e) {
+                            e.printStackTrace();
+                            Log.d("debug", "User wasn't found");
+                        }
+                    }
+                });
+                t.start();
 
                 // Open up the login activity
                 //startActivity(ActivityController.openCreateAccountActivity(getApplicationContext()));

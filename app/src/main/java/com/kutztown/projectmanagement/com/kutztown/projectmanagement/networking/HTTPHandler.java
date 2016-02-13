@@ -3,6 +3,10 @@ package com.kutztown.projectmanagement.com.kutztown.projectmanagement.networking
 import android.util.Log;
 
 import com.kutztown.projectmanagement.data.ApplicationData;
+import com.kutztown.projectmanagement.data.CommaListParser;
+import com.kutztown.projectmanagement.data.UserTableEntry;
+import com.kutztown.projectmanagement.exception.ServerNotRunningException;
+import com.kutztown.projectmanagement.exception.UserNotFoundException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +14,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * @author Steven Gantz on 2/4/2016.
@@ -26,6 +31,59 @@ public class HTTPHandler {
 
     }
 
+    public UserTableEntry selectUser(String searchValue, String searchRecord)
+            throws ServerNotRunningException, UserNotFoundException{
+
+        if(!this.pingServer(ApplicationData.SERVER_IP)){
+            throw new ServerNotRunningException();
+        }
+
+        // Create the object that will get populated
+        UserTableEntry userTableEntry = null;
+
+        try {
+            String parameterString = "search=" + searchValue
+                    + "&record=" + searchRecord;
+
+            URL url = buildURL(ApplicationData.SERVER_IP,
+                    ApplicationData.SERVER_PORT,
+                    "selectuser", false, parameterString);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+            // Retrieve the comma separated string from the web page
+            String userEntry = readFromURLConnection(httpURLConnection);
+
+            // If the user wasn't found, a 0 will be returned
+            if(userEntry.charAt(0) == '0'){
+                throw new UserNotFoundException();
+            }
+
+            // If there was an issue, a 2 will be returned
+            if(userEntry.charAt(0) == '2'){
+                throw new UserNotFoundException("Search query wasn't filled out");
+            }
+
+            // Parse the string into an arraylist
+            ArrayList<String> parsedList = CommaListParser.parseString(userEntry);
+
+            // build the object using the arraylist as a parameter
+            userTableEntry = new UserTableEntry(parsedList);
+
+            return userTableEntry;
+
+        } catch (MalformedURLException e) {
+            throw new ServerNotRunningException("Some error occurred building URL");
+        } catch (IOException e) {
+            throw new ServerNotRunningException();
+        }
+
+    }
+
+    /**
+     * This method reaches out to the webservice at
+     * the /version route and requests the webservice version.
+     * @return - The web service version as a string.
+     */
     public String getWSVersion(){
         String version = null;
         if(!this.pingServer(ApplicationData.SERVER_IP)){

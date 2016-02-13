@@ -10,7 +10,7 @@ import com.kutztown.projectmanagement.activity.CreateProject;
 import com.kutztown.projectmanagement.activity.LoginActivity;
 import com.kutztown.projectmanagement.activity.MainActivity;
 import com.kutztown.projectmanagement.activity.MemberList;
-import com.kutztown.projectmanagement.activity.ProfileActivitty;
+import com.kutztown.projectmanagement.activity.ProfileActivity;
 import com.kutztown.projectmanagement.activity.ProgressActivity;
 import com.kutztown.projectmanagement.activity.TaskActivity;
 import com.kutztown.projectmanagement.graphing.GraphingTest;
@@ -62,7 +62,7 @@ public class ActivityController extends Application{
         return new Intent(appContext,MemberList.class);
     }
     public static Intent openProfileActivity(Context appContext) {
-        return new Intent(appContext, ProfileActivitty.class);
+        return new Intent(appContext, ProfileActivity.class);
     }
     public static Intent openTaskActivity(Context appContext) {
         return new Intent(appContext, TaskActivity.class);

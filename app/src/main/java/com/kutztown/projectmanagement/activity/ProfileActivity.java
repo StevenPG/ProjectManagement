@@ -11,7 +11,7 @@ import android.view.View;
 
 import com.kutztown.project.projectmanagement.R;
 
-public class ProfileActivitty extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
