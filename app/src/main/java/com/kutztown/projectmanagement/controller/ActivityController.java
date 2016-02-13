@@ -4,11 +4,15 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 
+import com.kutztown.projectmanagement.activity.CalendarActivity;
 import com.kutztown.projectmanagement.activity.CreateAccountActivity;
 import com.kutztown.projectmanagement.activity.CreateProject;
 import com.kutztown.projectmanagement.activity.LoginActivity;
 import com.kutztown.projectmanagement.activity.MainActivity;
+import com.kutztown.projectmanagement.activity.MemberList;
+import com.kutztown.projectmanagement.activity.ProfileActivitty;
 import com.kutztown.projectmanagement.activity.ProgressActivity;
+import com.kutztown.projectmanagement.activity.TaskActivity;
 import com.kutztown.projectmanagement.graphing.GraphingTest;
 
 /**
@@ -51,7 +55,22 @@ public class ActivityController extends Application{
     public static Intent openCreateProject(Context appContext){
         return new Intent(appContext, CreateProject.class);
     }
-    public static Intent openCreateAccount(Context appContext){
+    public static Intent openCreateAccount(Context appContext) {
         return new Intent(appContext, CreateAccountActivity.class);
+    }
+    public static Intent openMemberList(Context appContext){
+        return new Intent(appContext,MemberList.class);
+    }
+    public static Intent openProfileActivity(Context appContext) {
+        return new Intent(appContext, ProfileActivitty.class);
+    }
+    public static Intent openTaskActivity(Context appContext) {
+        return new Intent(appContext, TaskActivity.class);
+    }
+    public static Intent openCalendarActivity(Context appContext) {
+        return new Intent(appContext, CalendarActivity.class);
+    }
+    public static Intent openPregressActivity(Context appContext) {
+        return new Intent(appContext, ProgressActivity.class);
     }
 }

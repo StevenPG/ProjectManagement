@@ -22,6 +22,9 @@ public class TaskActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+       // getSupportActionBar().setDisplayShowHomeEnabled(true);
+      //  getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
         CursorLoader loader = new CursorLoader(this, ContactsContract.CommonDataKinds.Phone.CONTENT_URI,

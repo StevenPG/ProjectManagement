@@ -22,6 +22,11 @@ public class MemberList extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       // setSupportActionBar(toolbar);
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+       // getSupportActionBar().setDisplayShowHomeEnabled(true);
+      //  getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 
         CursorLoader loader = new CursorLoader(this, ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                 null, null, null,null);

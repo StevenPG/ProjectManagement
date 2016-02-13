@@ -8,18 +8,25 @@
     tools:context="com.kutztown.projectmanagement.activity.CalendarActivity">
 
     <android.support.design.widget.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/AppTheme.AppBarOverlay">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:contentDescription="Logo"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/icon"/>
+    </android.support.v7.widget.Toolbar>
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
+</android.support.design.widget.AppBarLayout>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
