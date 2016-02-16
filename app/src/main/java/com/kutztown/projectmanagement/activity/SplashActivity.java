@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.com.kutztown.projectmanagement.networking.HTTPHandler;
+import com.kutztown.projectmanagement.com.kutztown.projectmanagement.networking.SelectUserTask;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.data.SharePreferenceCheck;
@@ -81,32 +82,22 @@ public class SplashActivity extends Activity {
                //     startActivity(ActivityController.openCreateAccount(getApplicationContext()));
 
 
-                // HTTP test if surver up
+                // HTTP test if server up
                 HTTPHandler test = new HTTPHandler();
                 Log.d("debug", Boolean.toString(test.pingServer(ApplicationData.SERVER_IP)));
 
-                // TODO - testing the usertableentry object and webservice usage
-                Thread t = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            UserTableEntry user = new HTTPHandler().selectUser("alex", "email");
-                            if(user != null){
-                                Log.d("debug", user.getEmail());
-                                Log.d("debug", user.getBio());
-                                Log.d("debug", Integer.toString(user.getUserId()));
+                UserTableEntry userTableEntry = null;
 
-                            }
-                        } catch (ServerNotRunningException e) {
-                            //e.printStackTrace();
-                            Log.d("debug", "Server isn't running");
-                        } catch (UserNotFoundException e) {
-                            e.printStackTrace();
-                            Log.d("debug", "User wasn't found");
-                        }
-                    }
-                });
-                t.start();
+                try {
+                    userTableEntry = test.selectUser("sgant869@live.kutztown.edu"
+                            ,"email");
+                } catch (ServerNotRunningException e) {
+                    e.printStackTrace();
+                    Log.d("debug", "Server isn't running");
+                } catch (UserNotFoundException e) {
+                    e.printStackTrace();
+                    Log.d("debug", "User wasn't found");
+                }
 
                 // Open up the login activity
                 //startActivity(ActivityController.openCreateAccountActivity(getApplicationContext()));

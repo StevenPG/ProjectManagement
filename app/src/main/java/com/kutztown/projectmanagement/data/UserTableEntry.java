@@ -1,5 +1,7 @@
 package com.kutztown.projectmanagement.data;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -78,11 +80,16 @@ public class UserTableEntry implements TableEntry {
 
         // Raise an exception if the array does not contain all of the required values
         if (userTableEntry.size() != 8) {
-            throw new RuntimeException();
+          throw new RuntimeException();
         }
+        Log.d("debug", Integer.toString(userTableEntry.size()));
 
         // The arraylist should have all of the entries in the order that they are in the table.
-        this.userId = Integer.parseInt(userTableEntry.get(0));
+        try{
+            this.userId = Integer.parseInt(userTableEntry.get(0));
+        } catch (NumberFormatException e){
+            this.userId = -1;
+        }
         this.firstName = userTableEntry.get(1);
         this.lastName = userTableEntry.get(2);
         this.email = userTableEntry.get(3);
