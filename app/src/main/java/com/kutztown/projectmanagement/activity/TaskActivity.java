@@ -5,26 +5,49 @@ import android.content.CursorLoader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatCallback;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListAdapter;
 import android.widget.SimpleCursorAdapter;
 
 import com.kutztown.project.projectmanagement.R;
+import com.kutztown.projectmanagement.data.ApplicationData;
 
-public class TaskActivity extends ListActivity {
+public class TaskActivity extends ListActivity implements AppCompatCallback{
+
+    @Nullable
+    @Override
+    public ActionMode onWindowStartingSupportActionMode(ActionMode.Callback callback) {
+        return null;
+    }
+    @Override
+    public void onSupportActionModeStarted(ActionMode mode) {
+    }
+
+    @Override
+    public void onSupportActionModeFinished(ActionMode mode) {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ApplicationData.delegate = AppCompatDelegate.create(this, this);
+        //the installViewFactory method replaces the default widgets
+        //with the AppCompat-tinted versions
+        ApplicationData.delegate.installViewFactory();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task);
+        ApplicationData.delegate.onCreate(savedInstanceState);
+        ApplicationData.delegate.setContentView(R.layout.activity_task);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-       // getSupportActionBar().setDisplayShowHomeEnabled(true);
-      //  getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ApplicationData.delegate.setSupportActionBar(toolbar);
+        ApplicationData.delegate.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ApplicationData.delegate.getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ApplicationData.delegate.getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
         CursorLoader loader = new CursorLoader(this, ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
@@ -35,6 +58,24 @@ public class TaskActivity extends ListActivity {
                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME},
                 new int[]{ R.id.task},0);
         setListAdapter(task_adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        onBackPressed();
+        return true;
+
     }
 
 }

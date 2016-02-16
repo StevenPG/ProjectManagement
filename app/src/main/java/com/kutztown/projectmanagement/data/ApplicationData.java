@@ -1,4 +1,18 @@
 package com.kutztown.projectmanagement.data;
+
+import android.content.Context;
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.view.ActionMode;
+import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
+import android.view.MenuInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 /**
  * Created by Steven Gantz on 1/28/2016.
  *
@@ -39,6 +53,7 @@ public final class ApplicationData {
     final static public String PREFERENCE_FILENAME = "UserName";
     final static public SharePreferenceCheck myPreference = new SharePreferenceCheck();
     static public boolean answer = false;
+    static public AppCompatDelegate delegate;
 
     /**
      * Global element that effectively "caches" the current user's data. Should it

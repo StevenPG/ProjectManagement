@@ -41,5 +41,6 @@
     <string name="title_activity_calendar">CalendarActivity</string>
     <string name="title_activity_profile_activitty">ProfileActivitty</string>
     <string name="member_name">Member Name</string>
+    <string name="project_description1">Project Description</string>
     <string name="member_profile">Profile</string>
 </resources>

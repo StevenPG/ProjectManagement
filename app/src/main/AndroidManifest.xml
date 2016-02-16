@@ -28,13 +28,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.kutztown.projectmanagement.activity.ProgressActivity" />
+        <activity android:name="com.kutztown.projectmanagement.activity.ProgressActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.kutztown.projectmanagement.activity.LoginActivity"
-            android:label="@string/title_activity_login" />
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.kutztown.projectmanagement.activity.CreateAccountActivity"
-            android:label="@string/title_activity_create_account" />
+            android:label="@string/title_activity_create_account"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.kutztown.projectmanagement.activity.MainActivity"
             android:label="@string/title_activity_main"
