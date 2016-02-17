@@ -99,6 +99,13 @@ public class UserTableEntry implements TableEntry {
         this.picture = userTableEntry.get(7);
     }
 
+    /**
+     * Empty constructor for construction purposes
+     */
+    public UserTableEntry(){
+
+    }
+
 
     /**
      * returns a string that can be added to a URL for a get request.

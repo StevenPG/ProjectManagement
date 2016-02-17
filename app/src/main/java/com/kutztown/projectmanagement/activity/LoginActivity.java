@@ -37,6 +37,7 @@ import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.com.kutztown.projectmanagement.networking.HTTPHandler;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
+import com.kutztown.projectmanagement.data.UserTableEntry;
 import com.kutztown.projectmanagement.exception.ServerNotRunningException;
 import com.kutztown.projectmanagement.exception.UserNotFoundException;
 
@@ -355,13 +356,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 // TODO   and store it in the global application area
                 try {
                     HTTPHandler httpHandler = new HTTPHandler();
-                    ApplicationData.currentUser = httpHandler.selectUser(this.mEmail
-                            ,"email");
+                    ApplicationData.currentUser = (UserTableEntry) httpHandler.select(this.mEmail
+                            , "email", new UserTableEntry(), "selectuser");
                     Log.d("debug", ApplicationData.currentUser.writeAsGet());
                 } catch (ServerNotRunningException e) {
                     e.printStackTrace();
                     Log.d("debug", "Server isn't running");
-                } catch (UserNotFoundException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                     Log.d("debug", "User wasn't found");
                 }

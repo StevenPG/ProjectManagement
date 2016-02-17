@@ -1,9 +1,14 @@
 package com.kutztown.projectmanagement.com.kutztown.projectmanagement.networking;
 
+import android.app.ActivityManager;
 import android.util.Log;
 
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.data.CommaListParser;
+import com.kutztown.projectmanagement.data.ProgressTableEntry;
+import com.kutztown.projectmanagement.data.ProjectTableEntry;
+import com.kutztown.projectmanagement.data.TableEntry;
+import com.kutztown.projectmanagement.data.TaskTableEntry;
 import com.kutztown.projectmanagement.data.UserTableEntry;
 import com.kutztown.projectmanagement.exception.ServerNotRunningException;
 import com.kutztown.projectmanagement.exception.UserNotFoundException;
@@ -32,22 +37,25 @@ public class HTTPHandler {
     }
 
     /**
+     * This method uses polymorphism to allow the caller to pass in its own
+     * tableEntry object. This object will be referenced based on the interface,
+     * and so can be used with any type of table. Eventually returning a filled
+     * table entry of the correct type.
      *
      * @param searchValue - value to search for
      * @param searchRecord - what field in usertable to check in
+     * @param entry - an object of the correct entry type to use for record and search
+     *
      * @return - the table entry of the user requested
      * @throws ServerNotRunningException - if the server is not running
      * @throws UserNotFoundException - if the user was not found
      */
-    public UserTableEntry selectUser(String searchValue, String searchRecord)
-            throws ServerNotRunningException, UserNotFoundException{
+    public TableEntry select(String searchValue, String searchRecord, TableEntry entry, String approute)
+            throws Exception {
 
         if(!this.pingServer(ApplicationData.SERVER_IP)){
             throw new ServerNotRunningException();
         }
-
-        // Create the object that will get populated
-        UserTableEntry userTableEntry = null;
 
         try {
             String parameterString = "search=" + searchValue
@@ -55,9 +63,9 @@ public class HTTPHandler {
 
             URL url = buildURL(ApplicationData.SERVER_IP,
                     ApplicationData.SERVER_PORT,
-                    "selectuser", false, parameterString);
+                    approute, false, parameterString);
 
-            SelectUserTask task = new SelectUserTask(url);
+            SelectTask task = new SelectTask(url);
             task.execute((Void) null);
 
             while(!task.grabString){
@@ -65,30 +73,39 @@ public class HTTPHandler {
                 Log.d("debug", "Busy waiting until connection is done");
                 Log.d("debug", Boolean.toString(task.grabString));
             }
-            String userEntry = task.userString;
+            String stringEntry = task.dataString;
 
-            // If the user wasn't found, a 0 will be returned
-            if(userEntry.charAt(0) == '0'){
-                throw new UserNotFoundException();
+            // If the server returned a 0, nothing was found
+            if(stringEntry.charAt(0) == '0'){
+                throw new Exception();
             }
 
             // If there was an issue, a 2 will be returned
-            if(userEntry.charAt(0) == '2'){
-                throw new UserNotFoundException("Search query wasn't filled out");
+            if(stringEntry.charAt(0) == '2'){
+                throw new Exception("Search query wasn't filled out right");
             }
 
             // Parse the string into an arraylist
-            ArrayList<String> parsedList = CommaListParser.parseString(userEntry);
+            ArrayList<String> parsedList = CommaListParser.parseString(stringEntry);
 
             // build the object using the arraylist as a parameter
-            userTableEntry = new UserTableEntry(parsedList);
+            if(entry instanceof UserTableEntry)
+                entry = new UserTableEntry(parsedList);
+            else if(entry instanceof ProgressTableEntry)
+                entry = new ProgressTableEntry(parsedList);
+            else if(entry instanceof TaskTableEntry)
+                entry = new TaskTableEntry(parsedList);
+            else if(entry instanceof ProjectTableEntry)
+                entry = new ProgressTableEntry(parsedList);
 
-            return userTableEntry;
+            return entry;
 
         } catch (MalformedURLException e) {
             throw new ServerNotRunningException("Some error occurred building URL");
         } catch (IOException e) {
             throw new ServerNotRunningException();
+        } catch (Exception e) {
+            throw new Exception();
         }
     }
 

@@ -54,6 +54,13 @@ public class ProgressTableEntry implements TableEntry {
         this.allTaskProgress = progressTableEntry.get(4);
     }
 
+    /**
+     * Empty constructor for construction purposes
+     */
+    public ProgressTableEntry(){
+
+    }
+
 
     /**
      * returns a string that can be added to a URL for a get request.

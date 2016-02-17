@@ -111,6 +111,13 @@ public class TaskTableEntry implements TableEntry {
         this.taskDep = taskTableEntry.get(11);
     }
 
+    /**
+     * Empty constructor for construction purposes
+     */
+    public TaskTableEntry(){
+
+    }
+
 
     /**
      * returns a string that can be added to a URL for a get request.

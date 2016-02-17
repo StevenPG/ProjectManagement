@@ -2,7 +2,6 @@ package com.kutztown.projectmanagement.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -12,14 +11,9 @@ import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.com.kutztown.projectmanagement.networking.HTTPHandler;
-import com.kutztown.projectmanagement.com.kutztown.projectmanagement.networking.SelectUserTask;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.data.SharePreferenceCheck;
-import com.kutztown.projectmanagement.data.UserTableEntry;
-import com.kutztown.projectmanagement.exception.ServerNotRunningException;
-import com.kutztown.projectmanagement.exception.UserNotFoundException;
-import com.kutztown.projectmanagement.graphing.GraphingTest;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
