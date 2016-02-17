@@ -55,9 +55,19 @@ public final class ApplicationData {
     static public boolean answer = false;
     static public AppCompatDelegate delegate;
 
+    // Mutable fields below:
     /**
      * Global element that effectively "caches" the current user's data. Should it
      * be used, it must be updated whenever the user's account is updated.
      */
     static public UserTableEntry currentUser;
+
+    /**
+     * This flag keeps track of whether or not the user
+     * is logged in. This value should be checked at the start of,
+     * and during every activity to make sure that the user has
+     * valid access to each activity and the generated content.
+     */
+    static public boolean isLoggedIn;
+
 }

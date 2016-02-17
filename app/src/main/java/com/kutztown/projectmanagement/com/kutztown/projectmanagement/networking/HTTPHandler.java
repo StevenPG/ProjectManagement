@@ -31,6 +31,14 @@ public class HTTPHandler {
 
     }
 
+    /**
+     *
+     * @param searchValue - value to search for
+     * @param searchRecord - what field in usertable to check in
+     * @return - the table entry of the user requested
+     * @throws ServerNotRunningException - if the server is not running
+     * @throws UserNotFoundException - if the user was not found
+     */
     public UserTableEntry selectUser(String searchValue, String searchRecord)
             throws ServerNotRunningException, UserNotFoundException{
 
@@ -48,10 +56,16 @@ public class HTTPHandler {
             URL url = buildURL(ApplicationData.SERVER_IP,
                     ApplicationData.SERVER_PORT,
                     "selectuser", false, parameterString);
-            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
-            // Retrieve the comma separated string from the web page
-            String userEntry = readFromURLConnection(httpURLConnection);
+            SelectUserTask task = new SelectUserTask(url);
+            task.execute((Void) null);
+
+            while(!task.grabString){
+                // Busy wait until the connection is done
+                Log.d("debug", "Busy waiting until connection is done");
+                Log.d("debug", Boolean.toString(task.grabString));
+            }
+            String userEntry = task.userString;
 
             // If the user wasn't found, a 0 will be returned
             if(userEntry.charAt(0) == '0'){
@@ -76,8 +90,9 @@ public class HTTPHandler {
         } catch (IOException e) {
             throw new ServerNotRunningException();
         }
-
     }
+
+
 
     /**
      * This method reaches out to the webservice at
@@ -183,7 +198,7 @@ public class HTTPHandler {
      * @param url - url to read from
      * @return - String returned from a web service
      */
-    private String readFromURLConnection(HttpURLConnection url) throws IOException {
+    public static String readFromURLConnection(HttpURLConnection url) throws IOException {
         BufferedReader reader =
                 new BufferedReader(new InputStreamReader(
                         url.getInputStream()

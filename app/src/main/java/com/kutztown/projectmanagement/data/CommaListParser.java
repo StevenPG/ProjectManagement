@@ -17,7 +17,7 @@ public class CommaListParser {
      * This method allows for a comma separated list within a
      * string to be easily accessed from an ArrayList.
      *
-     * @param list - string representing a comma separated list
+     * @param list - string representing a pipe separated list
      * @return - an arraylist containing each element of parameter list
      */
     public static ArrayList<String> parseString(String list){
@@ -38,7 +38,7 @@ public class CommaListParser {
         StringBuilder stringBuilder = new StringBuilder();
         for(String string : list){
             stringBuilder.append(string);
-            stringBuilder.append(", ");
+            stringBuilder.append("|");
         }
         return stringBuilder.toString();
     }
