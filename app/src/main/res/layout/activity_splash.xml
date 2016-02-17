@@ -21,7 +21,7 @@
         android:id="@+id/imageView"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/icon" />
+        android:src="@drawable/banner_logo" />
 
     <ProgressBar
         android:layout_width="fill_parent"
