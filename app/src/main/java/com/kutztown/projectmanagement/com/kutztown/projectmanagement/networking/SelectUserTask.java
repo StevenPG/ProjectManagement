@@ -47,6 +47,7 @@ public class SelectUserTask extends AsyncTask<Void, Void, String> {
             e.printStackTrace();
             Log.d("debug", "IOException occurred in background thread");
             this.userString = "Error";
+            this.grabString = true;
         }
 
         return this.userString;

@@ -36,6 +36,9 @@ import java.util.List;
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.com.kutztown.projectmanagement.networking.HTTPHandler;
 import com.kutztown.projectmanagement.controller.ActivityController;
+import com.kutztown.projectmanagement.data.ApplicationData;
+import com.kutztown.projectmanagement.exception.ServerNotRunningException;
+import com.kutztown.projectmanagement.exception.UserNotFoundException;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -328,6 +331,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 // This happens when the thread ends
                 //finish();
                 Log.v("debug", "Successfully executed");
+
                 startActivity(ActivityController.openMainActivity(getApplicationContext()));
             } else {
                 mPasswordView.requestFocus();
@@ -344,6 +348,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
                 else if("3".equals(this.statusCode)){
                     mPasswordView.setError("Some error occurred...");
+                }
+
+                // If the user is found, retrieve it for global scope:
+                // TODO - Though this may be bad form, we are going to ask the database for the info again
+                // TODO   and store it in the global application area
+                try {
+                    HTTPHandler httpHandler = new HTTPHandler();
+                    ApplicationData.currentUser = httpHandler.selectUser(this.mEmail
+                            ,"email");
+                    Log.d("debug", ApplicationData.currentUser.writeAsGet());
+                } catch (ServerNotRunningException e) {
+                    e.printStackTrace();
+                    Log.d("debug", "Server isn't running");
+                } catch (UserNotFoundException e) {
+                    e.printStackTrace();
+                    Log.d("debug", "User wasn't found");
                 }
 
             }

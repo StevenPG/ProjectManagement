@@ -81,23 +81,9 @@ public class SplashActivity extends Activity {
                // else
                //     startActivity(ActivityController.openCreateAccount(getApplicationContext()));
 
-
                 // HTTP test if server up
                 HTTPHandler test = new HTTPHandler();
                 Log.d("debug", Boolean.toString(test.pingServer(ApplicationData.SERVER_IP)));
-
-                UserTableEntry userTableEntry = null;
-
-                try {
-                    userTableEntry = test.selectUser("sgant869@live.kutztown.edu"
-                            ,"email");
-                } catch (ServerNotRunningException e) {
-                    e.printStackTrace();
-                    Log.d("debug", "Server isn't running");
-                } catch (UserNotFoundException e) {
-                    e.printStackTrace();
-                    Log.d("debug", "User wasn't found");
-                }
 
                 // Open up the login activity
                 //startActivity(ActivityController.openCreateAccountActivity(getApplicationContext()));
