@@ -26,8 +26,8 @@ public class ProgressTableEntry implements TableEntry {
      * Primary constructor, initialize every value in the object
      *
      */
-    public ProgressTableEntry(int progressId, String user, String project, String task, String allTaskProgress) {
-        this.progressId = progressId;
+    public ProgressTableEntry(String user, String project, String task, String allTaskProgress) {
+        this.progressId = -1;
         this.user = user;
         this.project = project;
         this.task = task;
@@ -74,6 +74,16 @@ public class ProgressTableEntry implements TableEntry {
                 "&project=" + this.project +
                 "&task=" + this.task +
                 "&allTaskProgress=" + this.allTaskProgress;
+    }
+
+    @Override
+    public String writeAsValueString() {
+        return null;
+    }
+
+    @Override
+    public String getColumnString() {
+        return null;
     }
 
     // Getters and setters for each method for ease of use and manipulation

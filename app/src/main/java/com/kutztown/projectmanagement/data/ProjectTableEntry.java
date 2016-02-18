@@ -33,8 +33,8 @@ public class ProjectTableEntry implements TableEntry {
      * @param projectName Project name
      * @param projectDesc Description of project
      */
-    public ProjectTableEntry(int projectId, String leaderList, String projectName, String projectDesc) {
-        this.projectId = projectId;
+    public ProjectTableEntry(String leaderList, String projectName, String projectDesc) {
+        this.projectId = -1;
         this.leaderList = leaderList;
         this.projectName = projectName;
         this.projectDesc = projectDesc;
@@ -54,9 +54,9 @@ public class ProjectTableEntry implements TableEntry {
      * @param taskList        - List of tasks (comma separated)
      * @param projectProgress - Total project progress
      */
-    public ProjectTableEntry(int projectId, String leaderList, String projectName, String projectDesc,
+    public ProjectTableEntry(String leaderList, String projectName, String projectDesc,
                              String memberList, String taskList, String projectProgress) {
-        this.projectId = projectId;
+        this.projectId = -1;
         this.leaderList = leaderList;
         this.projectName = projectName;
         this.projectDesc = projectDesc;
@@ -108,6 +108,16 @@ public class ProjectTableEntry implements TableEntry {
                 "&projectname=" + this.projectName +
                 "&projectdesc=" + this.projectDesc +
                 "&projectprogress" + this.projectProgress;
+    }
+
+    @Override
+    public String writeAsValueString() {
+        return null;
+    }
+
+    @Override
+    public String getColumnString() {
+        return null;
     }
 
     // Getters and setters for each method for ease of use and manipulation

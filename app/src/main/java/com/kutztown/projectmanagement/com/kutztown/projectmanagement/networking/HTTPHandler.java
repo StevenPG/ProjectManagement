@@ -1,6 +1,5 @@
 package com.kutztown.projectmanagement.com.kutztown.projectmanagement.networking;
 
-import android.app.ActivityManager;
 import android.util.Log;
 
 import com.kutztown.projectmanagement.data.ApplicationData;
@@ -12,6 +11,7 @@ import com.kutztown.projectmanagement.data.TaskTableEntry;
 import com.kutztown.projectmanagement.data.UserTableEntry;
 import com.kutztown.projectmanagement.exception.ServerNotRunningException;
 import com.kutztown.projectmanagement.exception.UserNotFoundException;
+import com.kutztown.projectmanagement.exception.ValueAlreadyExistsException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 /**
@@ -37,6 +38,53 @@ public class HTTPHandler {
     }
 
     /**
+     * This method inserts a row into a table
+     * @param entry - table entry to parse into an insert string
+     * @param table - the table to insert the values into
+     * @return - Status on the success or not of the operation
+     */
+    public int insert(TableEntry entry, String table) throws Exception {
+
+        String approute = "insert";
+
+        if(!this.pingServer(ApplicationData.SERVER_IP)){
+            throw new ServerNotRunningException();
+        }
+
+        Log.d("debug", entry.writeAsValueString());
+        Log.d("debug", entry.getColumnString());
+
+        String parameterString = "table=" + table +
+                "&valuestring=" + entry.writeAsValueString() +
+                "&columnstring=" + entry.getColumnString();
+
+        URL url = buildURL(ApplicationData.SERVER_IP, ApplicationData.SERVER_PORT,
+                approute, false, parameterString);
+
+        WebTask task = new WebTask(url);
+        task.execute((Void) null);
+
+        while(!task.grabString){
+            // Busy wait until the connection is done
+            //Log.d("debug", "Busy waiting until connection is done");
+        }
+        String stringEntry = task.dataString;
+
+        // If the server returned a 0, the value already exists
+        if(stringEntry.charAt(0) == '0'){
+            throw new ValueAlreadyExistsException();
+        }
+
+        // If there was an issue, a 2 will be returned
+        if(stringEntry.charAt(0) == '2'){
+            throw new InvalidParameterException("Search query wasn't filled out right");
+        }
+
+        // If everything went fine, return a 1
+        return 1;
+    }
+
+    /**
      * This method uses polymorphism to allow the caller to pass in its own
      * tableEntry object. This object will be referenced based on the interface,
      * and so can be used with any type of table. Eventually returning a filled
@@ -50,8 +98,11 @@ public class HTTPHandler {
      * @throws ServerNotRunningException - if the server is not running
      * @throws UserNotFoundException - if the user was not found
      */
-    public TableEntry select(String searchValue, String searchRecord, TableEntry entry, String approute)
+    public TableEntry select(String searchValue, String searchRecord, TableEntry entry, String table)
             throws Exception {
+
+        // Approute for select is always select
+        String approute = "select";
 
         if(!this.pingServer(ApplicationData.SERVER_IP)){
             throw new ServerNotRunningException();
@@ -59,19 +110,18 @@ public class HTTPHandler {
 
         try {
             String parameterString = "search=" + searchValue
-                    + "&record=" + searchRecord;
+                    + "&record=" + searchRecord + "&table=" + table;
 
             URL url = buildURL(ApplicationData.SERVER_IP,
                     ApplicationData.SERVER_PORT,
                     approute, false, parameterString);
 
-            SelectTask task = new SelectTask(url);
+            WebTask task = new WebTask(url);
             task.execute((Void) null);
 
             while(!task.grabString){
                 // Busy wait until the connection is done
-                Log.d("debug", "Busy waiting until connection is done");
-                Log.d("debug", Boolean.toString(task.grabString));
+                //Log.d("debug", "Busy waiting until connection is done");
             }
             String stringEntry = task.dataString;
 
@@ -105,6 +155,7 @@ public class HTTPHandler {
         } catch (IOException e) {
             throw new ServerNotRunningException();
         } catch (Exception e) {
+            e.printStackTrace();
             throw new Exception();
         }
     }

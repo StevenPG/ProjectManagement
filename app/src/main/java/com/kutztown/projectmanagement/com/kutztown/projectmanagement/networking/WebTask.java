@@ -11,9 +11,9 @@ import java.net.URL;
  * @author Steven Gantz
  * @date 2/16/2016
  *
- * This class allows for retrieval of a user from the database asynchronously.
+ * This class allows for asynchronous database access.
  */
-public class SelectTask extends AsyncTask<Void, Void, String> {
+public class WebTask extends AsyncTask<Void, Void, String> {
 
     /**
      * Store the URL for use within the background thread
@@ -29,7 +29,7 @@ public class SelectTask extends AsyncTask<Void, Void, String> {
      * accesses it within the background thread.
      * @param url
      */
-    SelectTask(URL url){
+    WebTask(URL url){
         this.grabString = false;
         this.url = url;
     }

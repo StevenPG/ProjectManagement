@@ -39,9 +39,9 @@ public class TaskTableEntry implements TableEntry {
      * @param taskDueDate  - due date of task
      * @param taskPriority - priority status of task
      */
-    public TaskTableEntry(int taskId, String user, String project, String taskName, String taskDesc,
+    public TaskTableEntry(String user, String project, String taskName, String taskDesc,
                           String taskPriority, String taskDueDate, String taskDep) {
-        this.taskID = taskId;
+        this.taskID = -1;
         this.user = user;
         this.project = project;
         this.taskName = taskName;
@@ -66,11 +66,11 @@ public class TaskTableEntry implements TableEntry {
      * @param taskDueDate  - due date of task
      * @param taskPriority - priority status of task
      */
-    public TaskTableEntry(int taskId, String user, String project,
+    public TaskTableEntry(String user, String project,
                           String taskName, String taskDesc,
                           String taskProgress, String taskStatus,
                           String taskPriority, String taskDueDate, String taskDep) {
-        this.taskID = taskId;
+        this.taskID = -1;
         this.user = user;
         this.project = project;
         this.taskName = taskName;
@@ -137,6 +137,16 @@ public class TaskTableEntry implements TableEntry {
                 "&taskDueDate=" + this.taskDueDate +
                 "&taskDep=" + this.taskDep;
 
+    }
+
+    @Override
+    public String writeAsValueString() {
+        return null;
+    }
+
+    @Override
+    public String getColumnString() {
+        return null;
     }
 
     // Getters and setters for each method for ease of use and manipulation

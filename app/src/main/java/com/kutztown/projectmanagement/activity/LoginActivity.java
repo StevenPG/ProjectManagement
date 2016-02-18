@@ -30,6 +30,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,7 @@ import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.data.UserTableEntry;
 import com.kutztown.projectmanagement.exception.ServerNotRunningException;
 import com.kutztown.projectmanagement.exception.UserNotFoundException;
+import com.kutztown.projectmanagement.exception.ValueAlreadyExistsException;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -333,6 +335,35 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //finish();
                 Log.v("debug", "Successfully executed");
 
+                // If the user is found, retrieve it for global scope:
+                // TODO - Though this may be bad form, we are going to ask the database for the info again
+                // TODO   and store it in the global application area
+                try {
+                    HTTPHandler httpHandler = new HTTPHandler();
+                    ApplicationData.currentUser = (UserTableEntry) httpHandler.select(this.mEmail
+                            , "email", new UserTableEntry(), "UserTable");
+                    Log.d("debug", ApplicationData.currentUser.writeAsGet());
+                } catch (ServerNotRunningException e) {
+                    e.printStackTrace();
+                    Log.d("debug", "Server isn't running");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d("debug", "User wasn't found");
+                }
+
+                // TODO this is another test, delete when required
+                try{
+                    HTTPHandler httpHandler = new HTTPHandler();
+                    UserTableEntry user = new UserTableEntry("Stevenpg@github.io", "githubpass");
+                    httpHandler.insert(user, "UserTable");
+                } catch (InvalidParameterException e) {
+                    e.printStackTrace();
+                } catch (ValueAlreadyExistsException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 startActivity(ActivityController.openMainActivity(getApplicationContext()));
             } else {
                 mPasswordView.requestFocus();
@@ -349,22 +380,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
                 else if("3".equals(this.statusCode)){
                     mPasswordView.setError("Some error occurred...");
-                }
-
-                // If the user is found, retrieve it for global scope:
-                // TODO - Though this may be bad form, we are going to ask the database for the info again
-                // TODO   and store it in the global application area
-                try {
-                    HTTPHandler httpHandler = new HTTPHandler();
-                    ApplicationData.currentUser = (UserTableEntry) httpHandler.select(this.mEmail
-                            , "email", new UserTableEntry(), "selectuser");
-                    Log.d("debug", ApplicationData.currentUser.writeAsGet());
-                } catch (ServerNotRunningException e) {
-                    e.printStackTrace();
-                    Log.d("debug", "Server isn't running");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.d("debug", "User wasn't found");
                 }
 
             }
