@@ -35,8 +35,8 @@ public class UserTableEntry implements TableEntry {
      * @param email    - User's email address
      * @param password - User's password
      */
-    public UserTableEntry(int userId, String email, String password) {
-        this.userId = userId;
+    public UserTableEntry(String email, String password) {
+        this.userId = -1;
         this.firstName = "";
         this.lastName = "";
         this.email = email;
@@ -58,10 +58,10 @@ public class UserTableEntry implements TableEntry {
      * @param projectList - list of projects the user is in
      * @param picture     - text link to the user's picture
      */
-    public UserTableEntry(int userId, String firstName, String lastName,
+    public UserTableEntry(String firstName, String lastName,
                           String email, String password, String bio, String projectList,
                           String picture) {
-        this.userId = userId;
+        this.userId = -1;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -122,6 +122,33 @@ public class UserTableEntry implements TableEntry {
                 "&bio=" + this.bio +
                 "&projectList=" + this.projectList +
                 "&picture=" + this.picture;
+    }
+
+    @Override
+    public String writeAsValueString() {
+        return "\"" + this.firstName + "\",\"" +
+                this.lastName + "\",\"" +
+                this.email + "\",\"" +
+                this.password + "\",\"" +
+                this.bio + "\",\"" +
+                this.projectList + "\",\"" +
+                this.picture + "\"";
+    }
+
+    @Override
+    public String getColumnString() {
+        return "firstname,lastname,email,password,bio,projectlist,picture";
+    }
+
+    @Override
+    public String getUpdateString() {
+        return "firstname=" + "\"" + this.firstName + "\"," +
+                "lastname=" + "\"" + this.lastName + "\"," +
+                "email=" + "\"" + this.email + "\"," +
+                "password=" + "\"" + this.password + "\"," +
+                "bio=" + "\"" + this.bio + "\"," +
+                "projectlist=" + "\"" + this.projectList + "\"," +
+                "picture=" + "\"" + this.picture + "\"";
     }
 
     // Getters and setters for each method for ease of use and manipulation

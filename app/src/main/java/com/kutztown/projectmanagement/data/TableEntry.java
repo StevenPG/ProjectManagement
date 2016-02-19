@@ -14,4 +14,23 @@ public interface TableEntry {
      * @return completed string that can be used for a get request
      */
     String writeAsGet();
+
+    /**
+     * This method returns the object in the form of an insert that
+     * can be inserted into the database.
+     */
+    String writeAsValueString();
+
+    /**
+     * This method returns a preset column string for use in
+     * polymorphic inserting into the database.
+     */
+    String getColumnString();
+
+
+    /**
+     * This method returns a string to be passed to the webservice
+     * that is in the right format for an update string.
+     */
+    String getUpdateString();
 }
