@@ -37,6 +37,45 @@ public class HTTPHandler {
 
     }
 
+    public int update(TableEntry entry, String table) throws Exception {
+
+        String approute = "update";
+
+        if(!this.pingServer(ApplicationData.SERVER_IP)){
+            throw new ServerNotRunningException();
+        }
+
+        String parameterString = "table=" + table +
+                "&updatestring=" + entry.getUpdateString();
+
+        Log.d("debug", parameterString);
+
+        URL url = buildURL(ApplicationData.SERVER_IP, ApplicationData.SERVER_PORT,
+                approute, false, parameterString);
+
+        WebTask task = new WebTask(url);
+        task.execute((Void) null);
+
+        while(!task.grabString){
+            // Busy wait until the connection is done
+            //Log.d("debug", "Busy waiting until connection is done");
+        }
+        String stringEntry = task.dataString;
+
+        // If there was an issue, a 2 will be returned
+        if(stringEntry.charAt(0) == '2'){
+            throw new InvalidParameterException("Search query wasn't filled out right");
+        }
+
+        // If the server returned a 0, the value already exists
+        if(stringEntry.charAt(0) == '0'){
+            throw new Exception();
+        }
+
+        // If everything went fine, return a 1
+        return 1;
+    }
+
     /**
      * This method inserts a row into a table
      * @param entry - table entry to parse into an insert string
@@ -50,9 +89,6 @@ public class HTTPHandler {
         if(!this.pingServer(ApplicationData.SERVER_IP)){
             throw new ServerNotRunningException();
         }
-
-        Log.d("debug", entry.writeAsValueString());
-        Log.d("debug", entry.getColumnString());
 
         String parameterString = "table=" + table +
                 "&valuestring=" + entry.writeAsValueString() +

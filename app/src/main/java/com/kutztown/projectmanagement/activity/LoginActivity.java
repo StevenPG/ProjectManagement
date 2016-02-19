@@ -364,6 +364,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     e.printStackTrace();
                 }
 
+                //TODO YET ANOTHER TEST, LETS TEST WHETHER UPDATE WORKS
+                try{
+                    HTTPHandler httpHandler = new HTTPHandler();
+                    UserTableEntry user =
+                            new UserTableEntry("sgant869@live.kutztown.edu", "Steven");
+                    user.setFirstName("Paul");
+                    httpHandler.update(user, "usertable");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 startActivity(ActivityController.openMainActivity(getApplicationContext()));
             } else {
                 mPasswordView.requestFocus();

@@ -18,7 +18,6 @@ public interface TableEntry {
     /**
      * This method returns the object in the form of an insert that
      * can be inserted into the database.
-     * @return
      */
     String writeAsValueString();
 
@@ -27,4 +26,11 @@ public interface TableEntry {
      * polymorphic inserting into the database.
      */
     String getColumnString();
+
+
+    /**
+     * This method returns a string to be passed to the webservice
+     * that is in the right format for an update string.
+     */
+    String getUpdateString();
 }

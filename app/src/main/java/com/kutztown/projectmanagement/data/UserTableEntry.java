@@ -140,6 +140,17 @@ public class UserTableEntry implements TableEntry {
         return "firstname,lastname,email,password,bio,projectlist,picture";
     }
 
+    @Override
+    public String getUpdateString() {
+        return "firstname=" + "\"" + this.firstName + "\"," +
+                "lastname=" + "\"" + this.lastName + "\"," +
+                "email=" + "\"" + this.email + "\"," +
+                "password=" + "\"" + this.password + "\"," +
+                "bio=" + "\"" + this.bio + "\"," +
+                "projectlist=" + "\"" + this.projectList + "\"," +
+                "picture=" + "\"" + this.picture + "\"";
+    }
+
     // Getters and setters for each method for ease of use and manipulation
     public int getUserId() {
         return userId;
