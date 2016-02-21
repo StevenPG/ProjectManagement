@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 
+import com.kutztown.projectmanagement.activity.AddMemberstoProject;
 import com.kutztown.projectmanagement.activity.CalendarActivity;
 import com.kutztown.projectmanagement.activity.CreateAccountActivity;
 import com.kutztown.projectmanagement.activity.CreateProject;
@@ -13,6 +14,7 @@ import com.kutztown.projectmanagement.activity.MemberList;
 import com.kutztown.projectmanagement.activity.ProfileActivity;
 import com.kutztown.projectmanagement.activity.ProgressActivity;
 import com.kutztown.projectmanagement.activity.TaskActivity;
+import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.graphing.GraphingTest;
 
 /**
@@ -72,5 +74,11 @@ public class ActivityController extends Application{
     }
     public static Intent openPregressActivity(Context appContext) {
         return new Intent(appContext, ProgressActivity.class);
+    }
+    public static Intent openAddMembersToProjectActivity(Context appContext, String message)
+    {
+        Intent myIntent = new Intent(appContext,AddMemberstoProject.class);
+        myIntent.putExtra(ApplicationData.ProjectName, message);
+        return myIntent;
     }
 }

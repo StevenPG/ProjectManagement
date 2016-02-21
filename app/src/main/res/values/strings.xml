@@ -43,4 +43,5 @@
     <string name="member_name">Member Name</string>
     <string name="project_description1">Project Description</string>
     <string name="member_profile">Profile</string>
+    <string name="title_activity_add_membersto_project">AddMemberstoProject</string>
 </resources>

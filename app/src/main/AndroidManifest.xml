@@ -16,59 +16,90 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.kutztown.projectmanagement.graphing.GraphingTest"
+            android:configChanges="orientation"
             android:label="@string/title_activity_graphing_test"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.SplashActivity"
+            android:configChanges="orientation"
             android:label="Project Management"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.kutztown.projectmanagement.activity.ProgressActivity"
-                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name="com.kutztown.projectmanagement.activity.ProgressActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.LoginActivity"
+            android:configChanges="orientation"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.CreateAccountActivity"
+            android:configChanges="orientation"
             android:label="@string/title_activity_create_account"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.MainActivity"
+            android:configChanges="orientation"
             android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.CreateProject"
+            android:configChanges="orientation"
             android:label="@string/title_activity_create_project"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.LeaderView"
+            android:configChanges="orientation"
             android:label="@string/title_activity_leader_view"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.MemberView"
+            android:configChanges="orientation"
             android:label="@string/title_activity_member_view"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.MemberList"
+            android:configChanges="orientation"
             android:label="@string/title_activity_member_list"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.TaskActivity"
+            android:configChanges="orientation"
             android:label="@string/title_activity_task"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.CalendarActivity"
+            android:configChanges="orientation"
             android:label="@string/title_activity_calendar"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.ProfileActivity"
+            android:configChanges="orientation"
             android:label="@string/title_activity_profile_activitty"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.kutztown.projectmanagement.activity.AddMemberstoProject"
+            android:label="@string/title_activity_add_membersto_project"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
