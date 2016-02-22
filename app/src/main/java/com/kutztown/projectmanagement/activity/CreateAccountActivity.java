@@ -18,7 +18,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -28,7 +27,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -36,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kutztown.project.projectmanagement.R;
-import com.kutztown.projectmanagement.com.kutztown.projectmanagement.networking.HTTPHandler;
+import com.kutztown.projectmanagement.network.HTTPHandler;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
 

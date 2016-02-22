@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
-import com.kutztown.projectmanagement.com.kutztown.projectmanagement.networking.HTTPHandler;
+import com.kutztown.projectmanagement.network.HTTPHandler;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.data.SharePreferenceCheck;

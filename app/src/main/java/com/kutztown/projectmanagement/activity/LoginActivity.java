@@ -3,21 +3,19 @@ package com.kutztown.projectmanagement.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -30,18 +28,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.security.InvalidParameterException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.kutztown.project.projectmanagement.R;
-import com.kutztown.projectmanagement.com.kutztown.projectmanagement.networking.HTTPHandler;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.data.UserTableEntry;
 import com.kutztown.projectmanagement.exception.ServerNotRunningException;
-import com.kutztown.projectmanagement.exception.UserNotFoundException;
 import com.kutztown.projectmanagement.exception.ValueAlreadyExistsException;
+import com.kutztown.projectmanagement.network.HTTPHandler;
+
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -364,16 +361,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     e.printStackTrace();
                 }
 
+                /**
                 //TODO YET ANOTHER TEST, LETS TEST WHETHER UPDATE WORKS
                 try{
                     HTTPHandler httpHandler = new HTTPHandler();
                     UserTableEntry user =
-                            new UserTableEntry("sgant869@live.kutztown.edu", "Steven");
+                            new UserTableEntry("tmri795@live.kutztown.edu", "Tyler");
                     user.setFirstName("Paul");
                     httpHandler.update(user, "usertable");
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
+                }**/
 
                 startActivity(ActivityController.openMainActivity(getApplicationContext()));
             } else {
