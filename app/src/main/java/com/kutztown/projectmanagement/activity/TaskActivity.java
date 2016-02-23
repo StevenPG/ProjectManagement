@@ -19,6 +19,8 @@ import android.widget.SimpleCursorAdapter;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.data.ApplicationData;
+import com.kutztown.projectmanagement.data.ProjectTableEntry;
+import com.kutztown.projectmanagement.data.TaskTableEntry;
 import com.kutztown.projectmanagement.data.UserTableEntry;
 import com.kutztown.projectmanagement.exception.ServerNotRunningException;
 import com.kutztown.projectmanagement.network.HTTPHandler;
@@ -65,13 +67,14 @@ public class TaskActivity extends ListActivity implements AppCompatCallback{
 
         try {
             HTTPHandler httpHandler = new HTTPHandler();
-            ApplicationData.ProjectName = (ProjectTableEntry) httpHandler.select(this.mEmail
-                    , "email", new UserTableEntry(), "UserTable");
+            //ApplicationData.ProjectName = (ProjectTableEntry) httpHandler.select(this.mEmail
+                    //, "email", new UserTableEntry(), "UserTable");
 
             //ApplicationData.currentProject = (ProjectTableEntry) httpHandler.select(String searchValue,
             //String searchRecord, TableEntry entry, String table);
 
-            TaskTableEntry currentTask = (TaskTableEntry) httpHandler.select(String currentProject);
+            TaskTableEntry currentTask = (TaskTableEntry) httpHandler.select(String user, String project, String taskName, String taskDesc,
+                    String taskPriority, String taskDueDate, String taskDep);
 
             Log.d("debug", ApplicationData.currentUser.writeAsGet());
         } catch (ServerNotRunningException e) {
