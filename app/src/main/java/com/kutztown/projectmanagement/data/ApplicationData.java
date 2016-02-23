@@ -70,6 +70,8 @@ public final class ApplicationData {
      */
     static public boolean isLoggedIn;
 
+    static public ProjectTableEntry currentProject;
+
     // represent the key that is passed with the project name
     // when adding user to a particular project
     final public static String ProjectName = "ProjectName";

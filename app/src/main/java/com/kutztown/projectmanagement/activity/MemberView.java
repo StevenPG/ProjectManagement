@@ -1,8 +1,6 @@
 package com.kutztown.projectmanagement.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -33,7 +31,7 @@ public class MemberView extends AppCompatActivity {
         progressB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(ActivityController.openPregressActivity(getApplicationContext()));
+                startActivity(ActivityController.openProgressActivity(getApplicationContext()));
             }
         });
 
