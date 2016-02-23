@@ -1,4 +1,4 @@
-package com.kutztown.projectmanagement.com.kutztown.projectmanagement.networking;
+package com.kutztown.projectmanagement.network;
 
 import android.util.Log;
 
