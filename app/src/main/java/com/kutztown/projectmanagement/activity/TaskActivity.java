@@ -84,6 +84,8 @@ public class TaskActivity extends ListActivity implements AppCompatCallback{
             Log.d("debug", "User wasn't found");
         }
 
+        //HelloWorld
+
         setListAdapter(task_adapter);
     }
 
