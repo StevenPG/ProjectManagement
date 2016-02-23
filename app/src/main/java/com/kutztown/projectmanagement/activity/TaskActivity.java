@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListAdapter;
@@ -19,9 +18,6 @@ import android.widget.SimpleCursorAdapter;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.data.ApplicationData;
-import com.kutztown.projectmanagement.data.UserTableEntry;
-import com.kutztown.projectmanagement.exception.ServerNotRunningException;
-import com.kutztown.projectmanagement.network.HTTPHandler;
 
 public class TaskActivity extends ListActivity implements AppCompatCallback{
 
@@ -54,7 +50,6 @@ public class TaskActivity extends ListActivity implements AppCompatCallback{
         ApplicationData.delegate.getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
-
         CursorLoader loader = new CursorLoader(this, ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                 null, null, null,null);
         Cursor Contacts = loader.loadInBackground();
@@ -62,26 +57,6 @@ public class TaskActivity extends ListActivity implements AppCompatCallback{
         ListAdapter task_adapter = new SimpleCursorAdapter(this, R.layout.task, Contacts, new String[]{
                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME},
                 new int[]{ R.id.task},0);
-
-        try {
-            HTTPHandler httpHandler = new HTTPHandler();
-            ApplicationData.ProjectName = (ProjectTableEntry) httpHandler.select(this.mEmail
-                    , "email", new UserTableEntry(), "UserTable");
-
-            //ApplicationData.currentProject = (ProjectTableEntry) httpHandler.select(String searchValue,
-            //String searchRecord, TableEntry entry, String table);
-
-            TaskTableEntry currentTask = (TaskTableEntry) httpHandler.select(String currentProject);
-
-            Log.d("debug", ApplicationData.currentUser.writeAsGet());
-        } catch (ServerNotRunningException e) {
-            e.printStackTrace();
-            Log.d("debug", "Server isn't running");
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d("debug", "User wasn't found");
-        }
-
         setListAdapter(task_adapter);
     }
 
