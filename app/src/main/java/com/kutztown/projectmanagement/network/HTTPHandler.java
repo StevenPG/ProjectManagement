@@ -152,6 +152,8 @@ public class HTTPHandler {
                     ApplicationData.SERVER_PORT,
                     approute, false, parameterString);
 
+            Log.d("debug", parameterString);
+
             WebTask task = new WebTask(url);
             task.execute((Void) null);
 
@@ -167,7 +169,7 @@ public class HTTPHandler {
             }
 
             // If there was an issue, a 2 will be returned
-            if(stringEntry.charAt(0) == '2'){
+            if(stringEntry.charAt(0) == '-' && stringEntry.charAt(1) == '1'){
                 throw new Exception("Search query wasn't filled out right");
             }
 
@@ -182,7 +184,7 @@ public class HTTPHandler {
             else if(entry instanceof TaskTableEntry)
                 entry = new TaskTableEntry(parsedList);
             else if(entry instanceof ProjectTableEntry)
-                entry = new ProgressTableEntry(parsedList);
+                entry = new ProjectTableEntry(parsedList);
 
             return entry;
 

@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.data.ApplicationData;
+import com.kutztown.projectmanagement.data.ProjectTableEntry;
+import com.kutztown.projectmanagement.network.HTTPHandler;
 
 import java.util.ArrayList;
 
@@ -44,9 +46,20 @@ public class MainActivity extends AppCompatActivity {
         projectView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Clicked Text contains the project name
                 String clickedText = (String) parent.getItemAtPosition(position);
                 // TODO - Set the ApplicationData.currentProject value
-                // TODO - send to projectactivity
+                // Retrieve the project from the DB and store it globally
+                HTTPHandler handler = new HTTPHandler();
+                try {
+                    ApplicationData.currentProject = (ProjectTableEntry) handler.
+                            select(clickedText, "ProjectName", new ProjectTableEntry(), "ProjectTable");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d("debug", "Exception occurred while grabbing the current project.");
+                }
+                Log.d("debug", String.valueOf(ApplicationData.currentProject));
+                // TODO - send to projectactivity based on whether leader or member
             }
         });
 
