@@ -339,6 +339,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     HTTPHandler httpHandler = new HTTPHandler();
                     ApplicationData.currentUser = (UserTableEntry) httpHandler.select(this.mEmail
                             , "email", new UserTableEntry(), "UserTable");
+                    //select(String searchValue, String searchRecord, TableEntry entry, String table)
                     Log.d("debug", ApplicationData.currentUser.writeAsGet());
                 } catch (ServerNotRunningException e) {
                     e.printStackTrace();
@@ -373,7 +374,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     e.printStackTrace();
                 }**/
 
-                startActivity(ActivityController.openMainActivity(getApplicationContext()));
+                startActivity(ActivityController.openTaskActivity(getApplicationContext()));
+                //startActivity(ActivityController.openMainActivity(getApplicationContext()));
             } else {
                 mPasswordView.requestFocus();
 
