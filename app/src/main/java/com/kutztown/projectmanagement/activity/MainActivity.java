@@ -3,27 +3,19 @@ package com.kutztown.projectmanagement.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-<<<<<<< HEAD
 import android.view.Menu;
-=======
 import android.util.Log;
->>>>>>> 7dbc94a635dd9a1c9a17fa694415bc243a3d83fa
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.data.ApplicationData;
-import com.kutztown.projectmanagement.data.CommaListParser;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,28 +31,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-<<<<<<< HEAD
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        onBackPressed();
-        return true;
-
-=======
 
         // Retrieve projects of current user
         this.projectList = getProjectsFromUser();
@@ -78,6 +51,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
         projectView.setAdapter(listAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        onBackPressed();
+        return true;
     }
 
     /**
@@ -107,9 +97,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return projectArray;
->>>>>>> 7dbc94a635dd9a1c9a17fa694415bc243a3d83fa
     }
-
-
 
 }
