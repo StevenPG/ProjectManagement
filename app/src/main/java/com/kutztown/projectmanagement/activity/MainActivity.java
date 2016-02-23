@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
+import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.data.ProjectTableEntry;
 import com.kutztown.projectmanagement.network.HTTPHandler;
@@ -56,10 +57,16 @@ public class MainActivity extends AppCompatActivity {
                             select(clickedText, "ProjectName", new ProjectTableEntry(), "ProjectTable");
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.d("debug", "Exception occurred while grabbing the current project.");
                 }
-                Log.d("debug", String.valueOf(ApplicationData.currentProject));
-                // TODO - send to projectactivity based on whether leader or member
+                Log.d("debug", ApplicationData.currentProject.writeAsGet());
+
+                // Get info and decide where to send the user if leader or not
+                String projectLeader = ApplicationData.currentProject.getLeaderList();
+                if(projectLeader.equals(ApplicationData.currentUser.getEmail())){
+                    startActivity(ActivityController.openLeaderViewActivity(getApplicationContext()));
+                } else {
+                    startActivity(ActivityController.openMemberViewActivity(getApplicationContext()));
+                }
             }
         });
 
