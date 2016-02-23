@@ -8,9 +8,11 @@ import com.kutztown.projectmanagement.activity.AddMemberstoProject;
 import com.kutztown.projectmanagement.activity.CalendarActivity;
 import com.kutztown.projectmanagement.activity.CreateAccountActivity;
 import com.kutztown.projectmanagement.activity.CreateProject;
+import com.kutztown.projectmanagement.activity.LeaderView;
 import com.kutztown.projectmanagement.activity.LoginActivity;
 import com.kutztown.projectmanagement.activity.MainActivity;
 import com.kutztown.projectmanagement.activity.MemberList;
+import com.kutztown.projectmanagement.activity.MemberView;
 import com.kutztown.projectmanagement.activity.ProfileActivity;
 import com.kutztown.projectmanagement.activity.ProgressActivity;
 import com.kutztown.projectmanagement.activity.TaskActivity;
@@ -38,16 +40,6 @@ public class ActivityController extends Application{
     }
 
     /**
-     * TODO - THIS IS A DEBUG METHOD
-     * Open a progress activity
-     * @param appContext
-     * @return
-     */
-    public static Intent openProgressActivity(Context appContext){
-        return new Intent(appContext, ProgressActivity.class);
-    }
-
-    /**
      * Debug class that opens the graphing test activity
      * @return graphing test activity intent
      */
@@ -72,13 +64,23 @@ public class ActivityController extends Application{
     public static Intent openCalendarActivity(Context appContext) {
         return new Intent(appContext, CalendarActivity.class);
     }
-    public static Intent openPregressActivity(Context appContext) {
+    public static Intent openProgressActivity(Context appContext) {
         return new Intent(appContext, ProgressActivity.class);
     }
     public static Intent openAddMembersToProjectActivity(Context appContext, String message)
     {
         Intent myIntent = new Intent(appContext,AddMemberstoProject.class);
         myIntent.putExtra(ApplicationData.ProjectName, message);
+        return myIntent;
+    }
+
+    public static Intent openMemberViewActivity(Context appContext){
+        Intent myIntent = new Intent(appContext,MemberView.class);
+        return myIntent;
+    }
+
+    public static Intent openLeaderViewActivity(Context appContext){
+        Intent myIntent = new Intent(appContext,LeaderView.class);
         return myIntent;
     }
 }
