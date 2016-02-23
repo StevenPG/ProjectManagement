@@ -47,7 +47,7 @@ public final class ApplicationData {
      * 3000ms seems to be the best length of time
      * debug: 500ms
      */
-    final static public int SPLASH_TIME_OUT = 3000;
+    final static public int SPLASH_TIME_OUT = 100;
 
     // Share preference check attributes
     final static public String PREFERENCE_FILENAME = "UserName";

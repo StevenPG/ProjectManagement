@@ -56,7 +56,6 @@ public class TaskActivity extends ListActivity implements AppCompatCallback{
         ApplicationData.delegate.getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
-
         CursorLoader loader = new CursorLoader(this, ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                 null, null, null,null);
         Cursor Contacts = loader.loadInBackground();

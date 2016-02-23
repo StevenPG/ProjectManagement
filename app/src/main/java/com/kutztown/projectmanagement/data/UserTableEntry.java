@@ -31,7 +31,6 @@ public class UserTableEntry implements TableEntry {
      * only entries that cannot be null.
      * All others are set to empty.
      *
-     * @param userId   - User's database id number (unique)
      * @param email    - User's email address
      * @param password - User's password
      */
@@ -49,13 +48,12 @@ public class UserTableEntry implements TableEntry {
     /**
      * Secondary constructor, initialize every value in the object
      *
-     * @param userId      - User's unique id number
      * @param firstName   - User's first name
      * @param lastName    - User's last name
      * @param email       - User's email address
      * @param password    - User's password
      * @param bio         - User's biography
-     * @param projectList - list of projects the user is in
+     * @param projectList - list of projects the user is in dash separated
      * @param picture     - text link to the user's picture
      */
     public UserTableEntry(String firstName, String lastName,
@@ -80,7 +78,8 @@ public class UserTableEntry implements TableEntry {
 
         // Raise an exception if the array does not contain all of the required values
         if (userTableEntry.size() != 8) {
-          throw new RuntimeException();
+            //Log.d("debug", String.valueOf(userTableEntry.size()));
+            throw new RuntimeException();
         }
         Log.d("debug", Integer.toString(userTableEntry.size()));
 
