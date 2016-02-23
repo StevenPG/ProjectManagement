@@ -339,6 +339,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     HTTPHandler httpHandler = new HTTPHandler();
                     ApplicationData.currentUser = (UserTableEntry) httpHandler.select(this.mEmail
                             , "email", new UserTableEntry(), "UserTable");
+                    //select(String searchValue, String searchRecord, TableEntry entry, String table)
                     Log.d("debug", ApplicationData.currentUser.writeAsGet());
                 } catch (ServerNotRunningException e) {
                     e.printStackTrace();
@@ -348,7 +349,33 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     Log.d("debug", "User wasn't found");
                 }
 
-                startActivity(ActivityController.openMainActivity(getApplicationContext()));
+                // TODO this is another test, delete when required
+                try{
+                    HTTPHandler httpHandler = new HTTPHandler();
+                    UserTableEntry user = new UserTableEntry("Stevenpg@github.io", "githubpass");
+                    httpHandler.insert(user, "UserTable");
+                } catch (InvalidParameterException e) {
+                    e.printStackTrace();
+                } catch (ValueAlreadyExistsException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                /**
+                //TODO YET ANOTHER TEST, LETS TEST WHETHER UPDATE WORKS
+                try{
+                    HTTPHandler httpHandler = new HTTPHandler();
+                    UserTableEntry user =
+                            new UserTableEntry("tmri795@live.kutztown.edu", "Tyler");
+                    user.setFirstName("Paul");
+                    httpHandler.update(user, "usertable");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }**/
+
+                startActivity(ActivityController.openTaskActivity(getApplicationContext()));
+                //startActivity(ActivityController.openMainActivity(getApplicationContext()));
             } else {
                 mPasswordView.requestFocus();
 
