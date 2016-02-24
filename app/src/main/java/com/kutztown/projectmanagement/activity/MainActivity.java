@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("debug", ApplicationData.currentProject.writeAsGet());
 
                 // Get info and decide where to send the user if leader or not
-                String projectLeader = ApplicationData.currentProject.getLeaderList();
+                String projectLeader = ApplicationData.currentProject.getLeaderList().replaceAll("\\s+","");
                 if(projectLeader.equals(ApplicationData.currentUser.getEmail())){
                     startActivity(ActivityController.openLeaderViewActivity(getApplicationContext()));
                 } else {

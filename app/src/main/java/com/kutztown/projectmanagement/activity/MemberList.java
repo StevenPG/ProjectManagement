@@ -71,36 +71,6 @@ public class MemberList extends Activity implements AppCompatCallback {
         // Retrieve listview and add projects
         projectView = (ListView) findViewById(R.id.memberListView);
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.mainactivityrow, this.memberList);
-        /**projectView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                // this is not in the requirements: TODO Don't do anything when a member is clicked
-                return;
-
-
-                // Clicked Text contains the project name
-                String clickedText = (String) parent.getItemAtPosition(position);
-                // TODO - Set the ApplicationData.currentProject value
-                // Retrieve the project from the DB and store it globally
-                HTTPHandler handler = new HTTPHandler();
-                try {
-                    ApplicationData.currentProject = (ProjectTableEntry) handler.
-                            select(clickedText, "ProjectName", new ProjectTableEntry(), "ProjectTable");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                Log.d("debug", ApplicationData.currentProject.writeAsGet());
-
-                // Get info and decide where to send the user if leader or not
-                String projectLeader = ApplicationData.currentProject.getLeaderList();
-                if(projectLeader.equals(ApplicationData.currentUser.getEmail())){
-                    startActivity(ActivityController.openLeaderViewActivity(getApplicationContext()));
-                } else {
-                    startActivity(ActivityController.openMemberViewActivity(getApplicationContext()));
-                }
-            }
-        });**/
 
         projectView.setAdapter(listAdapter);
     }
@@ -160,6 +130,7 @@ public class MemberList extends Activity implements AppCompatCallback {
                 // Wipe leftover python structures
                 member = member.replaceAll("u'", "");
                 member = member.replaceAll("'", "");
+                member = member.replace("\\s+", "");
                 memberArray.add(member);
             }
         }
