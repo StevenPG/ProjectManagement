@@ -200,7 +200,11 @@ public class UserTableEntry implements TableEntry {
     }
 
     public String getProjectList() {
-        return projectList;
+        if(projectList == null){
+            return "";
+        } else {
+            return projectList;
+        }
     }
 
     public void setProjectList(String projectList) {
