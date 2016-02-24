@@ -40,7 +40,10 @@ public class CreateProject extends AppCompatActivity {
             startActivity(ActivityController.openLoginActivity(getApplicationContext()));
         }
 
-        Button projectB = (Button) findViewById(R.id.adding_members);
+        //NOTE: here puh completed project into the database
+
+        //NOTE: this code is to be executed later
+        /*Button projectB = (Button) findViewById(R.id.adding_members);
         projectB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +51,7 @@ public class CreateProject extends AppCompatActivity {
                 startActivity(ActivityController.openAddMembersToProjectActivity(getApplicationContext(), message));
 
             }
-        });
+        });*/
 
 
     }
