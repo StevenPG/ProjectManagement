@@ -48,8 +48,8 @@ public class AddMemberstoProject extends ListActivity implements AppCompatCallba
         ApplicationData.delegate.setContentView(R.layout.activity_add_membersto_project);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         ApplicationData.delegate.setSupportActionBar(toolbar);
-        ApplicationData.delegate.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ApplicationData.delegate.getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ApplicationData.delegate.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ApplicationData.delegate.getSupportActionBar().setDisplayShowHomeEnabled(false);
         ApplicationData.delegate.getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         CursorLoader loader = new CursorLoader(this, ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
@@ -70,7 +70,7 @@ public class AddMemberstoProject extends ListActivity implements AppCompatCallba
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.plus, menu);
         return true;
     }
 
@@ -80,7 +80,8 @@ public class AddMemberstoProject extends ListActivity implements AppCompatCallba
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        onBackPressed();
+
+
         return true;
 
     }

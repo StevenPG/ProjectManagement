@@ -1,7 +1,6 @@
 package com.kutztown.projectmanagement.activity;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatCallback;
@@ -11,8 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,8 +17,6 @@ import android.widget.TextView;
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
-import com.kutztown.projectmanagement.data.ProjectTableEntry;
-import com.kutztown.projectmanagement.network.HTTPHandler;
 
 import java.util.ArrayList;
 
@@ -38,6 +33,7 @@ public class MemberList extends Activity implements AppCompatCallback {
     public ActionMode onWindowStartingSupportActionMode(ActionMode.Callback callback) {
         return null;
     }
+
     @Override
     public void onSupportActionModeStarted(ActionMode mode) {
     }
@@ -107,13 +103,13 @@ public class MemberList extends Activity implements AppCompatCallback {
         });**/
 
         projectView.setAdapter(listAdapter);
-
-
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
+
         return true;
     }
 
@@ -124,8 +120,8 @@ public class MemberList extends Activity implements AppCompatCallback {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         onBackPressed();
-        return true;
 
+        return true;
     }
 
     /**
