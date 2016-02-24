@@ -61,6 +61,7 @@ public final class ApplicationData {
      * be used, it must be updated whenever the user's account is updated.
      */
     static public UserTableEntry currentUser;
+    static public TaskTableEntry currentTask;
 
     /**
      * This flag keeps track of whether or not the user
