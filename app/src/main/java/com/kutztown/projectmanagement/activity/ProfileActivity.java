@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.kutztown.project.projectmanagement.R;
+import com.kutztown.projectmanagement.controller.ActivityController;
+import com.kutztown.projectmanagement.data.ApplicationData;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -23,6 +25,10 @@ public class ProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
 
     }
     @Override

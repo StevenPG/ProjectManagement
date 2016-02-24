@@ -54,6 +54,11 @@ public class TaskActivity extends Activity implements AppCompatCallback{
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
+
         // Retrieve tasks of current user
         this.taskList = getTasksFromProject();
 

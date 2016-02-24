@@ -35,6 +35,11 @@ public class CreateProject extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         final EditText myText = (EditText) findViewById(R.id.project_name);
 
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
+
         Button projectB = (Button) findViewById(R.id.adding_members);
         projectB.setOnClickListener(new View.OnClickListener() {
             @Override

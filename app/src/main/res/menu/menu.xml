@@ -5,6 +5,22 @@
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"
-        app:showAsAction="never" />
+        app:showAsAction="never"
+        />
+    <item
+        android:title="Tutorial"
+        android:orderInCategory="1"
+        android:id="@+id/tutorial"
+        />
+
+    <item
+        android:title="loggout"
+        android:orderInCategory="2"
+        android:id="@+id/loggout"
+        />
+    <item
+        android:orderInCategory="3"
+        android:title="Member Profile"
+        android:id="@+id/profile"/>
 
 </menu>

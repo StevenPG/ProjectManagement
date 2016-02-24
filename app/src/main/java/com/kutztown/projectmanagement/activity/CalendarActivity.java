@@ -12,6 +12,8 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
+import com.kutztown.projectmanagement.controller.ActivityController;
+import com.kutztown.projectmanagement.data.ApplicationData;
 
 import org.w3c.dom.Text;
 
@@ -33,6 +35,10 @@ public class CalendarActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         final CalendarView myCalendar = (CalendarView) findViewById(R.id.CalendarView);
 
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
 
         final TextView myText = (TextView) findViewById(R.id.date_display);
         myCalendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {

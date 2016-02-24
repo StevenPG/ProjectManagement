@@ -19,9 +19,10 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
+                android:layout_gravity="start"
                 android:layout_height="?attr/actionBarSize"
                 android:background="#FFFFFF"
-                app:popupTheme="@style/AppTheme.PopupOverlay" >
+                app:popupTheme="@style/myTheme" >
                 <ImageView
                     android:layout_width="wrap_content"
                     android:contentDescription="Logo"
@@ -50,6 +51,14 @@
             android:id="@+id/project_display"
             android:textStyle="bold"
             android:textColor="#82cffd" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Members"
+            android:textColor="#FFFFFF"
+            android:background="#6600FF"
+            android:layout_gravity="center"
+            android:id="@+id/adding_merb"/>
 
         <ListView
             android:layout_width="match_parent"
