@@ -91,7 +91,7 @@ public final class ApplicationData {
     final public static String ProjectName = "ProjectName";
 
     static public boolean checkIfLoggedIn(Context appContext){
-        if(this.isLoggedIn){
+        if(ApplicationData.isLoggedIn){
             return true;
         } else {
             return false;
