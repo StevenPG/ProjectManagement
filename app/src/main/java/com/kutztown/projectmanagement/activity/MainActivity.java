@@ -41,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
         // Retrieve projects of current user
         this.projectList = getProjectsFromUser();
 
+        if(this.projectList == null){
+            this.projectList = new ArrayList<>();
+        }
+
         // Retrieve listview and add projects
         projectView = (ListView) findViewById(R.id.ProjectListView);
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.mainactivityrow, this.projectList);
@@ -95,7 +99,12 @@ public class MainActivity extends AppCompatActivity {
      * @return null if no projects, else arraylist of projects
      */
     protected ArrayList<String> getProjectsFromUser(){
+
         String projectList = ApplicationData.currentUser.getProjectList();
+        if(projectList == null){
+            projectList = "";
+        }
+
         ArrayList projectArray = new ArrayList();
 
         TextView header = (TextView) findViewById(R.id.Header);

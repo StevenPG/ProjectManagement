@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kutztown.project.projectmanagement.R;
+import com.kutztown.projectmanagement.data.UserTableEntry;
 import com.kutztown.projectmanagement.network.HTTPHandler;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
@@ -323,6 +324,10 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
             // Attempt login through HTTPHandler
             HTTPHandler handler = new HTTPHandler();
             String out = handler.createAccount("user=" + this.mEmail + "&" + "passwd=" + this.mPassword);
+
+            // If it worked, sign the user in
+            ApplicationData.currentUser = new UserTableEntry(this.mEmail, this.mPassword);
+            ApplicationData.isLoggedIn = true;
 
             // Assign status code for error printing
             this.statusCode = out;
