@@ -78,6 +78,7 @@ public final class ApplicationData {
      * Run this to logout before sending user back to loginActivity
      */
     static public void logoutUser(){
+        ApplicationData.isLoggedIn = false;
         ApplicationData.currentProject = null;
         ApplicationData.currentUser = null;
         ApplicationData.currentTask = null;

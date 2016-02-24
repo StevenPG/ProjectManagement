@@ -14,9 +14,9 @@
         />
 
     <item
-        android:title="loggout"
+        android:title="Logout"
         android:orderInCategory="2"
-        android:id="@+id/loggout"
+        android:id="@+id/logout"
         />
     <item
         android:orderInCategory="3"

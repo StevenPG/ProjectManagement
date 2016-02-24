@@ -124,6 +124,15 @@ public class TaskActivity extends Activity implements AppCompatCallback{
 
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
+    }
+
     /**
      * Retrieve the tasks from the selected project and parse them into an arraylist
      * @return null if no tasks, else arraylist of tasks
