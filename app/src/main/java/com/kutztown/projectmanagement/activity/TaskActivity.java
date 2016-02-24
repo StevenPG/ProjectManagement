@@ -14,10 +14,16 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
+import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.data.ProjectTableEntry;
 import com.kutztown.projectmanagement.data.TaskTableEntry;
@@ -25,7 +31,57 @@ import com.kutztown.projectmanagement.data.UserTableEntry;
 import com.kutztown.projectmanagement.exception.ServerNotRunningException;
 import com.kutztown.projectmanagement.network.HTTPHandler;
 
+import java.util.ArrayList;
+
 public class TaskActivity extends ListActivity implements AppCompatCallback{
+
+    /**
+     * List of tasks
+     */
+    ArrayList<String> taskList = null;
+    ListView taskView = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_task);
+
+        //NOTE: I don't know why there are erros
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        // Retrieve tasks of current user
+        this.taskList = getTasksFromProject();
+
+        // Retrieve listview and add tasks
+        taskView = (ListView) findViewById(R.id.TaskListView);
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.mainactivityrow, this.taskList);
+        taskView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Clicked Text contains the task name
+                String clickedText = (String) parent.getItemAtPosition(position);
+                // TODO - Set the ApplicationData.currentTask value
+                // Retrieve the task from the DB and store it globally
+                HTTPHandler handler = new HTTPHandler();
+                try {
+                    ApplicationData.currentTask = (TaskTableEntry) handler.
+                            select(clickedText, "TaskName", new TaskTableEntry(), "TaskTable");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Log.d("debug", ApplicationData.currentTask.writeAsGet());
+
+                //NOTE: TaskViewActivity has not been created yet
+                //startActivity(ActivityController.openTaskViewActivity(getApplicationContext()));
+            }
+        });
+
+        taskView.setAdapter(listAdapter);
+    }
 
     @Nullable
     @Override
@@ -38,55 +94,6 @@ public class TaskActivity extends ListActivity implements AppCompatCallback{
 
     @Override
     public void onSupportActionModeFinished(ActionMode mode) {
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        ApplicationData.delegate = AppCompatDelegate.create(this, this);
-        //the installViewFactory method replaces the default widgets
-        //with the AppCompat-tinted versions
-        ApplicationData.delegate.installViewFactory();
-        super.onCreate(savedInstanceState);
-        ApplicationData.delegate.onCreate(savedInstanceState);
-        ApplicationData.delegate.setContentView(R.layout.activity_task);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        ApplicationData.delegate.setSupportActionBar(toolbar);
-        ApplicationData.delegate.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ApplicationData.delegate.getSupportActionBar().setDisplayShowHomeEnabled(true);
-        ApplicationData.delegate.getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-
-        CursorLoader loader = new CursorLoader(this, ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                null, null, null,null);
-        Cursor Contacts = loader.loadInBackground();
-        // geting the data from the contact list for now. it will be replace with a call to the database
-        ListAdapter task_adapter = new SimpleCursorAdapter(this, R.layout.task, Contacts, new String[]{
-                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME},
-                new int[]{ R.id.task},0);
-
-        try {
-            HTTPHandler httpHandler = new HTTPHandler();
-            //ApplicationData.ProjectName = (ProjectTableEntry) httpHandler.select(this.mEmail
-                    //, "email", new UserTableEntry(), "UserTable");
-
-            //ApplicationData.currentProject = (ProjectTableEntry) httpHandler.select(String searchValue,
-            //String searchRecord, TableEntry entry, String table);
-
-            TaskTableEntry currentTask = (TaskTableEntry) httpHandler.select(String user, String project, String taskName, String taskDesc,
-                    String taskPriority, String taskDueDate, String taskDep);
-
-            Log.d("debug", ApplicationData.currentUser.writeAsGet());
-        } catch (ServerNotRunningException e) {
-            e.printStackTrace();
-            Log.d("debug", "Server isn't running");
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d("debug", "User wasn't found");
-        }
-
-        //HelloWorld
-
-        setListAdapter(task_adapter);
     }
 
     @Override
@@ -105,6 +112,35 @@ public class TaskActivity extends ListActivity implements AppCompatCallback{
         onBackPressed();
         return true;
 
+    }
+
+    /**
+     * Retrieve the tasks from the selected project and parse them into an arraylist
+     * @return null if no tasks, else arraylist of tasks
+     */
+    protected ArrayList<String> getTasksFromProject(){
+        String taskList = ApplicationData.currentProject.getTaskList();
+        ArrayList taskArray = new ArrayList();
+
+        TextView header = (TextView) findViewById(R.id.Header);
+        Log.d("debug", "Task List: " + taskList);
+        if("None".equals(taskList)){
+            header.setText("No tasks have been assigned");
+            return null;
+        }
+        else{
+            header.setText("Tasks");
+            String[] tasks = taskList.split("--");
+
+            for(String task : tasks){
+                // Wipe leftover python structures
+                task = task.replaceAll("u'", "");
+                task = task.replaceAll("'", "");
+                taskArray.add(task);
+            }
+        }
+
+        return taskArray;
     }
 
 }
