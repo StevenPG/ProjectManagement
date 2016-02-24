@@ -23,6 +23,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
+import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
 
 public class AddMemberstoProject extends ListActivity implements AppCompatCallback {
@@ -86,4 +87,12 @@ public class AddMemberstoProject extends ListActivity implements AppCompatCallba
 
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
+    }
 }
