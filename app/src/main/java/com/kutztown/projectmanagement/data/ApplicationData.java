@@ -1,6 +1,7 @@
 package com.kutztown.projectmanagement.data;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -12,6 +13,8 @@ import android.util.AttributeSet;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.kutztown.projectmanagement.controller.ActivityController;
 
 /**
  * Created by Steven Gantz on 1/28/2016.
@@ -76,5 +79,13 @@ public final class ApplicationData {
     // represent the key that is passed with the project name
     // when adding user to a particular project
     final public static String ProjectName = "ProjectName";
+
+    static public boolean checkIfLoggedIn(Context appContext){
+        if(this.isLoggedIn){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

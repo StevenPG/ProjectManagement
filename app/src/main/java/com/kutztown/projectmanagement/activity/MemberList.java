@@ -61,6 +61,10 @@ public class MemberList extends Activity implements AppCompatCallback {
         ApplicationData.delegate.getSupportActionBar().setDisplayShowHomeEnabled(true);
         ApplicationData.delegate.getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
         // Retrieve projects of current user
         this.memberList = getMembersFromProject();
 
