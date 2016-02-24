@@ -1,5 +1,6 @@
 package com.kutztown.projectmanagement.activity;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.CursorLoader;
 import android.database.Cursor;
@@ -33,7 +34,7 @@ import com.kutztown.projectmanagement.network.HTTPHandler;
 
 import java.util.ArrayList;
 
-public class TaskActivity extends ListActivity implements AppCompatCallback{
+public class TaskActivity extends Activity implements AppCompatCallback{
 
     /**
      * List of tasks
@@ -55,6 +56,10 @@ public class TaskActivity extends ListActivity implements AppCompatCallback{
 
         // Retrieve tasks of current user
         this.taskList = getTasksFromProject();
+
+        if(this.taskList == null){
+            this.taskList = new ArrayList<>();
+        }
 
         // Retrieve listview and add tasks
         taskView = (ListView) findViewById(R.id.TaskListView);
@@ -79,7 +84,7 @@ public class TaskActivity extends ListActivity implements AppCompatCallback{
                 //startActivity(ActivityController.openTaskViewActivity(getApplicationContext()));
             }
         });
-
+        Log.d("debug", listAdapter.toString());
         taskView.setAdapter(listAdapter);
     }
 
@@ -122,7 +127,7 @@ public class TaskActivity extends ListActivity implements AppCompatCallback{
         String taskList = ApplicationData.currentProject.getTaskList();
         ArrayList taskArray = new ArrayList();
 
-        TextView header = (TextView) findViewById(R.id.Header);
+        TextView header = (TextView) findViewById(R.id.header);
         Log.d("debug", "Task List: " + taskList);
         if("None".equals(taskList)){
             header.setText("No tasks have been assigned");
