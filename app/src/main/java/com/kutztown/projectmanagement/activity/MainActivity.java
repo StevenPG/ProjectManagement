@@ -38,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
+
         // Retrieve projects of current user
         this.projectList = getProjectsFromUser();
 

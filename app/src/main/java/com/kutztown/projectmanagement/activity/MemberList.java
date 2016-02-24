@@ -20,6 +20,7 @@ import android.widget.ListAdapter;
 import android.widget.SimpleCursorAdapter;
 
 import com.kutztown.project.projectmanagement.R;
+import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
 
 public class MemberList extends ListActivity implements AppCompatCallback {
@@ -52,6 +53,10 @@ public class MemberList extends ListActivity implements AppCompatCallback {
         ApplicationData.delegate.getSupportActionBar().setDisplayShowHomeEnabled(true);
         ApplicationData.delegate.getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
 
         CursorLoader loader = new CursorLoader(this, ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                 null, null, null,null);
