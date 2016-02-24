@@ -72,7 +72,17 @@ public final class ApplicationData {
      * and during every activity to make sure that the user has
      * valid access to each activity and the generated content.
      */
-    static public boolean isLoggedIn;
+    static public boolean isLoggedIn = false;
+
+    /**
+     * Run this to logout before sending user back to loginActivity
+     */
+    static public void logoutUser(){
+        ApplicationData.currentProject = null;
+        ApplicationData.currentUser = null;
+        ApplicationData.currentTask = null;
+        ApplicationData.isLoggedIn = false;
+    }
 
     static public ProjectTableEntry currentProject;
 

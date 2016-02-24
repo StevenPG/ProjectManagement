@@ -356,7 +356,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     e.printStackTrace();
                     Log.d("debug", "User wasn't found");
                 }
-
+                ApplicationData.isLoggedIn = true;
                 startActivity(ActivityController.openMainActivity(getApplicationContext()));
             } else {
                 mPasswordView.requestFocus();
