@@ -23,10 +23,9 @@
         android:layout_marginTop="15dp"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:background="#6600FF"
         android:textAlignment="textStart"
         android:layout_marginRight="10dp"
-        android:textColor="#FFFFFF"
+        android:textColor="#82cffd"
         android:autoLink="all"
         android:id="@+id/member_name"/>
 
