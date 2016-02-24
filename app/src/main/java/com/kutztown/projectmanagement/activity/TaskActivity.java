@@ -69,7 +69,7 @@ public class TaskActivity extends Activity implements AppCompatCallback{
         // Retrieve listview and add tasks
         taskView = (ListView) findViewById(R.id.TaskListView);
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.mainactivityrow, this.taskList);
-        taskView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /**taskView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Clicked Text contains the task name
@@ -88,7 +88,7 @@ public class TaskActivity extends Activity implements AppCompatCallback{
                 //NOTE: TaskViewActivity has not been created yet
                 //startActivity(ActivityController.openTaskViewActivity(getApplicationContext()));
             }
-        });
+        });**/
         Log.d("debug", listAdapter.toString());
         taskView.setAdapter(listAdapter);
     }
