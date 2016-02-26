@@ -63,18 +63,21 @@ public class MainActivity extends AppCompatActivity {
                 HTTPHandler handler = new HTTPHandler();
                 try {
                     ApplicationData.currentProject = (ProjectTableEntry) handler.
-                            select(clickedText, "ProjectName", new ProjectTableEntry(), "ProjectTable");
+                            select(clickedText, "ProjectId", new ProjectTableEntry(), "ProjectTable");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                Log.d("debug", ApplicationData.currentProject.writeAsGet());
+                if(ApplicationData.currentProject == null){
 
-                // Get info and decide where to send the user if leader or not
-                String projectLeader = ApplicationData.currentProject.getLeaderList().replaceAll("\\s+","");
-                if(projectLeader.equals(ApplicationData.currentUser.getEmail())){
-                    startActivity(ActivityController.openLeaderViewActivity(getApplicationContext()));
                 } else {
-                    startActivity(ActivityController.openMemberViewActivity(getApplicationContext()));
+                    Log.d("debug", ApplicationData.currentProject.writeAsGet());
+                    // Get info and decide where to send the user if leader or not
+                    String projectLeader = ApplicationData.currentProject.getLeaderList().replaceAll("\\s+","");
+                    if(projectLeader.equals(ApplicationData.currentUser.getEmail())){
+                        startActivity(ActivityController.openLeaderViewActivity(getApplicationContext()));
+                    } else {
+                        startActivity(ActivityController.openMemberViewActivity(getApplicationContext()));
+                    }
                 }
             }
         });
