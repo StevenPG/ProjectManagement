@@ -65,9 +65,12 @@ public class CreateProject extends AppCompatActivity {
                 Log.d("debug", "Project Desc:" + projectDesc);
 
                 // Enter project into database
+                String currentUserEmail = ApplicationData.currentUser.getEmail();
+                currentUserEmail = currentUserEmail.replace("u'", "");
+                currentUserEmail = currentUserEmail.replace("'", "");
                 HTTPHandler handler = new HTTPHandler();
                 ProjectTableEntry entry = new ProjectTableEntry(
-                        ApplicationData.currentUser.getEmail(),
+                        currentUserEmail,
                         projectName,
                         projectDesc);
 
