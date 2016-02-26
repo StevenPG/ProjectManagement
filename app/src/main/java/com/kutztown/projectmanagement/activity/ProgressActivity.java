@@ -11,6 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
+import com.kutztown.projectmanagement.controller.ActivityController;
+import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.graphing.PieGraph;
 
 public class ProgressActivity extends AppCompatActivity {
@@ -24,6 +26,11 @@ public class ProgressActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
 
         // Try to guarantee that yData.length == xData.length
         // This is dummy data that will be filled correctly later
@@ -99,5 +106,14 @@ public class ProgressActivity extends AppCompatActivity {
         onBackPressed();
         return true;
 
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
     }
 }

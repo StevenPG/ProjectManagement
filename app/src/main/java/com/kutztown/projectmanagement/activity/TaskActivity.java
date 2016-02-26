@@ -54,6 +54,11 @@ public class TaskActivity extends Activity implements AppCompatCallback{
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
+
         // Retrieve tasks of current user
         this.taskList = getTasksFromProject();
 
@@ -64,7 +69,7 @@ public class TaskActivity extends Activity implements AppCompatCallback{
         // Retrieve listview and add tasks
         taskView = (ListView) findViewById(R.id.TaskListView);
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.mainactivityrow, this.taskList);
-        taskView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /**taskView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Clicked Text contains the task name
@@ -83,7 +88,7 @@ public class TaskActivity extends Activity implements AppCompatCallback{
                 //NOTE: TaskViewActivity has not been created yet
                 //startActivity(ActivityController.openTaskViewActivity(getApplicationContext()));
             }
-        });
+        });**/
         Log.d("debug", listAdapter.toString());
         taskView.setAdapter(listAdapter);
     }
@@ -117,6 +122,15 @@ public class TaskActivity extends Activity implements AppCompatCallback{
         onBackPressed();
         return true;
 
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
     }
 
     /**

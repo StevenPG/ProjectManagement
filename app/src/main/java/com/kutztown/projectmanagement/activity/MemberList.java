@@ -1,7 +1,6 @@
 package com.kutztown.projectmanagement.activity;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatCallback;
@@ -11,8 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,8 +17,6 @@ import android.widget.TextView;
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
-import com.kutztown.projectmanagement.data.ProjectTableEntry;
-import com.kutztown.projectmanagement.network.HTTPHandler;
 
 import java.util.ArrayList;
 
@@ -38,6 +33,7 @@ public class MemberList extends Activity implements AppCompatCallback {
     public ActionMode onWindowStartingSupportActionMode(ActionMode.Callback callback) {
         return null;
     }
+
     @Override
     public void onSupportActionModeStarted(ActionMode mode) {
     }
@@ -61,6 +57,10 @@ public class MemberList extends Activity implements AppCompatCallback {
         ApplicationData.delegate.getSupportActionBar().setDisplayShowHomeEnabled(true);
         ApplicationData.delegate.getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
         // Retrieve projects of current user
         this.memberList = getMembersFromProject();
 
@@ -71,45 +71,24 @@ public class MemberList extends Activity implements AppCompatCallback {
         // Retrieve listview and add projects
         projectView = (ListView) findViewById(R.id.memberListView);
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.mainactivityrow, this.memberList);
-        /**projectView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                // this is not in the requirements: TODO Don't do anything when a member is clicked
-                return;
-
-
-                // Clicked Text contains the project name
-                String clickedText = (String) parent.getItemAtPosition(position);
-                // TODO - Set the ApplicationData.currentProject value
-                // Retrieve the project from the DB and store it globally
-                HTTPHandler handler = new HTTPHandler();
-                try {
-                    ApplicationData.currentProject = (ProjectTableEntry) handler.
-                            select(clickedText, "ProjectName", new ProjectTableEntry(), "ProjectTable");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                Log.d("debug", ApplicationData.currentProject.writeAsGet());
-
-                // Get info and decide where to send the user if leader or not
-                String projectLeader = ApplicationData.currentProject.getLeaderList();
-                if(projectLeader.equals(ApplicationData.currentUser.getEmail())){
-                    startActivity(ActivityController.openLeaderViewActivity(getApplicationContext()));
-                } else {
-                    startActivity(ActivityController.openMemberViewActivity(getApplicationContext()));
-                }
-            }
-        });**/
 
         projectView.setAdapter(listAdapter);
-
-
     }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
+
         return true;
     }
 
@@ -120,8 +99,8 @@ public class MemberList extends Activity implements AppCompatCallback {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         onBackPressed();
-        return true;
 
+        return true;
     }
 
     /**
@@ -151,6 +130,7 @@ public class MemberList extends Activity implements AppCompatCallback {
                 // Wipe leftover python structures
                 member = member.replaceAll("u'", "");
                 member = member.replaceAll("'", "");
+                member = member.replace("\\s+", "");
                 memberArray.add(member);
             }
         }

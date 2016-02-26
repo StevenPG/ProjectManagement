@@ -35,7 +35,15 @@ public class CreateProject extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         final EditText myText = (EditText) findViewById(R.id.project_name);
 
-        Button projectB = (Button) findViewById(R.id.adding_members);
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
+
+        //NOTE: here puh completed project into the database
+
+        //NOTE: this code is to be executed later
+        /*Button projectB = (Button) findViewById(R.id.adding_members);
         projectB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,9 +51,18 @@ public class CreateProject extends AppCompatActivity {
                 startActivity(ActivityController.openAddMembersToProjectActivity(getApplicationContext(), message));
 
             }
-        });
+        });*/
 
 
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
     }
 
     @Override

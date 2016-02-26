@@ -344,6 +344,7 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
                 // This happens when the thread ends
                 //finish();
                 Log.v("debug", "Successfully executed");
+                ApplicationData.isLoggedIn = true;
                 startActivity(ActivityController.openMainActivity(getApplicationContext()));
             } else {
                 mPasswordView.requestFocus();

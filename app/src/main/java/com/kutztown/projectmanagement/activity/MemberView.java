@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
+import com.kutztown.projectmanagement.data.ApplicationData;
 
 public class MemberView extends AppCompatActivity {
 
@@ -27,6 +28,11 @@ public class MemberView extends AppCompatActivity {
         final Button taskB = (Button)findViewById(R.id.task1_ld_button);
         final Button calendarB = (Button) findViewById(R.id.calendar1_id_button);
         final Button membersB = (Button) findViewById(R.id.members1_ld_button);
+
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
 
         progressB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +63,16 @@ public class MemberView extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
