@@ -99,25 +99,8 @@ public class MemberView extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        switch(item.getItemId()){
-            case R.id.tutorial:
-                Log.d("debug", "Selected Tutorial");
-                return true;
-            case R.id.logout:
-                Log.d("debug", "Selected Logout");
-                ApplicationData.logoutUser();
-                startActivity(ActivityController.
-                        openLoginActivity(getApplicationContext()));
-                return true;
-            case R.id.profile:
-                Log.d("debug", "Selected Profile");
-                startActivity(ActivityController.
-                        openProfileActivity(getApplicationContext()));
+        return ApplicationData.contextMenu(this, item);
 
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
 
