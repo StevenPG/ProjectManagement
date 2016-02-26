@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
         <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#82cffd"
@@ -19,6 +20,7 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
+                android:gravity="top|start"
                 android:layout_height="?attr/actionBarSize"
                 android:background="#FFFFFF"
                 app:popupTheme="@style/AppTheme.PopupOverlay" >
@@ -28,6 +30,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@drawable/banner_logo"/>
+                <android.support.v7.widget.ActionMenuView
+                    android:layout_gravity="start"
+                    android:id="@+id/amvMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?attr/actionBarSize"
+                    />
             </android.support.v7.widget.Toolbar>
         </LinearLayout>
     </android.support.design.widget.AppBarLayout>

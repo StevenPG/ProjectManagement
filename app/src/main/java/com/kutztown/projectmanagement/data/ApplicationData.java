@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.MenuInflater;
@@ -39,6 +40,8 @@ public final class ApplicationData {
      * IP address of web service
      */
     final static public String SERVER_IP = "104.238.131.94";
+
+    static public ActionMenuView amvMenu;
 
     /**
      * Web service port
@@ -98,5 +101,6 @@ public final class ApplicationData {
             return false;
         }
     }
+
 
 }

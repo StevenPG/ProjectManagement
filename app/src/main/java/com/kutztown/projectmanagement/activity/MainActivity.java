@@ -1,14 +1,22 @@
 package com.kutztown.projectmanagement.activity;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.util.Log;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,9 +26,11 @@ import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.data.ProjectTableEntry;
 import com.kutztown.projectmanagement.network.HTTPHandler;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
 
     /**
      * List of projects
@@ -36,14 +46,32 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setTitle(null);
+        ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu);
+        toolbar.setNavigationIcon(R.drawable.icon);
+        ApplicationData.amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                return onOptionsItemSelected(menuItem);
+            }
+        });
+
+
+       ImageButton myButton = (ImageButton) findViewById(R.id.plus_buttom);
+         myButton.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 startActivity(ActivityController.openCreateProject(getApplicationContext()));
+             }
+         });
+
 
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
         if(!loggedIn){
             startActivity(ActivityController.openLoginActivity(getApplicationContext()));
         }
 
-        // Retrieve projects of current user
+         // Retrieve projects of current user;
         this.projectList = getProjectsFromUser();
 
         if(this.projectList == null){
@@ -88,7 +116,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, ApplicationData.amvMenu.getMenu());
         return true;
     }
 
@@ -109,6 +138,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.profile:
                 Log.d("debug", "Selected Profile");
+                startActivity(ActivityController.
+                        openCreateProject(getApplicationContext()));
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -157,5 +189,6 @@ public class MainActivity extends AppCompatActivity {
 
         return projectArray;
     }
+
 
 }
