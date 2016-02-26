@@ -46,13 +46,15 @@ public class TaskActivity extends Activity implements AppCompatCallback{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
+       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+      //  setSupportActionBar(toolbar);
 
         //NOTE: I don't know why there are erros
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setDisplayShowTitleEnabled(false);
+       // setSupportActionBar(toolbar);
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+     //   getSupportActionBar().setDisplayShowHomeEnabled(true);
+      //  getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
         if(!loggedIn){
@@ -119,8 +121,26 @@ public class TaskActivity extends Activity implements AppCompatCallback{
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        onBackPressed();
-        return true;
+        switch(item.getItemId()) {
+            case R.id.tutorial:
+                Log.d("debug", "Selected Tutorial");
+                return true;
+            case R.id.logout:
+                Log.d("debug", "Selected Logout");
+                ApplicationData.logoutUser();
+                startActivity(ActivityController.
+                        openLoginActivity(getApplicationContext()));
+                return true;
+            case R.id.profile:
+                Log.d("debug", "Selected Profile");
+                startActivity(ActivityController.
+                        openProfileActivity(getApplicationContext()));
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
 
     }
 

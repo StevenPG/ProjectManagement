@@ -7,8 +7,11 @@ import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -30,10 +33,17 @@ public class CreateProject extends AppCompatActivity {
         setContentView(R.layout.activity_create_project);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setTitle(null);
         final EditText myText = (EditText) findViewById(R.id.project_name);
+        ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu);
+        ApplicationData.amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                return onOptionsItemSelected(menuItem);
+            }
+        });
 
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
         if(!loggedIn){
@@ -68,7 +78,9 @@ public class CreateProject extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
+        MenuInflater inflater = getMenuInflater();
+        ApplicationData.amvMenu.showOverflowMenu();
+        getMenuInflater().inflate(R.menu.menu, ApplicationData.amvMenu.getMenu());
         return true;
     }
 
@@ -77,9 +89,25 @@ public class CreateProject extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        onBackPressed();
-        return true;
+        switch(item.getItemId()){
+            case R.id.tutorial:
+                Log.d("debug", "Selected Tutorial");
+                return true;
+            case R.id.logout:
+                Log.d("debug", "Selected Logout");
+                ApplicationData.logoutUser();
+                startActivity(ActivityController.
+                        openLoginActivity(getApplicationContext()));
+                return true;
+            case R.id.profile:
+                Log.d("debug", "Selected Profile");
+                startActivity(ActivityController.
+                        openCreateProject(getApplicationContext()));
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
 
 }
 

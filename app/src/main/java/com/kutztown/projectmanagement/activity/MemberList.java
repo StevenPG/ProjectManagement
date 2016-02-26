@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatCallback;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -56,6 +57,13 @@ public class MemberList extends Activity implements AppCompatCallback {
         ApplicationData.delegate.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ApplicationData.delegate.getSupportActionBar().setDisplayShowHomeEnabled(true);
         ApplicationData.delegate.getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu);
+        ApplicationData.amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                return onOptionsItemSelected(menuItem);
+            }
+        });
 
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
         if(!loggedIn){
@@ -97,10 +105,25 @@ public class MemberList extends Activity implements AppCompatCallback {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        onBackPressed();
+        switch(item.getItemId()) {
+            case R.id.tutorial:
+                Log.d("debug", "Selected Tutorial");
+                return true;
+            case R.id.logout:
+                Log.d("debug", "Selected Logout");
+                ApplicationData.logoutUser();
+                startActivity(ActivityController.
+                        openLoginActivity(getApplicationContext()));
+                return true;
+            case R.id.profile:
+                Log.d("debug", "Selected Profile");
+                startActivity(ActivityController.
+                        openProfileActivity(getApplicationContext()));
 
-        return true;
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     /**
