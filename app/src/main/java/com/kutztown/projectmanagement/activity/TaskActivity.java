@@ -46,13 +46,15 @@ public class TaskActivity extends Activity implements AppCompatCallback{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
+       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+      //  setSupportActionBar(toolbar);
 
         //NOTE: I don't know why there are erros
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setDisplayShowTitleEnabled(false);
+       // setSupportActionBar(toolbar);
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+     //   getSupportActionBar().setDisplayShowHomeEnabled(true);
+      //  getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
         if(!loggedIn){

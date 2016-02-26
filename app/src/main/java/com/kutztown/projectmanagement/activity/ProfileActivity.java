@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
@@ -30,6 +32,26 @@ public class ProfileActivity extends AppCompatActivity {
         if(!loggedIn){
             startActivity(ActivityController.openLoginActivity(getApplicationContext()));
         }
+        final ImageView myImage = (ImageView) findViewById(R.id.pic);
+        final TextView name = (TextView) findViewById(R.id.profile_name);
+        final TextView user_id= (TextView) findViewById(R.id.user_id);
+        final TextView user_position = (TextView) findViewById(R.id.user_position);
+        final TextView start_date = (TextView) findViewById(R.id.start_date);
+        final TextView phone = (TextView) findViewById(R.id.phone);
+        final TextView user_email = (TextView) findViewById(R.id.user_email);
+        final TextView user_bio = (TextView) findViewById(R.id.bio_text);
+        final TextView user_history = (TextView) findViewById(R.id.history_text);
+
+        name.setText("");
+        user_id.setText("");
+        user_position.setText("");
+        start_date.setText("");
+        phone.setText("");
+        user_email.setText("");
+        user_bio.setText("");
+        user_history.setText("");
+
+
 
     }
     @Override

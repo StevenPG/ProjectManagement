@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.Image;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -66,6 +68,13 @@ public class AddMemberstoProject extends ListActivity implements AppCompatCallba
         String message = theInten.getStringExtra(ApplicationData.ProjectName);
         TextView theProjectName = (TextView) findViewById(R.id.project_display);
          theProjectName.setText(message);
+        final ImageButton myButton = (ImageButton) findViewById(R.id.plus_buttom1);
+        myButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
     @Override

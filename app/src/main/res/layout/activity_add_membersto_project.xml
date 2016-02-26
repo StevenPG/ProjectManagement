@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.PopupOverlay">
         <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#82cffd"
@@ -19,10 +20,17 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_gravity="start"
                 android:layout_height="?attr/actionBarSize"
                 android:background="#FFFFFF"
                 app:popupTheme="@style/myTheme" >
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:id="@+id/plus_buttom1"
+                    android:layout_gravity="end"
+                    android:background="#FFFFFF"
+                    android:paddingRight="10dp"
+                    android:src="@drawable/plus_icon"
+                    android:layout_height="wrap_content" />
                 <ImageView
                     android:layout_width="wrap_content"
                     android:contentDescription="Logo"
