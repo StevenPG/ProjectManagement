@@ -33,9 +33,12 @@ public class PingHttpThread implements Runnable {
 
     public void run(){
         try {
+            Log.d("debug", "Building URL");
+
             // Build URL for ping
             URL url = HTTPHandler.buildURL(ApplicationData.SERVER_IP, ApplicationData.SERVER_PORT, "", false, null);
 
+            Log.d("debug", "Opening connection to IP");
             // Generate the connection
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
@@ -44,6 +47,7 @@ public class PingHttpThread implements Runnable {
 
             // Exception will be thrown just before this line. Otherwise close the connection.
             urlConnection.disconnect();
+            Log.d("debug", "Disconnected from server");
             this.success = true;
 
         } catch (MalformedURLException m) {

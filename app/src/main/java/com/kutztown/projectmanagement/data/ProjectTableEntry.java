@@ -50,8 +50,8 @@ public class ProjectTableEntry implements TableEntry {
      * @param leaderList      - List of leaders (comma separated)
      * @param projectName     - Name of project
      * @param projectDesc     - Description of project
-     * @param memberList      - List of members (comma separated)
-     * @param taskList        - List of tasks (comma separated)
+     * @param memberList      - List of members (-- separated)
+     * @param taskList        - List of tasks (-- separated)
      * @param projectProgress - Total project progress
      */
     public ProjectTableEntry(String leaderList, String projectName, String projectDesc,
@@ -112,12 +112,17 @@ public class ProjectTableEntry implements TableEntry {
 
     @Override
     public String writeAsValueString() {
-        return null;
+        return "\"" + this.leaderList + "\",\"" +
+                this.memberList + "\",\"" +
+                this.taskList + "\",\"" +
+                this.projectName + "\",\"" +
+                this.projectDesc + "\",\"" +
+                this.projectProgress + "\"";
     }
 
     @Override
     public String getColumnString() {
-        return null;
+        return "leaderlist,memberlist,tasklist,projectname,projectdescription,projectprogress";
     }
 
     @Override

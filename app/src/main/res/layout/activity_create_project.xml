@@ -68,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:id="@+id/editText01"
+            android:id="@+id/projectDescField"
             />
 
         <TextView
@@ -96,7 +96,7 @@
             android:layout_marginTop="15dp"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:id="@+id/adding_members"
+            android:id="@+id/createProject"
             />
 
 

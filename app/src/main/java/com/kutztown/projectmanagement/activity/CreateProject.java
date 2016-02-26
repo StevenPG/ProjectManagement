@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,9 @@ import android.widget.Toast;
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
+import com.kutztown.projectmanagement.data.ProjectTableEntry;
+import com.kutztown.projectmanagement.network.HTTPHandler;
+
 public class CreateProject extends AppCompatActivity {
 
 
@@ -33,7 +37,6 @@ public class CreateProject extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        final EditText myText = (EditText) findViewById(R.id.project_name);
 
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
         if(!loggedIn){
@@ -42,16 +45,47 @@ public class CreateProject extends AppCompatActivity {
 
         //NOTE: here puh completed project into the database
 
-        //NOTE: this code is to be executed later
-        /*Button projectB = (Button) findViewById(R.id.adding_members);
+        // Retrieve data from fields
+        final EditText projectNameText = (EditText) findViewById(R.id.project_name);
+        final EditText projectDescText = (EditText) findViewById(R.id.projectDescField);
+
+
+        // Add onclick to button
+        Button projectB = (Button) findViewById(R.id.createProject);
         projectB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String message = myText.getText().toString();
-                startActivity(ActivityController.openAddMembersToProjectActivity(getApplicationContext(), message));
 
+                // Retrieve values
+                String projectName = projectNameText.getText().toString();
+                String projectDesc = projectDescText.getText().toString();
+
+                // print values for debugging
+                Log.d("debug", "ProjectName: " + projectName);
+                Log.d("debug", "Project Desc:" + projectDesc);
+
+                // Enter project into database
+                HTTPHandler handler = new HTTPHandler();
+                ProjectTableEntry entry = new ProjectTableEntry(
+                        ApplicationData.currentUser.getEmail(),
+                        projectName,
+                        projectDesc);
+
+                // TODO NEED TO ADD PROJECT TO CURRENT USER'S PROJECTLIST
+
+                // Assign entry as the current project
+                ApplicationData.currentProject = entry;
+
+                try {
+                    handler.insert(entry, "ProjectTable");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d("debug", "Error inserting new project into current user's table");
+                }
+
+                startActivity(ActivityController.openLeaderViewActivity(getApplicationContext()));
             }
-        });*/
+        });
 
 
     }

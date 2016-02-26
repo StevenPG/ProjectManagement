@@ -93,6 +93,7 @@ public class HTTPHandler {
         String parameterString = "table=" + table +
                 "&valuestring=" + entry.writeAsValueString() +
                 "&columnstring=" + entry.getColumnString();
+        Log.d("debug", parameterString);
 
         URL url = buildURL(ApplicationData.SERVER_IP, ApplicationData.SERVER_PORT,
                 approute, false, parameterString);
