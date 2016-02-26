@@ -7,10 +7,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
+
+import org.w3c.dom.Text;
 
 public class LeaderView extends AppCompatActivity {
 
@@ -28,6 +31,9 @@ public class LeaderView extends AppCompatActivity {
         if(!loggedIn){
             startActivity(ActivityController.openLoginActivity(getApplicationContext()));
         }
+
+        TextView header = (TextView) findViewById(R.id.leader_prj_label);
+        header.setText(ApplicationData.currentProject.getProjectName());
 
         final Button progressB = (Button)findViewById(R.id.progress_ld_button);
         final Button taskB = (Button)findViewById(R.id.task_ld_button);
