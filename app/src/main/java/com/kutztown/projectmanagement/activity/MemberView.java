@@ -3,6 +3,7 @@ package com.kutztown.projectmanagement.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -85,9 +86,7 @@ public class MemberView extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        onBackPressed();
-        return true;
+        return ApplicationData.contextMenu(this, item);
 
     }
 

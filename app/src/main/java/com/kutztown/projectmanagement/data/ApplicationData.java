@@ -10,10 +10,13 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
 
 /**
@@ -97,6 +100,30 @@ public final class ApplicationData {
         } else {
             return false;
         }
+    }
+
+    /**
+     * This will get called every time the context menu is opened and
+     * will pass the relevant stuff to do other stuff.
+     * @param context
+     * @param item
+     */
+    static public boolean contextMenu(Context context, MenuItem item){
+        switch(item.getItemId()){
+            case R.id.tutorial:
+                Log.d("debug", "Selected Tutorial");
+                return true;
+            case R.id.logout:
+                Log.d("debug", "Selected Logout");
+                ApplicationData.logoutUser();
+                context.startActivity(ActivityController.
+                        openLoginActivity(context));
+                return true;
+            case R.id.profile:
+                Log.d("debug", "Selected Profile");
+                return true;
+        }
+        return true;
     }
 
 }
