@@ -7,20 +7,20 @@
     android:fitsSystemWindows="true"
     app:theme="@style/AppTheme.PopupOverlay"
     tools:context="com.kutztown.projectmanagement.activity.LeaderView">
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.PopupOverlay">
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#82cffd"
-        android:paddingBottom="5dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#82cffd"
+            android:paddingBottom="5dp">
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:gravity="top|start"
             android:layout_height="?attr/actionBarSize"
             android:background="#FFFFFF"
             app:popupTheme="@style/AppTheme.PopupOverlay" >
@@ -31,14 +31,15 @@
                 android:layout_gravity="center"
                 android:src="@drawable/banner_logo"/>
             <android.support.v7.widget.ActionMenuView
-                android:id="@+id/amvMenu"
+                android:id="@+id/amvMenu03"
                 android:layout_gravity="start"
                 android:layout_width="wrap_content"
                 android:layout_height="?attr/actionBarSize"
                 />
         </android.support.v7.widget.Toolbar>
-    </LinearLayout>
+        </LinearLayout>
 </android.support.design.widget.AppBarLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"

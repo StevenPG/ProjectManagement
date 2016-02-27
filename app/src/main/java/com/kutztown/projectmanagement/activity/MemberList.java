@@ -10,6 +10,7 @@ import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -54,10 +55,10 @@ public class MemberList extends Activity implements AppCompatCallback {
         ApplicationData.delegate.setContentView(R.layout.activity_member_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         ApplicationData.delegate.setSupportActionBar(toolbar);
-        ApplicationData.delegate.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ApplicationData.delegate.getSupportActionBar().setDisplayShowHomeEnabled(true);
-        ApplicationData.delegate.getSupportActionBar().setDisplayShowTitleEnabled(false);
-        ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu);
+        ApplicationData.delegate.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ApplicationData.delegate.getSupportActionBar().setDisplayShowHomeEnabled(false);
+        ApplicationData.delegate.getSupportActionBar().setTitle(null);
+        ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu05);
         ApplicationData.amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -95,7 +96,8 @@ public class MemberList extends Activity implements AppCompatCallback {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
+        MenuInflater inflate = getMenuInflater();
+        inflate.inflate(R.menu.menu, ApplicationData.amvMenu.getMenu());
 
         return true;
     }

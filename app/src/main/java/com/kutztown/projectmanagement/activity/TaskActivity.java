@@ -10,10 +10,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatCallback;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,19 +44,44 @@ public class TaskActivity extends Activity implements AppCompatCallback{
     ArrayList<String> taskList = null;
     ListView taskView = null;
 
+    @Nullable
+    @Override
+    public ActionMode onWindowStartingSupportActionMode(ActionMode.Callback callback) {
+        return null;
+    }
+
+    @Override
+    public void onSupportActionModeStarted(ActionMode mode) {
+    }
+
+    @Override
+    public void onSupportActionModeFinished(ActionMode mode) {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        ApplicationData.delegate = AppCompatDelegate.create(this, this);
+        ApplicationData.delegate.installViewFactory();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task);
-       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-      //  setSupportActionBar(toolbar);
+        ApplicationData.delegate.onCreate(savedInstanceState);
+        ApplicationData.delegate.setContentView(R.layout.activity_task);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ApplicationData.delegate.getSupportActionBar();
+        ApplicationData.delegate.setSupportActionBar(toolbar);
 
         //NOTE: I don't know why there are erros
-       // setSupportActionBar(toolbar);
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-     //   getSupportActionBar().setDisplayShowHomeEnabled(true);
-      //  getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ApplicationData.delegate.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ApplicationData.delegate.getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ApplicationData.delegate.getSupportActionBar().setTitle(null);
 
+        ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu08);
+        ApplicationData.amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                return onOptionsItemSelected(menuItem);
+            }
+        });
 
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
         if(!loggedIn){
@@ -95,23 +122,11 @@ public class TaskActivity extends Activity implements AppCompatCallback{
         taskView.setAdapter(listAdapter);
     }
 
-    @Nullable
-    @Override
-    public ActionMode onWindowStartingSupportActionMode(ActionMode.Callback callback) {
-        return null;
-    }
-    @Override
-    public void onSupportActionModeStarted(ActionMode mode) {
-    }
-
-    @Override
-    public void onSupportActionModeFinished(ActionMode mode) {
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
+        MenuInflater inflate = getMenuInflater();
+        inflate.inflate(R.menu.menu, ApplicationData.amvMenu.getMenu());
         return true;
     }
 

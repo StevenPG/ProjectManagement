@@ -14,8 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatCallback;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -51,9 +53,18 @@ public class AddMemberstoProject extends ListActivity implements AppCompatCallba
         ApplicationData.delegate.setContentView(R.layout.activity_add_membersto_project);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         ApplicationData.delegate.setSupportActionBar(toolbar);
+
         ApplicationData.delegate.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ApplicationData.delegate.getSupportActionBar().setDisplayShowHomeEnabled(false);
         ApplicationData.delegate.getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu);
+        ApplicationData.amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                return onOptionsItemSelected(menuItem);
+            }
+        });
 
         CursorLoader loader = new CursorLoader(this, ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                 null, null, null,null);
@@ -80,7 +91,8 @@ public class AddMemberstoProject extends ListActivity implements AppCompatCallba
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.plus, menu);
+        MenuInflater inflate = getMenuInflater();
+        inflate.inflate(R.menu.menu, ApplicationData.amvMenu.getMenu());
         return true;
     }
 
