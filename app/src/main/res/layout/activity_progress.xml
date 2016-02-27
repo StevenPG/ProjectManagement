@@ -21,12 +21,20 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="#FFFFFF"
                 app:popupTheme="@style/AppTheme.PopupOverlay" >
-                <ImageView
+                <ImageButton
                     android:layout_width="wrap_content"
-                    android:contentDescription="Logo"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/banner_logo"/>
+                    android:id="@+id/plus_buttom1"
+                    android:layout_gravity="end"
+                    android:background="#FFFFFF"
+                    android:paddingRight="10dp"
+                    android:src="@drawable/plus_icon"
+                    android:layout_height="wrap_content" />
+                <android.support.v7.widget.ActionMenuView
+                    android:id="@+id/amvMenu"
+                    android:layout_gravity="start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?attr/actionBarSize"
+                    />
             </android.support.v7.widget.Toolbar>
         </LinearLayout>
     </android.support.design.widget.AppBarLayout>
