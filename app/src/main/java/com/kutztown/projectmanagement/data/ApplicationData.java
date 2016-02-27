@@ -124,9 +124,12 @@ public final class ApplicationData {
                 return true;
             case R.id.profile:
                 Log.d("debug", "Selected Profile");
+                context.startActivity(ActivityController.
+                        openProfileActivity(context));
                 return true;
+
         }
-        return true;
+       return true;
     }
 
 }

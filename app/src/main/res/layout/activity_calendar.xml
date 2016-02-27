@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.PopupOverlay">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -28,6 +29,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@drawable/banner_logo"/>
+                <android.support.v7.widget.ActionMenuView
+                    android:id="@+id/amvMenu01"
+                    android:layout_gravity="start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?attr/actionBarSize"
+                    />
             </android.support.v7.widget.Toolbar>
         </LinearLayout>
     </android.support.design.widget.AppBarLayout>

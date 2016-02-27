@@ -30,7 +30,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
+     private ActionMenuView amvMenu1;
 
     /**
      * List of projects
@@ -44,11 +44,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setTitle(null);
-        ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu);
-        toolbar.setNavigationIcon(R.drawable.icon);
+        ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu04);
         ApplicationData.amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-       ImageButton myButton = (ImageButton) findViewById(R.id.plus_buttom);
+       ImageButton myButton = (ImageButton) findViewById(R.id.plus_button);
          myButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
