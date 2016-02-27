@@ -37,7 +37,19 @@ public class HTTPHandler {
 
     }
 
-    public int update(TableEntry entry, String table) throws Exception {
+    /**
+     * Spaces in the updatestatement must be listed as %20 for the http header
+     *
+     * This is represented as a " " in python.
+     *
+     * usage: handler.update("firstname=\"John\"%20where%20email=\"emailaddress@.kutztown.edu\"", "usertable");
+     *
+     * @param updateStatement - The SQL statemene to be executed
+     * @param table - which table to execute the statement in
+     * @return - status
+     * @throws Exception
+     */
+    public int update(String updateStatement, String table) throws Exception {
 
         String approute = "update";
 
@@ -46,7 +58,7 @@ public class HTTPHandler {
         }
 
         String parameterString = "table=" + table +
-                "&updatestring=" + entry.getUpdateString();
+                "&updatestring=" + updateStatement;
 
         Log.d("debug", parameterString);
 

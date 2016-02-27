@@ -125,11 +125,6 @@ public class ProjectTableEntry implements TableEntry {
         return "leaderlist,memberlist,tasklist,projectname,projectdescription,projectprogress";
     }
 
-    @Override
-    public String getUpdateString() {
-        return null;
-    }
-
     // Getters and setters for each method for ease of use and manipulation
     public int getProjectId() {
         return projectId;

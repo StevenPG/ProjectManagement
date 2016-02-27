@@ -149,11 +149,6 @@ public class TaskTableEntry implements TableEntry {
         return null;
     }
 
-    @Override
-    public String getUpdateString() {
-        return null;
-    }
-
     // Getters and setters for each method for ease of use and manipulation
     public int getTaskID() {
         return taskID;

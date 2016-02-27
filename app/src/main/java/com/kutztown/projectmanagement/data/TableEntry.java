@@ -26,11 +26,4 @@ public interface TableEntry {
      * polymorphic inserting into the database.
      */
     String getColumnString();
-
-
-    /**
-     * This method returns a string to be passed to the webservice
-     * that is in the right format for an update string.
-     */
-    String getUpdateString();
 }
