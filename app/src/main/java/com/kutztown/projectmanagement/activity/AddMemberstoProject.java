@@ -1,25 +1,23 @@
 package com.kutztown.projectmanagement.activity;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
-import android.media.Image;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatCallback;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -29,8 +27,13 @@ import android.widget.TextView;
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
+import com.kutztown.projectmanagement.data.UserTableEntry;
+import com.kutztown.projectmanagement.exception.ServerNotRunningException;
+import com.kutztown.projectmanagement.network.HTTPHandler;
 
-public class AddMemberstoProject extends ListActivity implements AppCompatCallback {
+import java.util.ArrayList;
+
+public class AddMemberstoProject extends Activity implements AppCompatCallback {
     @Nullable
     @Override
     public ActionMode onWindowStartingSupportActionMode(ActionMode.Callback callback) {
@@ -66,19 +69,27 @@ public class AddMemberstoProject extends ListActivity implements AppCompatCallba
             }
         });
 
-        CursorLoader loader = new CursorLoader(this, ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                null, null, null,null);
-        Cursor Contacts = loader.loadInBackground();
-        // geting the data from the contact list for now. it will be replace with a call to the database
-        ListAdapter adapter = new SimpleCursorAdapter(this, R.layout.members_to_add, Contacts,
-                new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME},
-                new int[]{ R.id.member_name},0);
-        setListAdapter(adapter);
 
-        Intent theInten = getIntent();
-        String message = theInten.getStringExtra(ApplicationData.ProjectName);
-        TextView theProjectName = (TextView) findViewById(R.id.project_display);
-         theProjectName.setText(message);
+        // Retrieve list of all members
+        ArrayList<String> memberList = null;
+        ListView projectView = null;
+
+        boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
+        if(!loggedIn){
+            startActivity(ActivityController.openLoginActivity(getApplicationContext()));
+        }
+        // Retrieve all app members
+        memberList = getAllMembers();
+
+        if(memberList == null) {
+            memberList = new ArrayList<>();
+        }
+
+        // Retrieve listview and add projects
+        projectView = (ListView) findViewById(R.id.addMemberListView);
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.mainactivityrow, memberList);
+        projectView.setAdapter(listAdapter);
+
         final ImageButton myButton = (ImageButton) findViewById(R.id.plus_buttom1);
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,5 +122,20 @@ public class AddMemberstoProject extends ListActivity implements AppCompatCallba
         if(!loggedIn){
             startActivity(ActivityController.openLoginActivity(getApplicationContext()));
         }
+    }
+
+    /**
+     * Retrieve the projects from the logged in user and parse them into an arraylist
+     * @return null if no projects, else arraylist of projects
+     */
+    protected ArrayList<String> getAllMembers() {
+        HTTPHandler httpHandler = new HTTPHandler();
+        try {
+            return httpHandler.getAll();
+        } catch (ServerNotRunningException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

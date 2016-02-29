@@ -12,7 +12,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -83,6 +86,16 @@ public class MemberList extends Activity implements AppCompatCallback {
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.mainactivityrow, this.memberList);
 
         projectView.setAdapter(listAdapter);
+
+
+        // Add addMember functionality to plusbutton
+        final ImageButton plusButton = (ImageButton) findViewById(R.id.plus_buttom2);
+        plusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(ActivityController.openAddMembersToProjectActivity(getApplicationContext(),""));
+            }
+        });
     }
 
     @Override
