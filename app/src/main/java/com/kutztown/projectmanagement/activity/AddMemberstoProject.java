@@ -17,12 +17,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
@@ -91,10 +93,19 @@ public class AddMemberstoProject extends Activity implements AppCompatCallback {
         projectView.setAdapter(listAdapter);
 
         final ImageButton myButton = (ImageButton) findViewById(R.id.plus_buttom1);
-        myButton.setOnClickListener(new View.OnClickListener() {
+        projectView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.setType("message/rfc822");
+                email.putExtra(Intent.EXTRA_EMAIL, new String[]{""});
+                email.putExtra(Intent.EXTRA_SUBJECT, "Please join my group");
+                email.putExtra(Intent.EXTRA_TEXT, "<PLACEHOLDER FOR INVITE ACCEPTANCE");
+                try {
+                    startActivity(Intent.createChooser(email, "Please select an email client to send invitation..."));
+                }catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(AddMemberstoProject.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
