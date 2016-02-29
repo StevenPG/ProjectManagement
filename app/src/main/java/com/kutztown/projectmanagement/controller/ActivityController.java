@@ -8,6 +8,7 @@ import com.kutztown.projectmanagement.activity.AddMemberstoProject;
 import com.kutztown.projectmanagement.activity.CalendarActivity;
 import com.kutztown.projectmanagement.activity.CreateAccountActivity;
 import com.kutztown.projectmanagement.activity.CreateProject;
+import com.kutztown.projectmanagement.activity.CreateTask;
 import com.kutztown.projectmanagement.activity.LeaderView;
 import com.kutztown.projectmanagement.activity.LoginActivity;
 import com.kutztown.projectmanagement.activity.MainActivity;
@@ -81,6 +82,10 @@ public class ActivityController extends Application{
 
     public static Intent openLeaderViewActivity(Context appContext){
         Intent myIntent = new Intent(appContext,LeaderView.class);
+        return myIntent;
+    }
+    public static Intent openCreateTaskActivity(Context appContext){
+        Intent myIntent = new Intent(appContext,CreateTask.class);
         return myIntent;
     }
 }

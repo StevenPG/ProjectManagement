@@ -44,4 +44,8 @@
     <string name="project_description1">Project Description</string>
     <string name="member_profile">Profile</string>
     <string name="title_activity_add_membersto_project">AddMemberstoProject</string>
+    <string name="title_activity_create_task">CreateTask</string>
+    <string name="pick_a_member">Pick a Member</string>
+    <string name="pick_a_priority">Pick a Member</string>
+    <string name="pick_a_dependency">Pick a Member</string>
 </resources>
