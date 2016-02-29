@@ -31,7 +31,6 @@ public class TaskTableEntry implements TableEntry {
      * only entries that cannot be null.
      * All others are set to empty.
      *
-     * @param taskId       - Task id
      * @param user         - user assigned to task
      * @param project      - project task is part of
      * @param taskName     - name of task
@@ -56,7 +55,6 @@ public class TaskTableEntry implements TableEntry {
     /**
      * Secondary constructor, initialize every value in the object
      *
-     * @param taskId       - Task id
      * @param user         - user assigned to task
      * @param project      - project task is part of
      * @param taskName     - name of task
@@ -141,12 +139,20 @@ public class TaskTableEntry implements TableEntry {
 
     @Override
     public String writeAsValueString() {
-        return null;
+        return "\"" + this.user + "\",\"" +
+                this.project + "\",\"" +
+                this.taskName + "\",\"" +
+                this.taskDesc + "\",\"" +
+                this.taskProgress + "\",\"" +
+                this.taskStatus + "\",\"" +
+                this.taskPriority + "\",\"" +
+                this.taskDueDate + "\",\"" +
+                this.taskDep + "\"";
     }
 
     @Override
     public String getColumnString() {
-        return null;
+        return "user,project,taskname,taskdescription,taskprogress,taskstatus,taskpriority,taskduedate,taskdependency";
     }
 
     // Getters and setters for each method for ease of use and manipulation
