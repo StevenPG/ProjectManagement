@@ -35,7 +35,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setTitle(null);
 
         ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu01);
         ApplicationData.amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
@@ -45,7 +45,7 @@ public class CalendarActivity extends AppCompatActivity {
             }
         });
         final CalendarView myCalendar = (CalendarView) findViewById(R.id.CalendarView);
-
+        myCalendar.setShownWeekCount(4);
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
         if(!loggedIn){
             startActivity(ActivityController.openLoginActivity(getApplicationContext()));

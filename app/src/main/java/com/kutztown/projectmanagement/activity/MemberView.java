@@ -24,9 +24,9 @@ public class MemberView extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setTitle(null);
-        getSupportActionBar().setTitle(null);
-        toolbar.setNavigationIcon(R.drawable.icon);
+
         ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu06);
         ApplicationData.amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
             @Override

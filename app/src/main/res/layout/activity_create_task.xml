@@ -124,6 +124,7 @@
                 android:prompt="@string/pick_a_priority"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
+                android:entries="@array/pick_priority"
                 android:background="#FFFFFF">
             </Spinner>
         </LinearLayout>

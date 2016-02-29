@@ -46,7 +46,7 @@ public class CreateTask extends AppCompatActivity {
         TextView text_sel02 = (TextView)spin02.getSelectedView();
         String pickedPriority = text_sel02.getText().toString();
 
-        final Spinner spin = (Spinner) findViewById(R.id.spinner01);
+        final Spinner spin = (Spinner) findViewById(R.id.spinner03);
         TextView text_sel = (TextView)spin.getSelectedView();
         String pickedDependency = text_sel.getText().toString();
 

@@ -72,8 +72,8 @@ public class TaskActivity extends Activity implements AppCompatCallback{
         ApplicationData.delegate.setSupportActionBar(toolbar);
 
         //NOTE: I don't know why there are erros
-        ApplicationData.delegate.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ApplicationData.delegate.getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ApplicationData.delegate.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ApplicationData.delegate.getSupportActionBar().setDisplayShowHomeEnabled(false);
         ApplicationData.delegate.getSupportActionBar().setTitle(null);
 
         ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu08);

@@ -58,6 +58,7 @@ public class MemberList extends Activity implements AppCompatCallback {
         ApplicationData.delegate.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ApplicationData.delegate.getSupportActionBar().setDisplayShowHomeEnabled(false);
         ApplicationData.delegate.getSupportActionBar().setTitle(null);
+
         ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu05);
         ApplicationData.amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
             @Override
