@@ -57,7 +57,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Member List"
+            android:text="List of all Members"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:paddingLeft="15dp"
@@ -69,7 +69,7 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@android:id/list"/>
+            android:id="@+id/addMemberListView"/>
         </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -211,9 +211,79 @@ public class HTTPHandler {
         }
     }
 
+    public ArrayList<String> getAll() throws ServerNotRunningException {
+        // Approute for select is always select
+        String approute = "getall";
 
+        if (!this.pingServer(ApplicationData.SERVER_IP)) {
+            throw new ServerNotRunningException();
+        }
 
-    /**
+        ArrayList<String> memberList = new ArrayList<>();
+
+        try {
+            String parameterString = "";
+
+            URL url = buildURL(ApplicationData.SERVER_IP,
+                    ApplicationData.SERVER_PORT,
+                    approute, false, parameterString);
+
+            Log.d("debug", parameterString);
+
+            WebTask task = new WebTask(url);
+            task.execute((Void) null);
+
+            while (!task.grabString) {
+                // Busy wait until the connection is done
+                //Log.d("debug", "Busy waiting until connection is done");
+            }
+            String stringEntry = task.dataString;
+
+            // Break into pieces
+            ArrayList<String> memberArray = new ArrayList<>();
+            String[] members = stringEntry.split("\\(");
+
+            for(int i = 0; i < members.length; i++){
+                // Remove last piece of python list
+                String member = members[i];
+                member = member.replace("),", "");
+
+                //remove uniqueId section
+                if(member.length() < 3){
+                    member = "";
+                } else {
+                    member = member.substring(3, member.length());
+                }
+
+                // Remove final bracket
+                member.replace("\\)]", "");
+
+                // Print each member for debugging
+                Log.d("debug", member);
+                memberArray.add(member);
+            }
+
+            // Break each item in memberArray into a usertableentry for memberlist
+            for(String member : memberArray){
+                // handle empty entry
+                if(member.length() < 3){
+                    continue;
+                } else {
+                    String[] memberAttribs = member.split(",");
+                    // 0 is first name, 1 is last name, 2 is email
+
+                    memberList.add(memberAttribs[2]);
+                }
+            }
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return memberList;
+    }
+
+        /**
      * This method reaches out to the webservice at
      * the /version route and requests the webservice version.
      * @return - The web service version as a string.
