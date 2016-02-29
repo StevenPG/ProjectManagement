@@ -6,10 +6,12 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,16 +41,13 @@ public class CreateTask extends AppCompatActivity {
         });
 
         final Spinner spin01 = (Spinner) findViewById(R.id.spinner01);
-        TextView text_sel01 = (TextView)spin01.getSelectedView();
-        String pickedMember = text_sel01.getText().toString();
+        final TextView text_sel01 = (TextView)spin01.getSelectedView();
 
         final Spinner spin02 = (Spinner) findViewById(R.id.spinner02);
-        TextView text_sel02 = (TextView)spin02.getSelectedView();
-        String pickedPriority = text_sel02.getText().toString();
+        final TextView text_sel02 = (TextView)spin02.getSelectedView();
 
         final Spinner spin = (Spinner) findViewById(R.id.spinner01);
-        TextView text_sel = (TextView)spin.getSelectedView();
-        String pickedDependency = text_sel.getText().toString();
+        final TextView text_sel = (TextView)spin.getSelectedView();
 
         TextView taskName = (TextView) findViewById(R.id.name_task);
 
@@ -59,6 +58,20 @@ public class CreateTask extends AppCompatActivity {
         // this text view will ve set with the description of the project
         TextView projectDesc = (TextView) findViewById(R.id.project_description);
         projectDesc.setText("");
+
+        Button createTask = (Button) findViewById(R.id.create_task);
+        createTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //String pickedMember = text_sel01.getText().toString()
+                //String pickedPriority = text_sel02.getText().toString();
+                //String pickedDependency = text_sel.getText().toString();
+
+                //Log.d("debug", pickedMember);
+                //Log.d("debug", pickedPriority);
+                //Log.d("debug", pickedDependency);
+            }
+        });
 
         final DatePicker taskDate = (DatePicker)findViewById(R.id.datepicker01);
         Calendar c = Calendar.getInstance();
