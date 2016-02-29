@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -49,14 +50,13 @@ public class CreateTask extends AppCompatActivity {
 
         final Spinner spin = (Spinner) findViewById(R.id.spinner03);
         TextView text_sel = (TextView)spin.getSelectedView();
-        String pickedDependency = text_sel.getText().toString();
 
 
         TextView taskName = (TextView) findViewById(R.id.name_task);
 
         // this textview will be set whith the project name
-        TextView projectName = (TextView) findViewById(R.id.name_project);
-        projectName.setText("");
+         TextView projectName = (TextView) findViewById(R.id.name_project);
+        projectName.setText(ApplicationData.currentProject.getProjectName());
 
         // this text view will ve set with the description of the project
         TextView projectDesc = (TextView) findViewById(R.id.project_description);
@@ -66,9 +66,9 @@ public class CreateTask extends AppCompatActivity {
         createTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //String pickedMember = text_sel01.getText().toString()
-                //String pickedPriority = text_sel02.getText().toString();
-                //String pickedDependency = text_sel.getText().toString();
+                // final String pickedMember = text_sel01.getText().toString()
+                // final String pickedPriority = text_sel02.getText().toString();
+                // final String pickedDependency = text_sel.getText().toString();
 
                 //Log.d("debug", pickedMember);
                 //Log.d("debug", pickedPriority);
