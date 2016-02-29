@@ -88,8 +88,8 @@ public class MemberView extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, ApplicationData.amvMenu.getMenu());
+        MenuInflater inflate = getMenuInflater();
+        inflate.inflate(R.menu.menu, ApplicationData.amvMenu.getMenu());
         return true;
     }
 

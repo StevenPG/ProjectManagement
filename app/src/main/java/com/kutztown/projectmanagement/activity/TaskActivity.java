@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -82,6 +83,13 @@ public class TaskActivity extends Activity implements AppCompatCallback{
                 return onOptionsItemSelected(menuItem);
             }
         });
+         final ImageButton createTaskB = (ImageButton) findViewById(R.id.plus_buttom1);
+         createTaskB.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 startActivity(ActivityController.openCreateTaskActivity(getApplicationContext()));
+             }
+         });
 
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
         if(!loggedIn){

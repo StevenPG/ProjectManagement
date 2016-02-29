@@ -115,6 +115,7 @@ public final class ApplicationData {
         switch(item.getItemId()){
             case R.id.tutorial:
                 Log.d("debug", "Selected Tutorial");
+                context.startActivity(ActivityController.openLeaderViewActivity(context));
                 return true;
             case R.id.logout:
                 Log.d("debug", "Selected Logout");

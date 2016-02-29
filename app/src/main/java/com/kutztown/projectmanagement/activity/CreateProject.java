@@ -29,7 +29,6 @@ import com.kutztown.projectmanagement.network.HTTPHandler;
 
 public class CreateProject extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,8 +114,8 @@ public class CreateProject extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        getMenuInflater().inflate(R.menu.menu, ApplicationData.amvMenu.getMenu());
+        MenuInflater inflate = getMenuInflater();
+        inflate.inflate(R.menu.menu, ApplicationData. amvMenu.getMenu());
         return true;
     }
 
