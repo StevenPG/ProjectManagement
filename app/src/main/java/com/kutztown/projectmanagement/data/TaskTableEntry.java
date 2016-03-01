@@ -89,24 +89,27 @@ public class TaskTableEntry implements TableEntry {
      **/
     public TaskTableEntry(ArrayList<String> taskTableEntry) {
 
-        // Raise an exception if the array does not contain all of the required values
-        if (taskTableEntry.size() != 12) {
-            throw new RuntimeException();
+        if(taskTableEntry.size() < 2){
+            new TaskTableEntry();
+        } else {
+            // The arraylist should have all of the entries in the order that they are in the table.
+            try {
+                this.taskID = Integer.parseInt(taskTableEntry.get(0));
+            } catch (NumberFormatException num){
+                this.taskID = -1;
+            }
+            this.user = taskTableEntry.get(1);
+            this.project = taskTableEntry.get(2);
+            this.taskName = taskTableEntry.get(3);
+            this.taskDesc = taskTableEntry.get(4);
+            this.taskProgress = taskTableEntry.get(5);
+            this.taskStatus = taskTableEntry.get(6);
+            this.taskPriority = taskTableEntry.get(7);
+            this.taskDueDate = taskTableEntry.get(8);
+            this.taskProgress = taskTableEntry.get(9);
+            this.taskStatus = "";
+            this.taskDep = "";
         }
-
-        // The arraylist should have all of the entries in the order that they are in the table.
-        this.taskID = Integer.parseInt(taskTableEntry.get(0));
-        this.user = taskTableEntry.get(1);
-        this.project = taskTableEntry.get(2);
-        this.taskName = taskTableEntry.get(3);
-        this.taskDesc = taskTableEntry.get(4);
-        this.taskProgress = taskTableEntry.get(5);
-        this.taskStatus = taskTableEntry.get(6);
-        this.taskPriority = taskTableEntry.get(7);
-        this.taskDueDate = taskTableEntry.get(8);
-        this.taskProgress = taskTableEntry.get(9);
-        this.taskStatus = taskTableEntry.get(10);
-        this.taskDep = taskTableEntry.get(11);
     }
 
     /**

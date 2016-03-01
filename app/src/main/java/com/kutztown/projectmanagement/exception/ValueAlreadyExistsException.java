@@ -5,7 +5,7 @@ package com.kutztown.projectmanagement.exception;
  */
 public class ValueAlreadyExistsException extends Exception {
 
-    public ValueAlreadyExistsException(){
+    public ValueAlreadyExistsException(String s){
 
     }
 
