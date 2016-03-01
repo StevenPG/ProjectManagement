@@ -27,6 +27,9 @@ import java.util.Calendar;
 
 public class CreateTask extends AppCompatActivity {
 
+    public Spinner spinner1 = null;
+    public Spinner spinner2 = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,16 +47,9 @@ public class CreateTask extends AppCompatActivity {
             }
         });
 
-        final Spinner spin01 = (Spinner) findViewById(R.id.spinner01);
-        final TextView text_sel01 = (TextView)spin01.getSelectedView();
+        this.spinner1 = (Spinner) findViewById(R.id.spinner01);
 
-        final Spinner spin02 = (Spinner) findViewById(R.id.spinner02);
-        final TextView text_sel02 = (TextView)spin02.getSelectedView();
-
-
-        final Spinner spin = (Spinner) findViewById(R.id.spinner03);
-        final TextView text_sel03 = (TextView)spin.getSelectedView();
-
+        this.spinner2 = (Spinner) findViewById(R.id.spinner02);
 
         final TextView taskName = (TextView) findViewById(R.id.name_task);
 
@@ -63,18 +59,17 @@ public class CreateTask extends AppCompatActivity {
         projectName.setText(project);
 
         // this textview will get a description of the task
-         EditText taskDesc = (EditText) findViewById(R.id.task_description);
-
+         final EditText taskDesc = (EditText) findViewById(R.id.task_description);
 
         Button createTask = (Button) findViewById(R.id.create_task);
         createTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 final String pickedMember = text_sel01.getText().toString();
-                 final String pickedPriority = text_sel02.getText().toString();
-                 final String pickedDependency = text_sel03.getText().toString();
-                TaskTableEntry entry = new TaskTableEntry(pickedMember,project,taskName.toString(),
-                        pickedPriority,pickedDependency,null,null);
+                //TODO - can't figure this out String pickedPriority = spinner1.getSelectedItem().toString();
+                String pickedPriority = "";
+
+                TaskTableEntry entry = new TaskTableEntry("",project,taskName.getText().toString(),
+                        pickedPriority,taskDesc.getText().toString(),"","");
                 HTTPHandler handler = new HTTPHandler();
                 try {
                     handler.insert(entry, "TaskTable");
