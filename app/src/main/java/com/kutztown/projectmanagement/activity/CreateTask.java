@@ -19,6 +19,9 @@ import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.data.ApplicationData;
+import com.kutztown.projectmanagement.data.TableEntry;
+import com.kutztown.projectmanagement.data.TaskTableEntry;
+import com.kutztown.projectmanagement.network.HTTPHandler;
 
 import java.util.Calendar;
 
@@ -49,26 +52,36 @@ public class CreateTask extends AppCompatActivity {
 
 
         final Spinner spin = (Spinner) findViewById(R.id.spinner03);
-        TextView text_sel = (TextView)spin.getSelectedView();
+        final TextView text_sel03 = (TextView)spin.getSelectedView();
 
 
-        TextView taskName = (TextView) findViewById(R.id.name_task);
+        final TextView taskName = (TextView) findViewById(R.id.name_task);
 
         // this textview will be set whith the project name
-         TextView projectName = (TextView) findViewById(R.id.name_project);
-        projectName.setText(ApplicationData.currentProject.getProjectName());
+         final TextView projectName = (TextView) findViewById(R.id.name_project);
+         final String project = ApplicationData.currentProject.getProjectName();
+        projectName.setText(project);
 
-        // this text view will ve set with the description of the project
-        TextView projectDesc = (TextView) findViewById(R.id.project_description);
-        projectDesc.setText("");
+        // this textview will get a description of the task
+         EditText taskDesc = (EditText) findViewById(R.id.task_description);
+
 
         Button createTask = (Button) findViewById(R.id.create_task);
         createTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // final String pickedMember = text_sel01.getText().toString()
-                // final String pickedPriority = text_sel02.getText().toString();
-                // final String pickedDependency = text_sel.getText().toString();
+                 final String pickedMember = text_sel01.getText().toString();
+                 final String pickedPriority = text_sel02.getText().toString();
+                 final String pickedDependency = text_sel03.getText().toString();
+                TaskTableEntry entry = new TaskTableEntry(pickedMember,project,taskName.toString(),
+                        pickedPriority,pickedDependency,null,null);
+                HTTPHandler handler = new HTTPHandler();
+                try {
+                    handler.insert(entry, "TaskTable");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d("debug", "Error creating new task ");
+                }
 
                 //Log.d("debug", pickedMember);
                 //Log.d("debug", pickedPriority);
