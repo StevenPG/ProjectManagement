@@ -1,5 +1,6 @@
 package com.kutztown.projectmanagement.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
+import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.data.TableEntry;
 import com.kutztown.projectmanagement.data.TaskTableEntry;
@@ -77,6 +79,9 @@ public class CreateTask extends AppCompatActivity {
                     e.printStackTrace();
                     Log.d("debug", "Error creating new task ");
                 }
+
+                // head on back to task view
+                startActivity(ActivityController.openTaskActivity(getApplicationContext()));
 
                 //Log.d("debug", pickedMember);
                 //Log.d("debug", pickedPriority);
