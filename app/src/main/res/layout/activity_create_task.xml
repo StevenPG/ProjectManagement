@@ -70,7 +70,7 @@
             android:padding="5dp"
             android:background="#82cffd"
             android:layout_marginTop="10dp">
-            <EditText
+            <TextView
                 android:id="@+id/name_project"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -86,7 +86,7 @@
             android:background="#82cffd"
             android:layout_marginTop="10dp">
             <EditText
-                android:id="@+id/project_description"
+                android:id="@+id/task_description"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Project Description"
@@ -143,7 +143,8 @@
                 android:paddingRight="5dp"
                 android:background="#FFFFFF"
                 android:calendarViewShown="false"
-                android:spinnersShown="true">
+                android:spinnersShown="true"
+                android:visibility="invisible">
             </DatePicker>
         </LinearLayout>
 
@@ -161,6 +162,7 @@
                 android:prompt="@string/pick_a_dependency"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
+                android:visibility="invisible"
                 android:background="#FFFFFF">
             </Spinner>
         </LinearLayout>
