@@ -67,7 +67,7 @@ public class CreateTask extends AppCompatActivity {
         createTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO - can't figure this out String pickedPriority = spinner1.getSelectedItem().toString();
+                //TODO - can't figure this out: String pickedPriority = spinner1.getSelectedItem().toString();
                 String pickedPriority = "";
 
                 TaskTableEntry entry = new TaskTableEntry("",project,taskName.getText().toString(),
@@ -82,10 +82,6 @@ public class CreateTask extends AppCompatActivity {
 
                 // head on back to task view
                 startActivity(ActivityController.openTaskActivity(getApplicationContext()));
-
-                //Log.d("debug", pickedMember);
-                //Log.d("debug", pickedPriority);
-                //Log.d("debug", pickedDependency);
             }
         });
 
