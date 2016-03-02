@@ -47,7 +47,7 @@ public class TaskTableEntry implements TableEntry {
         this.taskDesc = taskDesc;
         this.taskPriority = taskPriority;
         this.taskDueDate = taskDueDate;
-        this.taskProgress = "";
+        this.taskProgress = "0";
         this.taskStatus = "";
         this.taskDep = "";
     }
