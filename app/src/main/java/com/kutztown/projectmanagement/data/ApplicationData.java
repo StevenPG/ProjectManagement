@@ -132,7 +132,10 @@ public final class ApplicationData {
                 Log.d("debug", "Selected project view");
                 context.startActivity(ActivityController.
                         openLeaderViewActivity(context));
-
+            case R.id.mainmenuview:
+                Log.d("debug", "Selected Main Menu view");
+                context.startActivity(ActivityController.
+                openMainActivity(context));
         }
        return true;
     }
