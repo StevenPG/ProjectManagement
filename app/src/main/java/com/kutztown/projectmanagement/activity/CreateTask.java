@@ -1,5 +1,6 @@
 package com.kutztown.projectmanagement.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,16 +17,25 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kutztown.project.projectmanagement.R;
+import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
+import com.kutztown.projectmanagement.data.CommaListParser;
 import com.kutztown.projectmanagement.data.TableEntry;
 import com.kutztown.projectmanagement.data.TaskTableEntry;
 import com.kutztown.projectmanagement.network.HTTPHandler;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 
 public class CreateTask extends AppCompatActivity {
+
+    public Spinner spinner1 = null;
+    public Spinner spinner2 = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,48 +54,76 @@ public class CreateTask extends AppCompatActivity {
             }
         });
 
-        final Spinner spin01 = (Spinner) findViewById(R.id.spinner01);
-        final TextView text_sel01 = (TextView)spin01.getSelectedView();
+        this.spinner1 = (Spinner) findViewById(R.id.spinner01);
 
-        final Spinner spin02 = (Spinner) findViewById(R.id.spinner02);
-        final TextView text_sel02 = (TextView)spin02.getSelectedView();
-
-
-        final Spinner spin = (Spinner) findViewById(R.id.spinner03);
-        final TextView text_sel03 = (TextView)spin.getSelectedView();
-
+        this.spinner2 = (Spinner) findViewById(R.id.spinner02);
 
         final TextView taskName = (TextView) findViewById(R.id.name_task);
 
         // this textview will be set whith the project name
          final TextView projectName = (TextView) findViewById(R.id.name_project);
-         final String project = ApplicationData.currentProject.getProjectName();
-        projectName.setText(project);
+        projectName.setText(ApplicationData.currentProject.getProjectName());
 
         // this textview will get a description of the task
-         EditText taskDesc = (EditText) findViewById(R.id.task_description);
-
+         final EditText taskDesc = (EditText) findViewById(R.id.task_description);
 
         Button createTask = (Button) findViewById(R.id.create_task);
         createTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 final String pickedMember = text_sel01.getText().toString();
-                 final String pickedPriority = text_sel02.getText().toString();
-                 final String pickedDependency = text_sel03.getText().toString();
-                TaskTableEntry entry = new TaskTableEntry(pickedMember,project,taskName.toString(),
-                        pickedPriority,pickedDependency,null,null);
+
+                TextView getSeverity = (TextView)spinner2.getSelectedView();
+                TextView getName = (TextView) spinner1.getSelectedView();
+                String pickedName = getName.getText().toString();
+                String pickedPriority = getSeverity.getText().toString();
+
+                String task_name = taskName.getText().toString().replace(" ", "");
+                String task_desc = taskDesc.getText().toString().replace(" ", "");
+                String severity = getSeverity.getText().toString();
+
+                Log.d("debug", "Chosen Priority: " + pickedPriority);
+
+                // Wipe out python stuff from projectName
+                String projectName = String.valueOf(ApplicationData.currentProject.getProjectId());
+
+                TaskTableEntry entry = new TaskTableEntry(
+                        String.valueOf(ApplicationData.currentUser.getUserId()),
+                        projectName,
+                        task_name,
+                        task_desc,
+                        "",
+                        "",
+                        pickedPriority.replace(" ", ""),
+                        "",
+                        "");
+
                 HTTPHandler handler = new HTTPHandler();
                 try {
+                    // Insert the new task
                     handler.insert(entry, "TaskTable");
+
+                    Toast.makeText(getApplicationContext(), "task successfully created", Toast.LENGTH_SHORT).show();
+                    // after inserting into db, pull back out with unique id
+                    TaskTableEntry currentTask = (TaskTableEntry)
+                            handler.select(taskName.getText().toString(), "TaskName",
+                                    new TaskTableEntry(), "TaskTable");
+
+                    Log.d("debug2", "CurrentProjectId: " + String.valueOf(ApplicationData.currentProject.getProjectId()));
+                    String currentTaskList = ApplicationData.currentProject.getTaskList();
+                    currentTaskList = currentTaskList.replace("u'", "");
+                    currentTaskList = currentTaskList.replace("'", "");
+                    /**handler.update(
+                            "UPDATE%20ProjectTable%20SET%20tasklist=\"" +
+                            currentTaskList + "--" +
+                            currentTask.getTaskID(),
+                            "ProjectTable");**/
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.d("debug", "Error creating new task ");
                 }
 
-                //Log.d("debug", pickedMember);
-                //Log.d("debug", pickedPriority);
-                //Log.d("debug", pickedDependency);
+                // head on back to task view
+                startActivity(ActivityController.openTaskActivity(getApplicationContext()));
             }
         });
 

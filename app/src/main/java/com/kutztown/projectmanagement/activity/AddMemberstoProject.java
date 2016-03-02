@@ -142,7 +142,7 @@ public class AddMemberstoProject extends Activity implements AppCompatCallback {
     protected ArrayList<String> getAllMembers() {
         HTTPHandler httpHandler = new HTTPHandler();
         try {
-            return httpHandler.getAll();
+            return httpHandler.getAll("");
         } catch (ServerNotRunningException e) {
             e.printStackTrace();
         }

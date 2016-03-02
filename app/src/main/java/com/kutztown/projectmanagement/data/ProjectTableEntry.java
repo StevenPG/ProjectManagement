@@ -151,7 +151,11 @@ public class ProjectTableEntry implements TableEntry {
     }
 
     public String getTaskList() {
-        return taskList;
+        if(taskList == null){
+            return "";
+        } else {
+            return taskList;
+        }
     }
 
     public void setTaskList(String taskList) {

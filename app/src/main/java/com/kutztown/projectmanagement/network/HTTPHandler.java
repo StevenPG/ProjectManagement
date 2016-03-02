@@ -16,6 +16,7 @@ import com.kutztown.projectmanagement.exception.ValueAlreadyExistsException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -121,7 +122,7 @@ public class HTTPHandler {
 
         // If the server returned a 0, the value already exists
         if(stringEntry.charAt(0) == '0'){
-            throw new ValueAlreadyExistsException();
+            throw new ValueAlreadyExistsException("Value already exists");
         }
 
         // If there was an issue, a 2 will be returned
@@ -211,18 +212,22 @@ public class HTTPHandler {
         }
     }
 
-    public ArrayList<String> getAll() throws ServerNotRunningException {
+    public ArrayList<TableEntry> selectAll(String searchValue,
+                                           String searchRecord,
+                                           TableEntry entry,
+                                           String table) throws ServerNotRunningException{
         // Approute for select is always select
-        String approute = "getall";
+        String approute = "select";
 
         if (!this.pingServer(ApplicationData.SERVER_IP)) {
             throw new ServerNotRunningException();
         }
 
-        ArrayList<String> memberList = new ArrayList<>();
+        ArrayList<TableEntry> memberList = new ArrayList<>();
 
         try {
-            String parameterString = "";
+            String parameterString = "search=" + searchValue
+                    + "&record=" + searchRecord + "&table=" + table;
 
             URL url = buildURL(ApplicationData.SERVER_IP,
                     ApplicationData.SERVER_PORT,
@@ -238,6 +243,16 @@ public class HTTPHandler {
                 //Log.d("debug", "Busy waiting until connection is done");
             }
             String stringEntry = task.dataString;
+
+            // If the server returned a 0, nothing was found
+            if(stringEntry.charAt(0) == '0'){
+                throw new Exception("Nothing was found");
+            }
+
+            // If there was an issue, a 2 will be returned
+            if(stringEntry.charAt(0) == '-' && stringEntry.charAt(1) == '1'){
+                throw new Exception("Search query wasn't filled out right");
+            }
 
             // Break into pieces
             ArrayList<String> memberArray = new ArrayList<>();
@@ -264,6 +279,93 @@ public class HTTPHandler {
             }
 
             // Break each item in memberArray into a usertableentry for memberlist
+            ArrayList<String> builder = new ArrayList<>();
+            for(String member : memberArray){
+                // handle empty entry
+                if(member.length() < 3){
+                    continue;
+                } else {
+                    builder.add(member);
+                }
+            }
+
+            if(entry instanceof UserTableEntry)
+                memberList.add(new UserTableEntry(builder));
+            else if(entry instanceof ProgressTableEntry)
+                memberList.add(new ProgressTableEntry(builder));
+            else if(entry instanceof TaskTableEntry)
+                memberList.add(new TaskTableEntry(builder));
+            else if(entry instanceof ProjectTableEntry)
+                memberList.add(new ProjectTableEntry(builder));
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return memberList;
+    }
+
+    public ArrayList<String> getAll(String paramString) throws ServerNotRunningException {
+        // Approute for select is always select
+        String approute = "getall";
+
+        if (!this.pingServer(ApplicationData.SERVER_IP)) {
+            throw new ServerNotRunningException();
+        }
+
+        ArrayList<String> memberList = new ArrayList<>();
+
+        try {
+            String parameterString = paramString;
+
+            URL url = buildURL(ApplicationData.SERVER_IP,
+                    ApplicationData.SERVER_PORT,
+                    approute, false, parameterString);
+
+            Log.d("debug", "ParamString" + parameterString);
+
+            WebTask task = new WebTask(url);
+            task.execute((Void) null);
+
+            while (!task.grabString) {
+                // Busy wait until the connection is done
+                //Log.d("debug", "Busy waiting until connection is done");
+            }
+            String stringEntry = task.dataString;
+
+            Log.d("debug", "From DB" + stringEntry);
+
+            // Break into pieces
+            ArrayList<String> memberArray = new ArrayList<>();
+            String[] members = stringEntry.split("\\(");
+
+            for(int i = 0; i < members.length; i++){
+                // Remove last piece of python list
+                String member = members[i];
+                member = member.replace("),", "");
+
+                //remove uniqueId section
+                if(member.length() < 3){
+                    member = "";
+                } else {
+                    if("".equals(paramString)) {
+                        member = member.substring(3, member.length());
+                    } else {
+                        //do nothing, keep the whole string
+                    }
+                }
+
+                // Remove final bracket
+                member.replace("\\)]", "");
+
+                // Print each member for debugging
+                Log.d("debug", member);
+                memberArray.add(member);
+            }
+
+            // Break each item in memberArray into a usertableentry for memberlist
             for(String member : memberArray){
                 // handle empty entry
                 if(member.length() < 3){
@@ -271,7 +373,6 @@ public class HTTPHandler {
                 } else {
                     String[] memberAttribs = member.split(",");
                     // 0 is first name, 1 is last name, 2 is email
-
                     memberList.add(memberAttribs[2]);
                 }
             }
@@ -388,22 +489,30 @@ public class HTTPHandler {
      * @return - String returned from a web service
      */
     public static String readFromURLConnection(HttpURLConnection url) throws IOException {
-        BufferedReader reader =
-                new BufferedReader(new InputStreamReader(
-                        url.getInputStream()
-                ));
+        Log.d("debug", "Url: " + url);
 
-        // Build String
-        String inputLine;
+        BufferedReader reader = null;
         StringBuilder builder = new StringBuilder();
-        while ((inputLine = reader.readLine()) != null){
-            builder.append(inputLine);
+
+        try {
+            reader =
+                    new BufferedReader(new InputStreamReader(
+                            url.getInputStream()
+                    ));
+            // Build String
+            String inputLine;
+            while ((inputLine = reader.readLine()) != null) {
+                builder.append(inputLine);
+            }
+        } catch (IOException io){
+            throw io;
+        } finally {
+            // Close reader and return built string
+            if(reader != null) {
+                reader.close();
+            }
+            return builder.toString();
         }
-
-        // Close reader and return built string
-        reader.close();
-        return builder.toString();
-
 
     }
 

@@ -160,7 +160,14 @@ public class TaskActivity extends Activity implements AppCompatCallback{
      * @return null if no tasks, else arraylist of tasks
      */
     protected ArrayList<String> getTasksFromProject(){
-        String taskList = ApplicationData.currentProject.getTaskList();
+        String taskList = null;
+
+        if(ApplicationData.currentProject == null){
+            Log.d("debug", "There is no current project");
+            taskList = "";
+        } else {
+            taskList = ApplicationData.currentProject.getTaskList();
+        }
         ArrayList taskArray = new ArrayList();
 
         TextView header = (TextView) findViewById(R.id.header);
