@@ -4,7 +4,11 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -20,6 +24,16 @@ public class TaskViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_task_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setTitle(null);
+        ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu10);
+        ApplicationData.amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                return onOptionsItemSelected(menuItem);
+            }
+        });
 
         TextView taskName = (TextView) findViewById(R.id.task_name);
         taskName.setText("Task Name: " +
@@ -29,6 +43,9 @@ public class TaskViewActivity extends AppCompatActivity {
         // Set progress to 0
         SeekBar progressBar = (SeekBar) findViewById(R.id.seekBar);
         progressBar.setProgress(0);
+        String SeekBarLabel = ApplicationData.currentTask.getTaskProgress();
+        SeekBarLabel = SeekBarLabel.substring(2,ApplicationData.currentTask.getTaskProgress().length()-1);
+        progressBar.setProgress(Integer.parseInt(SeekBarLabel));
 
         // Assign the textfield to 0
         final TextView progressText = (TextView) findViewById(R.id.seekbarProgress);
@@ -50,5 +67,20 @@ public class TaskViewActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        MenuInflater inflate = getMenuInflater();
+        inflate.inflate(R.menu.menu, ApplicationData.amvMenu.getMenu());
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        return ApplicationData.contextMenu(this, item);
+    }
+
 
 }

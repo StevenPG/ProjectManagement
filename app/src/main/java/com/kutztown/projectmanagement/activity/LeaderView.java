@@ -103,4 +103,6 @@ public class LeaderView extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         return ApplicationData.contextMenu(this, item);
     }
+
+
 }
