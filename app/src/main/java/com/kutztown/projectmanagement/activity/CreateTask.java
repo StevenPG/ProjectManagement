@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.data.CommaListParser;
+import com.kutztown.projectmanagement.data.ProjectTableEntry;
 import com.kutztown.projectmanagement.data.TableEntry;
 import com.kutztown.projectmanagement.data.TaskTableEntry;
 import com.kutztown.projectmanagement.network.HTTPHandler;
@@ -54,7 +56,20 @@ public class CreateTask extends AppCompatActivity {
             }
         });
 
+        String[] itemArray = ApplicationData.currentProject.getMemberList().split("--");
+
+        // Remove very first two chars from first item
+        itemArray[0] = itemArray[0].substring(2, itemArray[0].length());
+
+        // Remove very last char from last item
+        itemArray[itemArray.length-1] = itemArray[itemArray.length-1].substring(0, itemArray[itemArray.length-1].length() -1);
+
         this.spinner1 = (Spinner) findViewById(R.id.spinner01);
+        this.spinner1.setAdapter(
+                new ArrayAdapter<String>(this,
+                R.layout.mainactivityrow, itemArray)
+        );
+
 
         this.spinner2 = (Spinner) findViewById(R.id.spinner02);
 
@@ -110,13 +125,32 @@ public class CreateTask extends AppCompatActivity {
 
                     Log.d("debug2", "CurrentProjectId: " + String.valueOf(ApplicationData.currentProject.getProjectId()));
                     String currentTaskList = ApplicationData.currentProject.getTaskList();
-                    currentTaskList = currentTaskList.replace("u'", "");
-                    currentTaskList = currentTaskList.replace("'", "");
-                    /**handler.update(
-                            "UPDATE%20ProjectTable%20SET%20tasklist=\"" +
-                            currentTaskList + "--" +
-                            currentTask.getTaskID(),
-                            "ProjectTable");**/
+                    currentTaskList = currentTaskList.substring(2, currentTaskList.length() - 1);
+
+                    Log.d("debug", currentTaskList);
+                    Log.d("debug", currentTaskList + "--" + currentTask.getTaskID());
+
+                    // updateString
+                    Log.d("debug", "tasklist=\"" +
+                            currentTaskList + "--" + currentTask.getTaskID() +
+                            "\"_WHERE_ProjectID=\"" + ApplicationData.currentProject.getProjectId() + "\"");
+
+                    // add the created task to project's tasklist
+                    handler.update(
+                            "tasklist=\"" +
+                                    currentTaskList + "--" + currentTask.getTaskID() +
+                                    "\"_WHERE_ProjectID=\"" +
+                                    ApplicationData.currentProject.getProjectId() + "\""
+                                , "ProjectTable");
+
+                    // Retrieve the project with the new tasklist
+                    ApplicationData.currentProject = (ProjectTableEntry)
+                            handler.select(
+                                    String.valueOf(ApplicationData.currentProject.getProjectId()),
+                                    "projectid",
+                                    new ProjectTableEntry(),
+                                    "ProjectTable");
+
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.d("debug", "Error creating new task ");

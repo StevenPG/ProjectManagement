@@ -26,5 +26,9 @@
         android:orderInCategory="4"
         android:title="Project View"
         android:id="@+id/leaderview"/>
+    <item
+        android:orderInCategory="5"
+        android:title="Main Menu"
+        android:id="@+id/mainmenuview"/>
 
 </menu>
