@@ -128,6 +128,10 @@ public final class ApplicationData {
                 context.startActivity(ActivityController.
                         openProfileActivity(context));
                 return true;
+            case R.id.leaderview:
+                Log.d("debug", "Selected project view");
+                context.startActivity(ActivityController.
+                        openLeaderViewActivity(context));
 
         }
        return true;
