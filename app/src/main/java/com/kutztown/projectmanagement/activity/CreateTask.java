@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -54,7 +55,17 @@ public class CreateTask extends AppCompatActivity {
             }
         });
 
+        String[] itemArray = ApplicationData.currentProject.getMemberList().split("--");
+
+        // Remove very first item from first item
+
+
         this.spinner1 = (Spinner) findViewById(R.id.spinner01);
+        this.spinner1.setAdapter(
+                new ArrayAdapter<String>(this,
+                R.layout.mainactivityrow, itemArray)
+        );
+
 
         this.spinner2 = (Spinner) findViewById(R.id.spinner02);
 
