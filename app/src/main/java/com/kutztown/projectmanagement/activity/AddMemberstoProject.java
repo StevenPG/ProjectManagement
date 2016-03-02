@@ -49,6 +49,10 @@ public class AddMemberstoProject extends Activity implements AppCompatCallback {
     public void onSupportActionModeFinished(ActionMode mode) {
     }
 
+    // Retrieve list of all members
+    ArrayList<String> memberList = null;
+    ListView projectView = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ApplicationData.delegate = AppCompatDelegate.create(this, this);
@@ -71,11 +75,6 @@ public class AddMemberstoProject extends Activity implements AppCompatCallback {
             }
         });
 
-
-        // Retrieve list of all members
-        ArrayList<String> memberList = null;
-        ListView projectView = null;
-
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
         if(!loggedIn){
             startActivity(ActivityController.openLoginActivity(getApplicationContext()));
@@ -96,9 +95,14 @@ public class AddMemberstoProject extends Activity implements AppCompatCallback {
         projectView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedEmail = (String) projectView.getItemAtPosition(position);
+
+                // Remove leftover python characters
+                selectedEmail = selectedEmail.substring(3, selectedEmail.length()-1);
+
                 Intent email = new Intent(Intent.ACTION_SEND);
                 email.setType("message/rfc822");
-                email.putExtra(Intent.EXTRA_EMAIL, new String[]{""});
+                email.putExtra(Intent.EXTRA_EMAIL, new String[]{selectedEmail});
                 email.putExtra(Intent.EXTRA_SUBJECT, "Please join my group");
                 email.putExtra(Intent.EXTRA_TEXT, "<PLACEHOLDER FOR INVITE ACCEPTANCE");
                 try {
