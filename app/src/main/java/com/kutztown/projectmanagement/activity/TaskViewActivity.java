@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -42,27 +43,43 @@ public class TaskViewActivity extends AppCompatActivity {
 
         // Set progress to 0
         SeekBar progressBar = (SeekBar) findViewById(R.id.seekBar);
-        progressBar.setProgress(0);
+
         String SeekBarLabel = ApplicationData.currentTask.getTaskProgress();
         SeekBarLabel = SeekBarLabel.substring(2,ApplicationData.currentTask.getTaskProgress().length()-1);
+        if(SeekBarLabel.equals(""))
+            SeekBarLabel = "0";
         progressBar.setProgress(Integer.parseInt(SeekBarLabel));
 
         // Assign the textfield to 0
         final TextView progressText = (TextView) findViewById(R.id.seekbarProgress);
+        final Button buttonText = (Button) findViewById(R.id.updateSubmitButton);
 
         progressBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                // TODO Auto-generated method stub
             }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // TODO Auto-generated method stub
+
+                progressText.setText(String.valueOf(progress));
+
+                if(String.valueOf(progress).equals("100"))
+                {
+                    buttonText.setText("Submit");
+                }
+                else
+                {
+                    buttonText.setText("Update");
+                }
 
             }
         });
