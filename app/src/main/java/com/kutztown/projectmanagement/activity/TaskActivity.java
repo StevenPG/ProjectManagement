@@ -106,36 +106,14 @@ public class TaskActivity extends Activity implements AppCompatCallback{
         // Retrieve listview and add tasks
         taskView = (ListView) findViewById(R.id.TaskListView);
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.mainactivityrow, this.taskList);
-        taskView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Clicked Text contains the task name
-                String clickedText = (String) parent.getItemAtPosition(position);
-                // TODO - Set the ApplicationData.currentTask value
-                // Retrieve the task from the DB and store it globally
-
-                HTTPHandler handler = new HTTPHandler();
-                try {
-                    ApplicationData.currentTask = (TaskTableEntry) handler.
-                            select(clickedText, "TaskName", new TaskTableEntry(), "TaskTable");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                Log.d("debug", ApplicationData.currentTask.writeAsGet());
-
-                //NOTE: TaskViewActivity has not been created yet
-                //startActivity(ActivityController.openTaskViewActivity(getApplicationContext()));
-            }
-        });
         Log.d("debug", listAdapter.toString());
         taskView.setAdapter(listAdapter);
-        ListView taskView = (ListView) findViewById(R.id.TaskListView);
         taskView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Clicked Text contains the project name
                 String clickedText = (String) parent.getItemAtPosition(position);
-                // TODO - Set the ApplicationData.currentProject value
+
                 // Retrieve the project from the DB and store it globally
                 HTTPHandler handler = new HTTPHandler();
                 try {

@@ -90,6 +90,9 @@ public class ProgressActivity extends AppCompatActivity {
         float progress = 0;
 
         String projectProgress = ApplicationData.currentProject.getProjectProgress();
+        if("u''".equals(projectProgress)){
+            projectProgress = String.valueOf(0);
+        }
         if("".equals(projectProgress)){
             progress = 0;
         } else {
