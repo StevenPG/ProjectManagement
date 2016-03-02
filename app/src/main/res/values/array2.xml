@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <resources>
+        <string-array name="pick_user">
+            <item>Jeniffer</item>
+            <item>Steven</item>
+            <item>Tyler</item>
+            <item>Hector</item>
+        </string-array>
+    </resources>

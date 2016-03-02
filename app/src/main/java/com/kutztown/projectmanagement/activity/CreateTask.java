@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
@@ -53,6 +54,7 @@ public class CreateTask extends AppCompatActivity {
 
         this.spinner2 = (Spinner) findViewById(R.id.spinner02);
 
+
         final TextView taskName = (TextView) findViewById(R.id.name_task);
 
         // this textview will be set whith the project name
@@ -67,14 +69,20 @@ public class CreateTask extends AppCompatActivity {
         createTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //TODO - can't figure this out String pickedPriority = spinner1.getSelectedItem().toString();
                 String pickedPriority = "";
+                TextView getSeverity = (TextView)spinner2.getSelectedView();
+                TextView getName = (TextView) spinner1.getSelectedView();
+                String pickedName = getName.getText().toString();
+                pickedPriority = getSeverity.getText().toString();
 
-                TaskTableEntry entry = new TaskTableEntry("",project,taskName.getText().toString(),
-                        pickedPriority,taskDesc.getText().toString(),"","");
+                TaskTableEntry entry = new TaskTableEntry(pickedName,project,taskName.getText().toString(),
+                        pickedPriority ,taskDesc.getText().toString(),"","");
                 HTTPHandler handler = new HTTPHandler();
                 try {
                     handler.insert(entry, "TaskTable");
+                    Toast.makeText(getApplicationContext(), "task successfully created", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.d("debug", "Error creating new task ");

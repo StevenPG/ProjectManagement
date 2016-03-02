@@ -10,7 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.PopupOverlay">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -89,7 +89,7 @@
                 android:id="@+id/task_description"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Project Description"
+                android:hint="task Description"
                 android:background="#FFFFFF"/>
         </LinearLayout>
         <LinearLayout
@@ -105,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:prompt="@string/pick_a_member"
                 android:paddingLeft="5dp"
+                android:entries="@array/pick_user"
                 android:paddingRight="5dp"
                 android:background="#FFFFFF">
 
