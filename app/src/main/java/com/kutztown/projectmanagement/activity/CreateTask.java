@@ -110,8 +110,9 @@ public class CreateTask extends AppCompatActivity {
 
                     Log.d("debug2", "CurrentProjectId: " + String.valueOf(ApplicationData.currentProject.getProjectId()));
                     String currentTaskList = ApplicationData.currentProject.getTaskList();
-                    currentTaskList = currentTaskList.replace("u'", "");
-                    currentTaskList = currentTaskList.replace("'", "");
+                    currentTaskList = currentTaskList.substring(2, currentTaskList.length() - 1);
+
+                    Log.d("debug", currentTaskList);
                     /**handler.update(
                             "UPDATE%20ProjectTable%20SET%20tasklist=\"" +
                             currentTaskList + "--" +
