@@ -22,11 +22,15 @@ import android.widget.Toast;
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
+import com.kutztown.projectmanagement.data.CommaListParser;
 import com.kutztown.projectmanagement.data.TableEntry;
 import com.kutztown.projectmanagement.data.TaskTableEntry;
 import com.kutztown.projectmanagement.network.HTTPHandler;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 
 public class CreateTask extends AppCompatActivity {
 
@@ -70,7 +74,9 @@ public class CreateTask extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
                 //TODO - can't figure this out String pickedPriority = spinner1.getSelectedItem().toString();
+                //TODO - can't figure this out: String pickedPriority = spinner1.getSelectedItem().toString();
                 String pickedPriority = "";
                 TextView getSeverity = (TextView)spinner2.getSelectedView();
                 TextView getName = (TextView) spinner1.getSelectedView();
@@ -81,8 +87,22 @@ public class CreateTask extends AppCompatActivity {
                         pickedPriority ,taskDesc.getText().toString(),"","");
                 HTTPHandler handler = new HTTPHandler();
                 try {
+                    // Insert the new task
                     handler.insert(entry, "TaskTable");
                     Toast.makeText(getApplicationContext(), "task successfully created", Toast.LENGTH_SHORT).show();
+                    // after inserting into db, pull back out with unique id
+                    TaskTableEntry currentTask = (TaskTableEntry) handler.select(taskName.getText().toString(), "TaskName",
+                            new TaskTableEntry(), "TaskTable");
+
+                    Log.d("debug2", "CurrentProjectId: " + String.valueOf(ApplicationData.currentProject.getProjectId()));
+                    String currentTaskList = ApplicationData.currentProject.getTaskList();
+                    currentTaskList = currentTaskList.replace("u'", "");
+                    currentTaskList = currentTaskList.replace("'", "");
+                    handler.update(
+                            "UPDATE%20ProjectTable%20SET%20tasklist=\"" +
+                            currentTaskList + "--" +
+                            currentTask.getTaskID(),
+                            "ProjectTable");
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.d("debug", "Error creating new task ");
@@ -90,10 +110,6 @@ public class CreateTask extends AppCompatActivity {
 
                 // head on back to task view
                 startActivity(ActivityController.openTaskActivity(getApplicationContext()));
-
-                //Log.d("debug", pickedMember);
-                //Log.d("debug", pickedPriority);
-                //Log.d("debug", pickedDependency);
             }
         });
 
