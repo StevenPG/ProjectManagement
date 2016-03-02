@@ -22,5 +22,9 @@
         android:orderInCategory="3"
         android:title="Member Profile"
         android:id="@+id/profile"/>
+    <item
+        android:orderInCategory="4"
+        android:title="Project View"
+        android:id="@+id/leaderview"/>
 
 </menu>
