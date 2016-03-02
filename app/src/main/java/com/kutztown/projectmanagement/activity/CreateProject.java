@@ -2,6 +2,7 @@ package com.kutztown.projectmanagement.activity;
 
 import android.content.CursorLoader;
 import android.database.Cursor;
+import android.media.AsyncPlayer;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
@@ -25,6 +26,7 @@ import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.data.ProjectTableEntry;
+import com.kutztown.projectmanagement.data.UserTableEntry;
 import com.kutztown.projectmanagement.network.HTTPHandler;
 
 public class CreateProject extends AppCompatActivity {
@@ -75,8 +77,9 @@ public class CreateProject extends AppCompatActivity {
 
                 // Enter project into database
                 String currentUserEmail = ApplicationData.currentUser.getEmail();
-                currentUserEmail = currentUserEmail.replace("u'", "");
-                currentUserEmail = currentUserEmail.replace("'", "");
+                currentUserEmail = currentUserEmail.substring(2, currentUserEmail.length() - 1);
+                projectName = projectName.replace(" ", "");
+                projectDesc = projectDesc.replace(" ", "");
                 HTTPHandler handler = new HTTPHandler();
                 ProjectTableEntry entry = new ProjectTableEntry(
                         currentUserEmail,
@@ -88,8 +91,43 @@ public class CreateProject extends AppCompatActivity {
                 // Assign entry as the current project
                 ApplicationData.currentProject = entry;
 
+                // Retrieve current projectlist
+                String currentProjectList = ApplicationData.currentUser.getProjectList();
+
                 try {
+                    // Add the project
                     handler.insert(entry, "ProjectTable");
+
+                    // Get the unique id from the newly added project
+                    ApplicationData.currentProject = (ProjectTableEntry)
+                            handler.select(entry.getProjectName(),
+                                    "projectname",
+                                    new ProjectTableEntry(),
+                                    "ProjectTable");
+
+                    Log.d("debug", "user's projectlist=\"" +
+                            currentProjectList.substring(2, currentProjectList.length() - 1) + "--" +
+                            ApplicationData.currentProject.getProjectId() + "\"_WHERE_UserID=\"" +
+                            ApplicationData.currentUser.getUserId() + "\"");
+
+                    // add the current project to the user's projectlist
+                    handler.update(
+                            "projectlist=\"" +
+                                    currentProjectList.substring(2, currentProjectList.length() - 1) + "--" +
+                                    ApplicationData.currentProject.getProjectId() + "\"_WHERE_UserID=\"" +
+                                    ApplicationData.currentUser.getUserId() + "\""
+                            , "UserTable");
+
+                    // Retrieve the project again to get the projectId
+                    UserTableEntry currentUser = (UserTableEntry)
+                            handler.select(String.valueOf(ApplicationData.currentUser.getUserId()),
+                                    "userid",
+                                    new UserTableEntry(),
+                                    "usertable"
+                            );
+
+                    ApplicationData.currentUser = currentUser;
+
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.d("debug", "Error inserting new project into project table");
