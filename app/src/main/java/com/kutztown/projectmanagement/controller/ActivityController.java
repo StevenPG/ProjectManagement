@@ -17,6 +17,7 @@ import com.kutztown.projectmanagement.activity.MemberView;
 import com.kutztown.projectmanagement.activity.ProfileActivity;
 import com.kutztown.projectmanagement.activity.ProgressActivity;
 import com.kutztown.projectmanagement.activity.TaskActivity;
+import com.kutztown.projectmanagement.activity.TaskViewActivity;
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.graphing.GraphingTest;
 
@@ -88,4 +89,9 @@ public class ActivityController extends Application{
         Intent myIntent = new Intent(appContext,CreateTask.class);
         return myIntent;
     }
+    public static Intent openActivityTaskView(Context appContext){
+        Intent myIntent = new Intent(appContext, TaskViewActivity.class);
+        return myIntent;
+    }
+
 }
