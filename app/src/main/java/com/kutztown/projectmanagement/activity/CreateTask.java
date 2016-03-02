@@ -58,12 +58,6 @@ public class CreateTask extends AppCompatActivity {
 
         this.spinner2 = (Spinner) findViewById(R.id.spinner02);
 
-        TextView getSeverity = (TextView)spinner2.getSelectedView();
-        TextView getName = (TextView) spinner1.getSelectedView();
-        String pickedName = getName.getText().toString();
-        final String pickedPriority = getSeverity.getText().toString();
-
-
         final TextView taskName = (TextView) findViewById(R.id.name_task);
 
         // this textview will be set whith the project name
@@ -78,6 +72,11 @@ public class CreateTask extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //TextView getSeverity = (TextView)spinner2.getSelectedView();
+                //TextView getName = (TextView) spinner1.getSelectedView();
+                //String pickedName = getName.getText().toString();
+                //final String pickedPriority = getSeverity.getText().toString();
+
                 // Wipe out python stuff from projectName
                 String projectName = String.valueOf(ApplicationData.currentProject.getProjectId());
 
@@ -86,7 +85,7 @@ public class CreateTask extends AppCompatActivity {
                         projectName,
                         taskName.getText().toString().replace(" ", ""),
                         taskDesc.getText().toString().replace(" ", ""),
-                        pickedPriority,
+                        "1",
                         "",
                         "",
                         "",
@@ -107,11 +106,11 @@ public class CreateTask extends AppCompatActivity {
                     String currentTaskList = ApplicationData.currentProject.getTaskList();
                     currentTaskList = currentTaskList.replace("u'", "");
                     currentTaskList = currentTaskList.replace("'", "");
-                    handler.update(
+                    /**handler.update(
                             "UPDATE%20ProjectTable%20SET%20tasklist=\"" +
                             currentTaskList + "--" +
                             currentTask.getTaskID(),
-                            "ProjectTable");
+                            "ProjectTable");**/
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.d("debug", "Error creating new task ");
