@@ -57,8 +57,11 @@ public class CreateTask extends AppCompatActivity {
 
         String[] itemArray = ApplicationData.currentProject.getMemberList().split("--");
 
-        // Remove very first item from first item
+        // Remove very first two chars from first item
+        itemArray[0] = itemArray[0].substring(2, itemArray[0].length());
 
+        // Remove very last char from last item
+        itemArray[itemArray.length-1] = itemArray[itemArray.length-1].substring(0, itemArray[itemArray.length-1].length() -1);
 
         this.spinner1 = (Spinner) findViewById(R.id.spinner01);
         this.spinner1.setAdapter(
