@@ -489,22 +489,30 @@ public class HTTPHandler {
      * @return - String returned from a web service
      */
     public static String readFromURLConnection(HttpURLConnection url) throws IOException {
-        BufferedReader reader =
-                new BufferedReader(new InputStreamReader(
-                        url.getInputStream()
-                ));
+        Log.d("debug", "Url: " + url);
 
-        // Build String
-        String inputLine;
+        BufferedReader reader = null;
         StringBuilder builder = new StringBuilder();
-        while ((inputLine = reader.readLine()) != null){
-            builder.append(inputLine);
+
+        try {
+            reader =
+                    new BufferedReader(new InputStreamReader(
+                            url.getInputStream()
+                    ));
+            // Build String
+            String inputLine;
+            while ((inputLine = reader.readLine()) != null) {
+                builder.append(inputLine);
+            }
+        } catch (IOException io){
+            throw io;
+        } finally {
+            // Close reader and return built string
+            if(reader != null) {
+                reader.close();
+            }
+            return builder.toString();
         }
-
-        // Close reader and return built string
-        reader.close();
-        return builder.toString();
-
 
     }
 

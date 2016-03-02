@@ -92,7 +92,7 @@ public class CreateProject extends AppCompatActivity {
                     handler.insert(entry, "ProjectTable");
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.d("debug", "Error inserting new project into current user's table");
+                    Log.d("debug", "Error inserting new project into project table");
                 }
 
                 startActivity(ActivityController.openLeaderViewActivity(getApplicationContext()));

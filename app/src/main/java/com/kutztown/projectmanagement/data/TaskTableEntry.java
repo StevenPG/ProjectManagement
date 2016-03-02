@@ -155,7 +155,7 @@ public class TaskTableEntry implements TableEntry {
 
     @Override
     public String getColumnString() {
-        return "user,project,taskname,taskdescription,taskprogress,taskstatus,taskpriority,taskduedate,taskdependency";
+        return "User,Project,TaskName,TaskDescription,TaskProgress,TaskStatus,TaskPriority,TaskDueDate,TaskDependency";
     }
 
     // Getters and setters for each method for ease of use and manipulation

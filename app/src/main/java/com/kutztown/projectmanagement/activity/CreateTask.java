@@ -61,8 +61,7 @@ public class CreateTask extends AppCompatActivity {
 
         // this textview will be set whith the project name
          final TextView projectName = (TextView) findViewById(R.id.name_project);
-         final String project = ApplicationData.currentProject.getProjectName();
-        projectName.setText(project);
+        projectName.setText(ApplicationData.currentProject.getProjectName());
 
         // this textview will get a description of the task
          final EditText taskDesc = (EditText) findViewById(R.id.task_description);
@@ -72,29 +71,35 @@ public class CreateTask extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO - can't figure this out: String pickedPriority = spinner1.getSelectedItem().toString();
-                String pickedPriority = "";
+                String pickedPriority = "Severity1";
 
-                TaskTableEntry entry = new TaskTableEntry("",project,taskName.getText().toString(),
-                        pickedPriority,taskDesc.getText().toString(),"","");
+                // Wipe out python stuff from projectName
+                String projectName = String.valueOf(ApplicationData.currentProject.getProjectId());
+
+                TaskTableEntry entry = new TaskTableEntry(
+                        String.valueOf(ApplicationData.currentUser.getUserId()),
+                        projectName,
+                        taskName.getText().toString().replace(" ", ""),
+                        taskDesc.getText().toString().replace(" ", ""),
+                        pickedPriority,
+                        "",
+                        "",
+                        "",
+                        "");
+
                 HTTPHandler handler = new HTTPHandler();
                 try {
                     // Insert the new task
                     handler.insert(entry, "TaskTable");
 
-                    // after inserting into db, pull back out with unique id
-                    TaskTableEntry currentTask = (TaskTableEntry) handler.select(taskName.getText().toString(), "TaskName",
-                            new TaskTableEntry(), "TaskTable");
+                    Log.d("debug", ApplicationData.currentProject.getProjectName());
+                    // Retrieve the task out of the tasktable again to get its unique id
+                    Log.d("debug", "TaskNAme" + taskName.getText().toString());
+                    TaskTableEntry currentTask = (TaskTableEntry)
+                            handler.select(taskName.getText().toString(), "TaskName",
+                                    new TaskTableEntry(), "TaskTable");
 
-                    Log.d("debug2", "CurrentProjectId: " + String.valueOf(ApplicationData.currentProject.getProjectId()));
-                    String currentTaskList = ApplicationData.currentProject.getTaskList();
-                    currentTaskList = currentTaskList.replace("u'", "");
-                    currentTaskList = currentTaskList.replace("'", "");
-                    handler.update(
-                            "UPDATE%20ProjectTable%20SET%20tasklist=\"" +
-                            currentTaskList + "--" +
-                            currentTask.getTaskID(),
-                            "ProjectTable");
-
+                    Log.d("debug", currentTask.getProject());
 
                 } catch (Exception e) {
                     e.printStackTrace();

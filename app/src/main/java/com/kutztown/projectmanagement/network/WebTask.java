@@ -39,6 +39,8 @@ public class WebTask extends AsyncTask<Void, Void, String> {
         HttpURLConnection httpURLConnection = null;
         try {
             httpURLConnection = (HttpURLConnection) url.openConnection();
+
+            // Close after use
             this.dataString = HTTPHandler.readFromURLConnection(httpURLConnection);
             this.grabString = true;
         } catch (IOException e) {
