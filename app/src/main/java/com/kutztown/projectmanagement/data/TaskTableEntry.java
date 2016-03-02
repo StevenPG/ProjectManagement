@@ -1,5 +1,7 @@
 package com.kutztown.projectmanagement.data;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -104,7 +106,6 @@ public class TaskTableEntry implements TableEntry {
             this.taskStatus = taskTableEntry.get(6);
             this.taskPriority = taskTableEntry.get(7);
             this.taskDueDate = taskTableEntry.get(8);
-            this.taskProgress = taskTableEntry.get(9);
             this.taskStatus = "";
             this.taskDep = "";
         }

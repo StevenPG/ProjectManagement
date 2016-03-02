@@ -35,6 +35,7 @@ import com.kutztown.projectmanagement.data.UserTableEntry;
 import com.kutztown.projectmanagement.exception.ServerNotRunningException;
 import com.kutztown.projectmanagement.network.HTTPHandler;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class TaskActivity extends Activity implements AppCompatCallback{
@@ -44,6 +45,7 @@ public class TaskActivity extends Activity implements AppCompatCallback{
      */
     ArrayList<String> taskList = null;
     ListView taskView = null;
+    ListView completedTaskView = null;
 
     @Nullable
     @Override
@@ -99,15 +101,48 @@ public class TaskActivity extends Activity implements AppCompatCallback{
         // Retrieve tasks of current user
         this.taskList = getTasksFromProject();
 
+        // Retrieve completed tasks
+        ArrayList<String> completedTaskList = getCompletedTasksFromProject(this.taskList);
+
         if(this.taskList == null){
             this.taskList = new ArrayList<>();
         }
 
         // Retrieve listview and add tasks
         taskView = (ListView) findViewById(R.id.TaskListView);
+        completedTaskView = (ListView) findViewById(R.id.CompletedTaskListView);
+
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.mainactivityrow, this.taskList);
-        Log.d("debug", listAdapter.toString());
+        ArrayAdapter<String> completeAdapter = new ArrayAdapter<String>(this, R.layout.mainactivityrow, completedTaskList);
+
         taskView.setAdapter(listAdapter);
+        completedTaskView.setAdapter(completeAdapter);
+
+        // for completed items
+        completedTaskView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Clicked Text contains the project name
+                String clickedText = (String) parent.getItemAtPosition(position);
+
+                // Retrieve the project from the DB and store it globally
+                HTTPHandler handler = new HTTPHandler();
+                try {
+                    ApplicationData.currentTask = (TaskTableEntry) handler.
+                            select(clickedText, "TaskId", new TaskTableEntry(), "TaskTable");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (ApplicationData.currentTask == null) {
+
+                } else {
+                    Log.d("debug", ApplicationData.currentTask.writeAsGet());
+                    startActivity(ActivityController.openActivityTaskView(getApplicationContext()));
+                }
+            }
+        });
+
+        // for all items
         taskView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -126,13 +161,6 @@ public class TaskActivity extends Activity implements AppCompatCallback{
 
                 } else {
                     Log.d("debug", ApplicationData.currentTask.writeAsGet());
-                    // Get info and decide where to send the user if leader or not
-                    /*String projectLeader = ApplicationData.currentTask.getLeaderList().replaceAll("\\s+", "");
-                    if (projectLeader.equals(ApplicationData.currentUser.getEmail())) {
-                        startActivity(ActivityController.openLeaderViewActivity(getApplicationContext()));
-                    } else {
-                        startActivity(ActivityController.openMemberViewActivity(getApplicationContext()));
-                    }*/
                     startActivity(ActivityController.openActivityTaskView(getApplicationContext()));
                 }
             }
@@ -162,6 +190,33 @@ public class TaskActivity extends Activity implements AppCompatCallback{
         if(!loggedIn){
             startActivity(ActivityController.openLoginActivity(getApplicationContext()));
         }
+    }
+
+    protected ArrayList<String> getCompletedTasksFromProject(ArrayList<String> taskList){
+
+        ArrayList<TaskTableEntry> taskTableEntries = new ArrayList<>();
+        ArrayList<String> tasks = new ArrayList<>();
+
+        for(String task : taskList){
+            HTTPHandler handler = new HTTPHandler();
+            try {
+                TaskTableEntry currententry = (TaskTableEntry) handler.select(task, "TaskId", new TaskTableEntry(), "TaskTable");
+                Log.d("debug", currententry.getTaskProgress() + "Task progressLLLLL:");
+                Log.d("debug", currententry.writeAsGet());
+                if(currententry.getTaskProgress().equals("100.0")){
+                    taskTableEntries.add(currententry);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        for(TaskTableEntry t : taskTableEntries){
+            tasks.add(String.valueOf(t.getTaskID()));
+        }
+
+        return tasks;
     }
 
     /**
