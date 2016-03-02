@@ -72,10 +72,16 @@ public class CreateTask extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //TextView getSeverity = (TextView)spinner2.getSelectedView();
-                //TextView getName = (TextView) spinner1.getSelectedView();
-                //String pickedName = getName.getText().toString();
-                //final String pickedPriority = getSeverity.getText().toString();
+                TextView getSeverity = (TextView)spinner2.getSelectedView();
+                TextView getName = (TextView) spinner1.getSelectedView();
+                String pickedName = getName.getText().toString();
+                String pickedPriority = getSeverity.getText().toString();
+
+                String task_name = taskName.getText().toString().replace(" ", "");
+                String task_desc = taskDesc.getText().toString().replace(" ", "");
+                String severity = getSeverity.getText().toString();
+
+                Log.d("debug", "Chosen Priority: " + pickedPriority);
 
                 // Wipe out python stuff from projectName
                 String projectName = String.valueOf(ApplicationData.currentProject.getProjectId());
@@ -83,11 +89,11 @@ public class CreateTask extends AppCompatActivity {
                 TaskTableEntry entry = new TaskTableEntry(
                         String.valueOf(ApplicationData.currentUser.getUserId()),
                         projectName,
-                        taskName.getText().toString().replace(" ", ""),
-                        taskDesc.getText().toString().replace(" ", ""),
-                        "1",
+                        task_name,
+                        task_desc,
                         "",
                         "",
+                        pickedPriority.replace(" ", ""),
                         "",
                         "");
 
