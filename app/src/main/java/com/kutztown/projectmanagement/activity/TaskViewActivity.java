@@ -90,7 +90,7 @@ public class TaskViewActivity extends AppCompatActivity {
         final String progress = "100";
 
         // Send the value from the seekbar to the database to update progress
-        Button submitButton = (Button) findViewById(R.id.submit);
+        Button submitButton = (Button) findViewById(R.id.updateSubmitButton);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
