@@ -187,6 +187,8 @@ public class HTTPHandler {
                 throw new Exception("Search query wasn't filled out right");
             }
 
+            Log.d("debug", "DEBUG:" + stringEntry);
+
             // Parse the string into an arraylist
             ArrayList<String> parsedList = CommaListParser.parseString(stringEntry);
 
@@ -195,8 +197,9 @@ public class HTTPHandler {
                 entry = new UserTableEntry(parsedList);
             else if(entry instanceof ProgressTableEntry)
                 entry = new ProgressTableEntry(parsedList);
-            else if(entry instanceof TaskTableEntry)
+            else if(entry instanceof TaskTableEntry) {
                 entry = new TaskTableEntry(parsedList);
+            }
             else if(entry instanceof ProjectTableEntry)
                 entry = new ProjectTableEntry(parsedList);
 

@@ -106,7 +106,7 @@ public class CreateTask extends AppCompatActivity {
                         projectName,
                         task_name,
                         task_desc,
-                        "",
+                        "0",
                         "",
                         pickedPriority.replace(" ", ""),
                         "",
