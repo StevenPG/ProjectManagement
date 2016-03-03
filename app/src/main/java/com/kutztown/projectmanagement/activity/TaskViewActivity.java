@@ -14,10 +14,13 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
+import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.network.HTTPHandler;
 
 public class TaskViewActivity extends AppCompatActivity {
+
+    int currentProgressValue = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +49,11 @@ public class TaskViewActivity extends AppCompatActivity {
         SeekBar progressBar = (SeekBar) findViewById(R.id.seekBar);
 
         String SeekBarLabel = ApplicationData.currentTask.getTaskProgress();
-        SeekBarLabel = SeekBarLabel.substring(2,ApplicationData.currentTask.getTaskProgress().length()-1);
+        SeekBarLabel = SeekBarLabel.replaceAll("'", "");
+        SeekBarLabel = SeekBarLabel.replaceAll("u", "");
         if(SeekBarLabel.equals(""))
             SeekBarLabel = "0";
-        progressBar.setProgress(Integer.parseInt(SeekBarLabel));
+        progressBar.setProgress((int) Float.parseFloat(SeekBarLabel));
 
         // Assign the textfield to 0
         final TextView progressText = (TextView) findViewById(R.id.seekbarProgress);
@@ -71,6 +75,9 @@ public class TaskViewActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // TODO Auto-generated method stub
 
+                // Retrieve value globally
+                currentProgressValue = progress;
+
                 progressText.setText(String.valueOf(progress));
 
                 if(String.valueOf(progress).equals("100"))
@@ -84,10 +91,6 @@ public class TaskViewActivity extends AppCompatActivity {
 
             }
         });
-
-
-        // TODO MAGIC DEFAULT VALUE TO 100
-        final String progress = "100";
 
         // Send the value from the seekbar to the database to update progress
         Button submitButton = (Button) findViewById(R.id.updateSubmitButton);
@@ -103,7 +106,7 @@ public class TaskViewActivity extends AppCompatActivity {
                 try {
                     handler.update(
                             "taskprogress=\"" +
-                                    String.valueOf(progress) +
+                                    String.valueOf(currentProgressValue) +
                                     "\"_WHERE_taskname=\"" +
                                     taskName + "\""
                             , "TaskTable");
@@ -111,6 +114,9 @@ public class TaskViewActivity extends AppCompatActivity {
                     e.printStackTrace();
                     Log.d("debug", "Failed to update progress...");
                 }
+
+                // Go back to the updated taskview screen
+                startActivity(ActivityController.openTaskActivity(getApplicationContext()));
             }
         });
 
