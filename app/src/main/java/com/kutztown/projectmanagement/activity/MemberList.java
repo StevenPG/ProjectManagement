@@ -149,8 +149,7 @@ public class MemberList extends Activity implements AppCompatCallback {
 
             for(String member : members){
                 // Wipe leftover python structures
-                member = member.replaceAll("u'", "");
-                member = member.replaceAll("'", "");
+                member = member.substring(2, member.length()-1);
                 member = member.replace("\\s+", "");
                 memberArray.add(member);
             }

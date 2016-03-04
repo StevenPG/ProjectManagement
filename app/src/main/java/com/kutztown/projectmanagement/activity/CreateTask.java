@@ -97,6 +97,7 @@ public class CreateTask extends AppCompatActivity {
                 String severity = getSeverity.getText().toString();
 
                 Log.d("debug", "Chosen Priority: " + pickedPriority);
+                Log.d("debug", "Chosen member:" + getName.getText().toString());
 
                 // Wipe out python stuff from projectName
                 String projectName = String.valueOf(ApplicationData.currentProject.getProjectId());
