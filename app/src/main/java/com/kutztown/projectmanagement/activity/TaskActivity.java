@@ -197,6 +197,12 @@ public class TaskActivity extends Activity implements AppCompatCallback{
         ArrayList<TaskTableEntry> taskTableEntries = new ArrayList<>();
         ArrayList<String> tasks = new ArrayList<>();
 
+
+        // exit if tasklist is empty
+        if(taskList == null){
+            return new ArrayList<>();
+        }
+
         for(String task : taskList){
             HTTPHandler handler = new HTTPHandler();
             try {

@@ -190,6 +190,10 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
+        } else if (email.contains(" ")){
+            mEmailView.setError("Emails cannot have spaces");
+            focusView = mEmailView;
+            cancel = true;
         }
 
         if (cancel) {
@@ -315,7 +319,7 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
         private String statusCode;
 
         UserLoginTask(String email, String password) {
-            mEmail = email;
+            mEmail = email.replaceAll(" ", "");
             mPassword = password;
         }
 
