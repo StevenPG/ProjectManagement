@@ -72,11 +72,6 @@ public class ProjectTableEntry implements TableEntry {
      **/
     public ProjectTableEntry(ArrayList<String> projectTableEntry) {
 
-        // Raise an exception if the array does not contain all of the required values
-        if (projectTableEntry.size() != 7) {
-            throw new RuntimeException();
-        }
-
         // The arraylist should have all of the entries in the order that they are in the table.
         this.projectId = Integer.parseInt(projectTableEntry.get(0));
         this.leaderList = projectTableEntry.get(1);

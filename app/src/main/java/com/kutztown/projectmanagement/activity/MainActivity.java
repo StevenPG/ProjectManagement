@@ -135,6 +135,39 @@ public class MainActivity extends AppCompatActivity {
         if(!loggedIn){
             startActivity(ActivityController.openLoginActivity(getApplicationContext()));
         }
+
+        // Also do this on activity resume
+        // Retrieve listview and add projects
+        projectView = (ListView) findViewById(R.id.ProjectListView);
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.mainactivityrow, this.projectList);
+        projectView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Clicked Text contains the project name
+                String clickedText = (String) parent.getItemAtPosition(position);
+                // TODO - Set the ApplicationData.currentProject value
+                // Retrieve the project from the DB and store it globally
+                HTTPHandler handler = new HTTPHandler();
+                try {
+                    ApplicationData.currentProject = (ProjectTableEntry) handler.
+                            select(clickedText, "ProjectId", new ProjectTableEntry(), "ProjectTable");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if(ApplicationData.currentProject == null){
+
+                } else {
+                    Log.d("debug", ApplicationData.currentProject.writeAsGet());
+                    // Get info and decide where to send the user if leader or not
+                    String projectLeader = ApplicationData.currentProject.getLeaderList().replaceAll("\\s+","");
+                    if(projectLeader.equals(ApplicationData.currentUser.getEmail())){
+                        startActivity(ActivityController.openLeaderViewActivity(getApplicationContext()));
+                    } else {
+                        startActivity(ActivityController.openMemberViewActivity(getApplicationContext()));
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -152,11 +185,10 @@ public class MainActivity extends AppCompatActivity {
 
         TextView header = (TextView) findViewById(R.id.Header);
         Log.d("debug", "Project List: " + projectList);
-        if("None".equals(projectList)){
+        if("None".equals(projectList) || "".equals(projectList)){
             header.setText("You are not a part of any projects.");
             return null;
-        }
-        else{
+        } else {
             header.setText("Projects");
             String[] projects = projectList.split("--");
 
