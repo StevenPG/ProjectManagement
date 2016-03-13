@@ -46,7 +46,9 @@ public class LeaderView extends AppCompatActivity {
 
         // Set the correct name on project
         TextView header = (TextView) findViewById(R.id.leader_prj_label);
-        header.setText(ApplicationData.currentProject.getProjectName());
+        String projectName = ApplicationData.currentProject.getProjectName();
+        projectName = projectName.substring(2, ApplicationData.currentProject.getProjectName().length()-1);
+        header.setText(projectName);
 
         final Button progressB = (Button)findViewById(R.id.progress_ld_button);
         final Button taskB = (Button)findViewById(R.id.task_ld_button);

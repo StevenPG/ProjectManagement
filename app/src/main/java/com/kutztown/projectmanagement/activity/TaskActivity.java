@@ -247,7 +247,7 @@ public class TaskActivity extends Activity implements AppCompatCallback{
             return null;
         }
         else{
-            header.setText("Tasks");
+            header.setText("All Tasks");
             String[] tasks = taskList.split("--");
 
             for(String task : tasks){

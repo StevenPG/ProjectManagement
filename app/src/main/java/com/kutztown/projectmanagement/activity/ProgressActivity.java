@@ -125,6 +125,7 @@ public class ProgressActivity extends AppCompatActivity {
         if("".equals(projectName) || projectName == null){
             projectName = "Error in Project Name";
         }
+        projectName = projectName.substring(2, ApplicationData.currentProject.getProjectName().length()-1);
         textView.setText(projectName + " Progress");
 
         // Build text arrays for list view output

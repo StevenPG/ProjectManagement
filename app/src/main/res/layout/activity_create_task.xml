@@ -48,13 +48,23 @@
         tools:context="com.kutztown.projectmanagement.activity.CreateTask"
         tools:showIn="@layout/activity_create_task">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:text="Create Task"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:id="@+id/header"
+            android:layout_gravity="center_horizontal" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
             android:padding="5dp"
             android:background="#82cffd"
-            android:layout_marginTop="80dp">
+            android:layout_marginTop="15dp">
             <EditText
                 android:id="@+id/name_task"
                 android:layout_width="match_parent"

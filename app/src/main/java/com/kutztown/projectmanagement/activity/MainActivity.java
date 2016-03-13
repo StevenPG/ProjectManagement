@@ -186,10 +186,10 @@ public class MainActivity extends AppCompatActivity {
         TextView header = (TextView) findViewById(R.id.Header);
         Log.d("debug", "Project List: " + projectList);
         if("None".equals(projectList) || "".equals(projectList)){
-            header.setText("You are not a part of any projects.");
+            header.setText("Click \"+\" to create a project");
             return null;
         } else {
-            header.setText("Projects");
+            header.setText("Project List");
             String[] projects = projectList.split("--");
 
             for(String project : projects){
