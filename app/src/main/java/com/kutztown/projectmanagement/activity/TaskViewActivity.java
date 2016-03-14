@@ -79,7 +79,7 @@ public class TaskViewActivity extends AppCompatActivity {
                 // Retrieve value globally
                 currentProgressValue = progress;
 
-                progressText.setText(String.valueOf(progress) + ".0");
+                progressText.setText(String.valueOf(progress) + ".0%");
 
                 if(String.valueOf(progress).equals("100"))
                 {
