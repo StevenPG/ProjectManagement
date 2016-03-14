@@ -48,14 +48,14 @@
         tools:showIn="@layout/activity_leader_view">
 
         <TextView
-            android:id="@+id/leader_prj_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="Project Name Here"
+            android:textSize="22sp"
             android:textStyle="bold"
-            android:text="@string/project_name"
-            android:textSize="16sp"
-            android:textColor="#82cffd" />
+            android:id="@+id/leader_prj_label"
+            android:layout_gravity="center_horizontal" />
 
         <LinearLayout
             android:id="@+id/linear1"

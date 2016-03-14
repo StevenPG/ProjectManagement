@@ -63,7 +63,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="Completed Tasks"
+            android:textSize="22sp"
+            android:textStyle="bold"
             android:id="@+id/completedTaskTextView"
             android:layout_gravity="center_horizontal" />
 
@@ -75,14 +78,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/task_name"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:paddingLeft="15dp"
-            android:textSize="16sp"
+            android:layout_marginTop="15dp"
+            android:text="All Tasks"
+            android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="#82cffd"
-            android:id="@+id/header" />
+            android:id="@+id/header"
+            android:layout_gravity="center_horizontal" />
+
         <ListView
             android:layout_width="match_parent"
             android:layout_height="231dp"
