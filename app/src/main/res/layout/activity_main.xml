@@ -11,34 +11,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.PopupOverlay">
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#FFFFFF"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:id="@+id/plus_button"
-                android:layout_gravity="end"
-                android:background="#FFFFFF"
-                android:paddingRight="10dp"
-                android:src="@drawable/plus_icon"
-                android:layout_height="wrap_content" />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:contentDescription="Logo"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/banner_logo"/>
-            <android.support.v7.widget.ActionMenuView
-                android:id="@+id/amvMenu04"
-                android:layout_width="wrap_content"
-                android:layout_gravity="start"
+            android:layout_height="match_parent"
+            android:background="#82cffd"
+            android:paddingBottom="5dp">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                />
-        </android.support.v7.widget.Toolbar>
-
+                android:background="#FFFFFF"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:id="@+id/plus_button"
+                    android:layout_gravity="end"
+                    android:background="#FFFFFF"
+                    android:paddingRight="10dp"
+                    android:src="@drawable/plus_icon"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:contentDescription="Logo"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/banner_logo"/>
+                <android.support.v7.widget.ActionMenuView
+                    android:id="@+id/amvMenu04"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_height="?attr/actionBarSize"
+                    />
+            </android.support.v7.widget.Toolbar>
+        </LinearLayout>
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
