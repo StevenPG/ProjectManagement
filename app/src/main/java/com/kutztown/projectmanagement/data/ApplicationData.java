@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
+import com.kutztown.projectmanagement.data.Encryption;
 
 /**
  * Created by Steven Gantz on 1/28/2016.
@@ -104,6 +105,7 @@ public final class ApplicationData {
             return false;
         }
     }
+    static public final Encryption myEncrytion = new Encryption();
 
     /**
      * This will get called every time the context menu is opened and

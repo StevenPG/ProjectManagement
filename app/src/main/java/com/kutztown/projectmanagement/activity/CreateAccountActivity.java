@@ -29,6 +29,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,7 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private Toast myToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -315,7 +317,8 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
 
         UserLoginTask(String email, String password) {
             mEmail = email;
-            mPassword = password;
+           final String pass = ApplicationData.myEncrytion.encrypt(password);
+            mPassword = pass;
         }
 
         @Override

@@ -39,7 +39,8 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
@@ -48,128 +49,76 @@
         tools:context="com.kutztown.projectmanagement.activity.CreateTask"
         tools:showIn="@layout/activity_create_task">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:background="#82cffd"
-            android:layout_marginTop="80dp">
+
             <EditText
                 android:id="@+id/name_task"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
                 android:hint="Task Name"
                 android:background="#FFFFFF"/>
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:background="#82cffd"
-            android:layout_marginTop="10dp">
             <TextView
                 android:id="@+id/name_project"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:hint="Project Name"
                 android:background="#FFFFFF"/>
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:background="#82cffd"
-            android:layout_marginTop="10dp">
             <EditText
                 android:id="@+id/task_description"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="4"
+                android:layout_marginTop="10dp"
                 android:hint="task Description"
                 android:background="#FFFFFF"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:background="#82cffd"
-            android:layout_marginTop="10dp">
+
             <Spinner
                 android:id="@+id/spinner01"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:prompt="@string/pick_a_member"
-                android:paddingLeft="5dp"
                 android:entries="@array/pick_user"
-                android:paddingRight="5dp"
+                android:layout_marginTop="10dp"
                 android:background="#FFFFFF">
 
             </Spinner>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:background="#82cffd"
-            android:layout_marginTop="10dp">
             <Spinner
                 android:id="@+id/spinner02"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:prompt="@string/pick_a_priority"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
+                android:layout_marginTop="10dp"
                 android:entries="@array/pick_priority"
                 android:background="#FFFFFF">
             </Spinner>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:background="#82cffd"
-            android:layout_marginTop="10dp">
-            <DatePicker
-                android:id="@+id/datepicker01"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:background="#FFFFFF"
-                android:calendarViewShown="false"
-                android:spinnersShown="true"
-                android:visibility="invisible">
-            </DatePicker>
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:background="#82cffd"
-            android:layout_marginTop="10dp">
             <Spinner
                 android:id="@+id/spinner03"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:prompt="@string/pick_a_dependency"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:visibility="invisible"
+                android:layout_marginTop="10dp"
                 android:background="#FFFFFF">
             </Spinner>
-        </LinearLayout>
+        <DatePicker
+            android:id="@+id/datepicker01"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_marginTop="10dp"
+            android:background="#FFFFFF"
+            android:calendarViewShown="false"
+            android:spinnersShown="true"
+            >
+        </DatePicker>
+
         <Button
             android:id="@+id/create_task"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Create Task"
