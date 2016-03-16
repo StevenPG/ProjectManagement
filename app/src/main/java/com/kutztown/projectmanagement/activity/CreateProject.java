@@ -1,12 +1,6 @@
 package com.kutztown.projectmanagement.activity;
 
-import android.content.CursorLoader;
-import android.database.Cursor;
-import android.media.AsyncPlayer;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
@@ -17,10 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
@@ -50,7 +40,7 @@ public class CreateProject extends AppCompatActivity {
         });
 
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
-        if(!loggedIn){
+        if (!loggedIn) {
             startActivity(ActivityController.openLoginActivity(getApplicationContext()));
         }
 
@@ -94,6 +84,11 @@ public class CreateProject extends AppCompatActivity {
                 // Retrieve current projectlist
                 String currentProjectList = ApplicationData.currentUser.getProjectList();
 
+                // If the projectlist is a python None, set it to empty.
+                if (currentProjectList.equals("None")) {
+                    currentProjectList = "";
+                }
+
                 try {
                     // Add the project
                     handler.insert(entry, "ProjectTable");
@@ -106,7 +101,7 @@ public class CreateProject extends AppCompatActivity {
                                     "ProjectTable");
 
                     // Adding the first project
-                    if(currentProjectList.length() == 0){
+                    if (currentProjectList.length() == 0) {
                         handler.update("projectlist=\"" +
                                 ApplicationData.currentProject.getProjectId() + "\"_WHERE_UserID=\"" +
                                 ApplicationData.currentUser.getUserId() + "\""
@@ -118,13 +113,24 @@ public class CreateProject extends AppCompatActivity {
                                 ApplicationData.currentProject.getProjectId() + "\"_WHERE_UserID=\"" +
                                 ApplicationData.currentUser.getUserId() + "\"");
 
-                        // add the current project to the user's projectlist
-                        handler.update(
-                                "projectlist=\"" +
-                                        currentProjectList.substring(2, currentProjectList.length() - 1) + "--" +
-                                        ApplicationData.currentProject.getProjectId() + "\"_WHERE_UserID=\"" +
-                                        ApplicationData.currentUser.getUserId() + "\""
-                                , "UserTable");
+                        // Concat the project if projectlist is not empty
+                        if (currentProjectList.equals("")) {
+                            handler.update(
+                                    "projectlist=\"" +
+                                            ApplicationData.currentProject.getProjectId() + "\"_WHERE_UserID=\"" +
+                                            ApplicationData.currentUser.getUserId() + "\""
+                                    , "UserTable");
+                        } else {
+
+                            // If projectlist is not empty, concat the new project
+                            // add the current project to the user's projectlist
+                            handler.update(
+                                    "projectlist=\"" +
+                                            currentProjectList.substring(2, currentProjectList.length() - 1) + "--" +
+                                            ApplicationData.currentProject.getProjectId() + "\"_WHERE_UserID=\"" +
+                                            ApplicationData.currentUser.getUserId() + "\""
+                                    , "UserTable");
+                        }
                     }
 
                     // Retrieve the project again to get the projectId
@@ -150,10 +156,10 @@ public class CreateProject extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
-        if(!loggedIn){
+        if (!loggedIn) {
             startActivity(ActivityController.openLoginActivity(getApplicationContext()));
         }
     }
@@ -162,7 +168,7 @@ public class CreateProject extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflate = getMenuInflater();
-        inflate.inflate(R.menu.menu, ApplicationData. amvMenu.getMenu());
+        inflate.inflate(R.menu.menu, ApplicationData.amvMenu.getMenu());
         return true;
     }
 
@@ -172,6 +178,6 @@ public class CreateProject extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return ApplicationData.contextMenu(this, item);
-}
+    }
 
 }
