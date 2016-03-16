@@ -327,7 +327,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             // Attempt login through HTTPHandler
             HTTPHandler handler = new HTTPHandler();
-            String out = handler.login("user=" + this.mEmail + "&" + "passwd=" + this.mPassword);
+            String encryptedPass = ApplicationData.myEncrytion.encrypt(this.mPassword);
+            String out = handler.login("user=" + this.mEmail + "&" + "passwd=" + encryptedPass);
 
             // Assign status code for error printing
             this.statusCode = out;
