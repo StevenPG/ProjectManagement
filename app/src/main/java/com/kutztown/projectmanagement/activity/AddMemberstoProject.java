@@ -100,11 +100,20 @@ public class AddMemberstoProject extends Activity implements AppCompatCallback {
                 // Remove leftover python characters
                 selectedEmail = selectedEmail.substring(3, selectedEmail.length()-1);
 
+                // Build paramString
+                StringBuilder paramBuilder = new StringBuilder();
+                paramBuilder.append("?");
+                paramBuilder.append("project=");
+                paramBuilder.append(ApplicationData.currentProject.getProjectId());
+                paramBuilder.append("&");
+                paramBuilder.append("addeduser=");
+                paramBuilder.append(selectedEmail);
+
                 Intent email = new Intent(Intent.ACTION_SEND);
                 email.setType("message/rfc822");
                 email.putExtra(Intent.EXTRA_EMAIL, new String[]{selectedEmail});
                 email.putExtra(Intent.EXTRA_SUBJECT, "Please join my group");
-                email.putExtra(Intent.EXTRA_TEXT, "<PLACEHOLDER FOR INVITE ACCEPTANCE");
+                email.putExtra(Intent.EXTRA_TEXT, ApplicationData.FULL_URL + "/accept" + paramBuilder.toString());
                 try {
                     startActivity(Intent.createChooser(email, "Please select an email client to send invitation..."));
                 }catch (android.content.ActivityNotFoundException ex) {
