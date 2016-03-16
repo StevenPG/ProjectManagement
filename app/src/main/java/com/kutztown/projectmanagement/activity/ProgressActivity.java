@@ -90,6 +90,9 @@ public class ProgressActivity extends AppCompatActivity {
         float progress = 0;
 
         String projectProgress = ApplicationData.currentProject.getProjectProgress();
+        if("u''".equals(projectProgress)){
+            projectProgress = String.valueOf(0);
+        }
         if("".equals(projectProgress)){
             progress = 0;
         } else {
@@ -122,6 +125,7 @@ public class ProgressActivity extends AppCompatActivity {
         if("".equals(projectName) || projectName == null){
             projectName = "Error in Project Name";
         }
+        projectName = projectName.substring(2, ApplicationData.currentProject.getProjectName().length()-1);
         textView.setText(projectName + " Progress");
 
         // Build text arrays for list view output

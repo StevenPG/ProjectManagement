@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
@@ -34,6 +35,12 @@ public class MemberView extends AppCompatActivity {
                 return onOptionsItemSelected(menuItem);
             }
         });
+
+        // Set the correct name on project
+        TextView header = (TextView) findViewById(R.id.leader_prj_label);
+        String projectName = ApplicationData.currentProject.getProjectName();
+        projectName = projectName.substring(2, ApplicationData.currentProject.getProjectName().length()-1);
+        header.setText(projectName);
 
         final Button progressB = (Button)findViewById(R.id.progress1_ld_button);
         final Button taskB = (Button)findViewById(R.id.task1_ld_button);

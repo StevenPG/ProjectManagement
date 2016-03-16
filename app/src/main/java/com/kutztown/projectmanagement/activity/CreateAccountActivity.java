@@ -36,6 +36,7 @@ import java.util.List;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.data.UserTableEntry;
+import com.kutztown.projectmanagement.exception.ServerNotRunningException;
 import com.kutztown.projectmanagement.network.HTTPHandler;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
@@ -191,6 +192,10 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
+        } else if (email.contains(" ")){
+            mEmailView.setError("Emails cannot have spaces");
+            focusView = mEmailView;
+            cancel = true;
         }
 
         if (cancel) {
@@ -316,9 +321,14 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
         private String statusCode;
 
         UserLoginTask(String email, String password) {
-            mEmail = email;
+
+            //mEmail = email;
            final String pass = ApplicationData.myEncrytion.encrypt(password);
+
+            mEmail = email.replaceAll(" ", "");
             mPassword = pass;
+           // mPassword = password;
+
         }
 
         @Override
@@ -346,8 +356,23 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
             if (success) {
                 // This happens when the thread ends
                 //finish();
-                Log.v("debug", "Successfully executed");
+                // If the user is found, retrieve it for global scope:
+                // TODO - Though this may be bad form, we are going to ask the database for the info again
+                // TODO   and store it in the global application area
+                try {
+                    HTTPHandler httpHandler = new HTTPHandler();
+                    ApplicationData.currentUser = (UserTableEntry) httpHandler.select(this.mEmail
+                            , "email", new UserTableEntry(), "UserTable");
+                    Log.d("debug", ApplicationData.currentUser.writeAsGet());
+                } catch (ServerNotRunningException e) {
+                    e.printStackTrace();
+                    Log.d("debug", "Server isn't running");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d("debug", "User wasn't found");
+                }
                 ApplicationData.isLoggedIn = true;
+
                 startActivity(ActivityController.openMainActivity(getApplicationContext()));
             } else {
                 mPasswordView.requestFocus();

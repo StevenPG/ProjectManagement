@@ -45,15 +45,17 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.kutztown.projectmanagement.activity.ProfileActivity"
         tools:showIn="@layout/activity_profile_activitty">
+
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/member_profile"
-            android:layout_marginTop="15dp"
-            android:textSize="20dp"
-            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="Profile"
+            android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="@color/colorAccent"/>
+            android:id="@+id/profile_label"
+            android:layout_gravity="center_horizontal" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
