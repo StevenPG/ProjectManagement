@@ -103,7 +103,7 @@ public class AddMemberstoProject extends Activity implements AppCompatCallback {
                 // Build paramString
                 StringBuilder paramBuilder = new StringBuilder();
                 paramBuilder.append("?");
-                paramBuilder.append("project=");
+                paramBuilder.append("projectid=");
                 paramBuilder.append(ApplicationData.currentProject.getProjectId());
                 paramBuilder.append("&");
                 paramBuilder.append("addeduser=");
