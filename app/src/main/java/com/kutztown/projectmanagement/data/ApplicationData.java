@@ -47,6 +47,8 @@ public final class ApplicationData {
 
     static public ActionMenuView amvMenu;
 
+    final static public String FULL_URL = "http://104.238.131.94:5000";
+
     /**
      * Web service port
      */

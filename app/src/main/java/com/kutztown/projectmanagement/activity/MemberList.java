@@ -131,6 +131,7 @@ public class MemberList extends Activity implements AppCompatCallback {
     protected ArrayList<String> getMembersFromProject(){
 
         String projectList = ApplicationData.currentProject.getMemberList();
+        // refresh project
         if(projectList == null){
             projectList = "";
         }
@@ -139,7 +140,7 @@ public class MemberList extends Activity implements AppCompatCallback {
 
         TextView header = (TextView) findViewById(R.id.header);
         Log.d("debug", "Member List: " + projectList);
-        if("None".equals(projectList)){
+        if("None".equals(projectList) || "u''".equals(projectList)){
             header.setText("There are no members in this project");
             return null;
         }
