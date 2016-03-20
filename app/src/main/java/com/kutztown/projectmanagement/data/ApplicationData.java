@@ -105,7 +105,13 @@ public final class ApplicationData {
             return false;
         }
     }
+    /* instance of a variable to be used for the class encrytion to handle methods called.
+     * it is used to enscrypt the user password before being saved in the database
+     */
     static public final Encryption myEncrytion = new Encryption();
+    public static int day = 0;
+    public static int year = 0;
+    public static int month = 0;
 
     /**
      * This will get called every time the context menu is opened and
