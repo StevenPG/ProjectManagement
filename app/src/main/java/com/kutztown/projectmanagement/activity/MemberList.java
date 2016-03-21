@@ -1,6 +1,9 @@
 package com.kutztown.projectmanagement.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatCallback;
@@ -13,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -87,6 +91,39 @@ public class MemberList extends Activity implements AppCompatCallback {
 
         projectView.setAdapter(listAdapter);
 
+        final Context thisContext = this;
+
+        // On long click, delete user from database (opposite of add user)
+        projectView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(thisContext);
+                dialogBuilder.setTitle("Delete user from Project?");
+                dialogBuilder.setMessage("Do you really want to remove user?");
+                dialogBuilder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dialogBuilder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alert = dialogBuilder.create();
+
+                alert.show();
+
+                String clickedItem = (String) projectView.getItemAtPosition(position);
+                Log.d("debug", "Long clicked " + clickedItem);
+                return false;
+            }
+        });
 
         // Add addMember functionality to plusbutton
         final ImageButton plusButton = (ImageButton) findViewById(R.id.plus_buttom2);
