@@ -61,6 +61,11 @@ public final class ApplicationData {
      */
     final static public int SPLASH_TIME_OUT = 100;
 
+    /**
+     * Globally hold the current viewed member
+     */
+    static public String currentViewedMember;
+
     // Share preference check attributes
     final static public String PREFERENCE_FILENAME = "UserName";
     final static public SharePreferenceCheck myPreference = new SharePreferenceCheck();

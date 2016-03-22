@@ -93,6 +93,17 @@ public class MemberList extends Activity implements AppCompatCallback {
 
         final Context thisContext = this;
 
+        // On a regular click, show the user's task progress
+        projectView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String user = (String) projectView.getItemAtPosition(position);
+                Log.d("debug", "Clicked on " + user);
+                ApplicationData.currentViewedMember = user;
+                startActivity(ActivityController.openMemberProgressActivity(getApplicationContext()));
+            }
+        });
+
         // On long click, delete user from database (opposite of add user)
         projectView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -114,7 +125,7 @@ public class MemberList extends Activity implements AppCompatCallback {
                         paramBuilder.append("addeduser=");
                         paramBuilder.append(user);
                         try {
-                            handler.genericCall(paramBuilder.toString());
+                            handler.genericCall(paramBuilder.toString(), "removeUser");
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -215,7 +226,9 @@ public class MemberList extends Activity implements AppCompatCallback {
 
             for (String member : members) {
                 member = member.replace("\\s+", "");
-                memberArray.add(member);
+                if(!"".equals(member)) {
+                    memberArray.add(member);
+                }
             }
         }
 
