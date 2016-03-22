@@ -196,7 +196,9 @@ public class MainActivity extends AppCompatActivity {
                 // Wipe leftover python structures
                 project = project.replaceAll("u'", "");
                 project = project.replaceAll("'", "");
-                projectArray.add(project);
+                if(!"".equals(project)) {
+                    projectArray.add(project);
+                }
             }
         }
 
