@@ -13,6 +13,7 @@ import com.kutztown.projectmanagement.activity.LeaderView;
 import com.kutztown.projectmanagement.activity.LoginActivity;
 import com.kutztown.projectmanagement.activity.MainActivity;
 import com.kutztown.projectmanagement.activity.MemberList;
+import com.kutztown.projectmanagement.activity.MemberProgressActivity;
 import com.kutztown.projectmanagement.activity.MemberView;
 import com.kutztown.projectmanagement.activity.ProfileActivity;
 import com.kutztown.projectmanagement.activity.ProgressActivity;
@@ -68,6 +69,9 @@ public class ActivityController extends Application{
     }
     public static Intent openProgressActivity(Context appContext) {
         return new Intent(appContext, ProgressActivity.class);
+    }
+    public static Intent openMemberProgressActivity(Context appContext) {
+        return new Intent(appContext, MemberProgressActivity.class);
     }
     public static Intent openAddMembersToProjectActivity(Context appContext, String message)
     {

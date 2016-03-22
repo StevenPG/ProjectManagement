@@ -112,7 +112,8 @@
             android:name="com.kutztown.projectmanagement.activity.TaskViewActivity"
             android:label="@string/title_activity_task_view"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="com.kutztown.projectmanagement.activity.MemberProgressActivity"></activity>
     </application>
 
 </manifest>

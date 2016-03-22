@@ -422,7 +422,7 @@ public class HTTPHandler {
      * @param parameterString
      * @throws Exception
      */
-    public void genericCall(String parameterString)
+    public String genericCall(String parameterString, String appRoute)
             throws Exception {
 
         if(!this.pingServer(ApplicationData.SERVER_IP)){
@@ -430,11 +430,13 @@ public class HTTPHandler {
             throw new ServerNotRunningException();
         }
 
+        String returnedFromDB = "";
+
         try {
 
             URL url = buildURL(ApplicationData.SERVER_IP,
                     ApplicationData.SERVER_PORT,
-                    "removeUser", false, parameterString);
+                    appRoute, false, parameterString);
 
             Log.d("debug", "URL: " + url.toString());
 
@@ -446,6 +448,8 @@ public class HTTPHandler {
                 //Log.d("debug", "Busy waiting until connection is done");
             }
             String stringEntry = task.dataString;
+
+            returnedFromDB = task.dataString;
 
             // If the server returned a 0, nothing was found
             if(stringEntry.charAt(0) == '0'){
@@ -473,6 +477,8 @@ public class HTTPHandler {
             e.printStackTrace();
             throw new Exception();
         }
+
+        return returnedFromDB;
     }
 
     /**
