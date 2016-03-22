@@ -1,6 +1,11 @@
 package com.kutztown.projectmanagement.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.DialogFragment;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,6 +31,7 @@ import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.data.CommaListParser;
 import com.kutztown.projectmanagement.data.ProjectTableEntry;
 import com.kutztown.projectmanagement.data.TableEntry;
+import com.kutztown.projectmanagement.data.TaskDatePicker;
 import com.kutztown.projectmanagement.data.TaskTableEntry;
 import com.kutztown.projectmanagement.network.HTTPHandler;
 
@@ -34,10 +40,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
-public class CreateTask extends AppCompatActivity {
+public class CreateTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     public Spinner spinner1 = null;
     public Spinner spinner2 = null;
+    public Spinner spinner3 = null;
+    public static String dateString = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,26 +80,40 @@ public class CreateTask extends AppCompatActivity {
 
 
         this.spinner2 = (Spinner) findViewById(R.id.spinner02);
+        this.spinner3 = (Spinner) findViewById(R.id.spinner03);
 
         final TextView taskName = (TextView) findViewById(R.id.name_task);
 
         // this textview will be set whith the project name
          final TextView projectName = (TextView) findViewById(R.id.name_project);
         projectName.setText(ApplicationData.currentProject.getProjectName());
+         Button taskDate = (Button) findViewById(R.id.datepicker01);
+        final Calendar c = Calendar.getInstance();
 
         // this textview will get a description of the task
          final EditText taskDesc = (EditText) findViewById(R.id.task_description);
+
+        taskDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new TaskDatePicker();
+                newFragment.show(getFragmentManager(), "datePicker");
+            }
+
+        });
 
         Button createTask = (Button) findViewById(R.id.create_task);
         createTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                TextView getSeverity = (TextView)spinner2.getSelectedView();
+                TextView getSeverity = (TextView) spinner2.getSelectedView();
                 TextView getName = (TextView) spinner1.getSelectedView();
+                TextView getDependecy = (TextView) spinner3.getSelectedView();
                 String pickedName = getName.getText().toString();
-                String pickedPriority = getSeverity.getText().toString();
 
+                String pickedPriority = getSeverity.getText().toString();
+                String dependency = getDependecy.getText().toString();
                 String task_name = taskName.getText().toString().replace(" ", "");
                 String task_desc = taskDesc.getText().toString().replace(" ", "");
                 String severity = getSeverity.getText().toString();
@@ -101,79 +123,69 @@ public class CreateTask extends AppCompatActivity {
 
                 // Wipe out python stuff from projectName
                 String projectName = String.valueOf(ApplicationData.currentProject.getProjectId());
+                if (projectName.equals("") || task_desc.equals("") || task_name.equals("") || pickedPriority.equals("") ||
+                        dateString.equals("") || dependency.equals("") || pickedName.equals("")) {
+                        missingInfo();
 
-                TaskTableEntry entry = new TaskTableEntry(
-                        String.valueOf(ApplicationData.currentUser.getUserId()),
-                        projectName,
-                        task_name,
-                        task_desc,
-                        "0",
-                        "",
-                        pickedPriority.replace(" ", ""),
-                        "",
-                        "");
+                } else {
+                    TaskTableEntry entry = new TaskTableEntry(
+                            String.valueOf(ApplicationData.currentUser.getUserId()),
+                            projectName,
+                            task_name,
+                            task_desc,
+                            "0",
+                            "",
+                            pickedPriority.replace(" ", ""),
+                            "",
+                            "");
 
-                HTTPHandler handler = new HTTPHandler();
-                try {
-                    // Insert the new task
-                    handler.insert(entry, "TaskTable");
+                    HTTPHandler handler = new HTTPHandler();
+                    try {
+                        // Insert the new task
+                        handler.insert(entry, "TaskTable");
 
-                    Toast.makeText(getApplicationContext(), "task successfully created", Toast.LENGTH_SHORT).show();
-                    // after inserting into db, pull back out with unique id
-                    TaskTableEntry currentTask = (TaskTableEntry)
-                            handler.select(taskName.getText().toString(), "TaskName",
-                                    new TaskTableEntry(), "TaskTable");
+                        Toast.makeText(getApplicationContext(), "task successfully created", Toast.LENGTH_SHORT).show();
+                        // after inserting into db, pull back out with unique id
+                        TaskTableEntry currentTask = (TaskTableEntry)
+                                handler.select(taskName.getText().toString(), "TaskName",
+                                        new TaskTableEntry(), "TaskTable");
 
-                    Log.d("debug2", "CurrentProjectId: " + String.valueOf(ApplicationData.currentProject.getProjectId()));
-                    String currentTaskList = ApplicationData.currentProject.getTaskList();
-                    currentTaskList = currentTaskList.substring(2, currentTaskList.length() - 1);
+                        Log.d("debug2", "CurrentProjectId: " + String.valueOf(ApplicationData.currentProject.getProjectId()));
+                        String currentTaskList = ApplicationData.currentProject.getTaskList();
+                        currentTaskList = currentTaskList.substring(2, currentTaskList.length() - 1);
 
-                    Log.d("debug", currentTaskList);
-                    Log.d("debug", currentTaskList + "--" + currentTask.getTaskID());
+                        Log.d("debug", currentTaskList);
+                        Log.d("debug", currentTaskList + "--" + currentTask.getTaskID());
 
-                    // updateString
-                    Log.d("debug", "tasklist=\"" +
-                            currentTaskList + "--" + currentTask.getTaskID() +
-                            "\"_WHERE_ProjectID=\"" + ApplicationData.currentProject.getProjectId() + "\"");
+                        // updateString
+                        Log.d("debug", "tasklist=\"" +
+                                currentTaskList + "--" + currentTask.getTaskID() +
+                                "\"_WHERE_ProjectID=\"" + ApplicationData.currentProject.getProjectId() + "\"");
 
-                    // add the created task to project's tasklist
-                    handler.update(
-                            "tasklist=\"" +
-                                    currentTaskList + "--" + currentTask.getTaskID() +
-                                    "\"_WHERE_ProjectID=\"" +
-                                    ApplicationData.currentProject.getProjectId() + "\""
+                        // add the created task to project's tasklist
+                        handler.update(
+                                "tasklist=\"" +
+                                        currentTaskList + "--" + currentTask.getTaskID() +
+                                        "\"_WHERE_ProjectID=\"" +
+                                        ApplicationData.currentProject.getProjectId() + "\""
                                 , "ProjectTable");
 
-                    // Retrieve the project with the new tasklist
-                    ApplicationData.currentProject = (ProjectTableEntry)
-                            handler.select(
-                                    String.valueOf(ApplicationData.currentProject.getProjectId()),
-                                    "projectid",
-                                    new ProjectTableEntry(),
-                                    "ProjectTable");
+                        // Retrieve the project with the new tasklist
+                        ApplicationData.currentProject = (ProjectTableEntry)
+                                handler.select(
+                                        String.valueOf(ApplicationData.currentProject.getProjectId()),
+                                        "projectid",
+                                        new ProjectTableEntry(),
+                                        "ProjectTable");
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.d("debug", "Error creating new task ");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d("debug", "Error creating new task ");
+                    }
+
+                    // head on back to task view
+                    startActivity(ActivityController.openTaskActivity(getApplicationContext()));
                 }
-
-                // head on back to task view
-                startActivity(ActivityController.openTaskActivity(getApplicationContext()));
-            }
-        });
-
-        final DatePicker taskDate = (DatePicker)findViewById(R.id.datepicker01);
-        Calendar c = Calendar.getInstance();
-        int mYear = c.get(Calendar.YEAR);
-        int mMonth = c.get(Calendar.MONTH);
-        int mDay = c.get(Calendar.DAY_OF_MONTH);
-        taskDate.init(mYear, mMonth, mDay, new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(year,monthOfYear, dayOfMonth);
-                // here will go code to get the date due of the task and passed that info to the
-                // database
             }
         });
 
@@ -186,12 +198,52 @@ public class CreateTask extends AppCompatActivity {
         inflate.inflate(R.menu.menu, ApplicationData.amvMenu.getMenu());
         return true;
     }
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        ApplicationData.year = year;
+        ApplicationData.month = monthOfYear;
+        ApplicationData.day = dayOfMonth;
+        updateDisplay();
+
+    }
+
+    private void updateDisplay() {
+        StringBuilder myString = new StringBuilder();
+        // Month is 0 based so add 1
+        myString.append(ApplicationData.month + 1).append("-").append(ApplicationData.day).append("-")
+                .append(ApplicationData.year).append(" ");
+        dateString = myString.toString();
+        Toast.makeText(getApplicationContext(), myString, Toast.LENGTH_LONG).show();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return ApplicationData.contextMenu(this, item);
+    }
+    private void missingInfo()
+    {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateTask.this);
+
+        // Setting Dialog Title
+        alertDialog.setTitle("Missing task information");
+
+        // Setting Dialog Message
+        alertDialog.setMessage("Please fill all fields before creating task");
+
+        // Setting Icon to Dialog
+        alertDialog.setIcon(R.drawable.icon);
+
+        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int which) {
+
+
+            }
+        });
+
+        // Showing Alert Message
+        alertDialog.show();
     }
 
 }
