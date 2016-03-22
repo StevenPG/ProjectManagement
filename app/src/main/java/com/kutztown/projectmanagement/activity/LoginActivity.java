@@ -56,6 +56,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
+    private CreateAccountTask mCATask = null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -96,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         registerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(ActivityController.openCreateAccountActivity(getApplicationContext()));
+                attemptCreateAccount();
             }
         });
 
@@ -205,6 +206,68 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
+        }
+    }
+
+    private void attemptCreateAccount() {
+        if (mAuthTask != null) {
+            return;
+        }
+
+        // Reset errors.
+        mEmailView.setError(null);
+        mPasswordView.setError(null);
+
+        // Store values at the time of the login attempt.
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // Check for a valid password, if the user entered one.
+        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
+        // Check for a valid password.
+        if (TextUtils.isEmpty(password)) {
+            mPasswordView.setError(getString(R.string.error_field_required));
+            focusView = mPasswordView;
+            cancel = true;
+        } else if (!isPasswordValid(password)) {
+            mPasswordView.setError("Passwords must be longer than 4 characters");
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(email)) {
+            mEmailView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            mEmailView.setError(getString(R.string.error_invalid_email));
+            focusView = mEmailView;
+            cancel = true;
+        } else if (email.contains(" ")){
+            mEmailView.setError("Emails cannot have spaces");
+            focusView = mEmailView;
+            cancel = true;
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+            // Show a progress spinner, and kick off a background task to
+            // perform the user login attempt.
+            showProgress(true);
+            mCATask = new CreateAccountTask(email, password);
+            mCATask.execute((Void) null);
         }
     }
 
@@ -381,6 +444,97 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     mPasswordView.setError("Some error occurred...");
                 }
 
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+            showProgress(false);
+        }
+    }
+
+    /**
+     * Represents an asynchronous registration task used to create user account
+     */
+    public class CreateAccountTask extends AsyncTask<Void, Void, Boolean> {
+
+        private final String mEmail;
+        private final String mPassword;
+
+        // Status code held internally for reporting
+        private String statusCode;
+
+        CreateAccountTask(String email, String password) {
+
+            //mEmail = email;
+            final String pass = ApplicationData.myEncrytion.encrypt(password);
+
+            mEmail = email.replaceAll(" ", "");
+            mPassword = pass;
+            // mPassword = password;
+
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+
+            // Attempt login through HTTPHandler
+            HTTPHandler handler = new HTTPHandler();
+            String out = handler.createAccount("user=" + this.mEmail + "&" + "passwd=" + this.mPassword);
+
+            // If it worked, sign the user in
+            ApplicationData.currentUser = new UserTableEntry(this.mEmail, this.mPassword);
+            ApplicationData.isLoggedIn = true;
+
+            // Assign status code for error printing
+            this.statusCode = out;
+
+            return "0".equals(out);
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+            showProgress(false);
+
+            if (success) {
+                // This happens when the thread ends
+                //finish();
+                // If the user is found, retrieve it for global scope:
+                // TODO - Though this may be bad form, we are going to ask the database for the info again
+                // TODO   and store it in the global application area
+                try {
+                    HTTPHandler httpHandler = new HTTPHandler();
+                    ApplicationData.currentUser = (UserTableEntry) httpHandler.select(this.mEmail
+                            , "email", new UserTableEntry(), "UserTable");
+                    Log.d("debug", ApplicationData.currentUser.writeAsGet());
+                } catch (ServerNotRunningException e) {
+                    e.printStackTrace();
+                    Log.d("debug", "Server isn't running");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d("debug", "User wasn't found");
+                }
+                ApplicationData.isLoggedIn = true;
+
+                startActivity(ActivityController.openMainActivity(getApplicationContext()));
+            } else {
+                mPasswordView.requestFocus();
+
+                // @return 0 - if create account was successful
+                // @return 1 - if account already exists
+                // @return 2 - if an error occurred
+                // @return 3 - if the server is down
+                if("1".equals(this.statusCode)){
+                    mPasswordView.setError("This account already exists...");
+                }
+                else if("2".equals(this.statusCode)){
+                    mPasswordView.setError("Some error occurred...");
+                }
+                else if("3".equals(this.statusCode)){
+                    mPasswordView.setError("The server is currently down");
+                }
             }
         }
 
