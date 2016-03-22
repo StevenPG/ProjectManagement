@@ -142,17 +142,26 @@ public class MemberProgressActivity extends AppCompatActivity {
         }
 
         // yData is an array of individual values
-        float[] yData = new float[objectList.size()];
+        float[] yData = new float[objectList.size()+1];
 
         // xData is an array of individual labels
-        String[] xData = new String[objectList.size()];
+        String[] xData = new String[objectList.size()+1];
 
         for(int i = 0; i < objectList.size(); i++){
             xData[i] = objectList.get(i).getTaskName();
             yData[i] = Float.parseFloat(
-                    objectList.get(i).getTaskProgress())/objectList.size()
-            ;
+                    objectList.get(i).getTaskProgress());
         }
+
+        float remainingPercentage = 0;
+
+        // get remaining percentage
+        for(TaskTableEntry entry : objectList){
+            remainingPercentage = remainingPercentage + (100 - Float.parseFloat(entry.getTaskProgress()));
+        }
+
+        xData[objectList.size()] = "Remaining";
+        yData[objectList.size()] = remainingPercentage;
 
         PieGraph chart = new PieGraph(
                 xData,
