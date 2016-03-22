@@ -418,6 +418,64 @@ public class HTTPHandler {
     }
 
     /**
+     * Generic database call
+     * @param parameterString
+     * @throws Exception
+     */
+    public void genericCall(String parameterString)
+            throws Exception {
+
+        if(!this.pingServer(ApplicationData.SERVER_IP)){
+            Log.d("debug","Pinging: " + ApplicationData.SERVER_IP);
+            throw new ServerNotRunningException();
+        }
+
+        try {
+
+            URL url = buildURL(ApplicationData.SERVER_IP,
+                    ApplicationData.SERVER_PORT,
+                    "removeUser", false, parameterString);
+
+            Log.d("debug", "URL: " + url.toString());
+
+            WebTask task = new WebTask(url);
+            task.execute((Void) null);
+
+            while(!task.grabString){
+                // Busy wait until the connection is done
+                //Log.d("debug", "Busy waiting until connection is done");
+            }
+            String stringEntry = task.dataString;
+
+            // If the server returned a 0, nothing was found
+            if(stringEntry.charAt(0) == '0'){
+                throw new Exception();
+            }
+
+            // If there was an issue, a 2 will be returned
+            if(stringEntry.charAt(0) == '-' && stringEntry.charAt(1) == '1'){
+                throw new Exception("Search query wasn't filled out right");
+            }
+
+            Log.d("debug", "Generic DEBUG:" + stringEntry);
+
+            if(stringEntry.charAt(0) == '2'){
+                Log.d("debug", "Something wasn't filled out correctly");
+            }
+
+            if(stringEntry.charAt(0) == '1'){
+                Log.d("debug", "Successfully made Generic call");
+            }
+
+        } catch (MalformedURLException e) {
+            throw new ServerNotRunningException("Some error occurred building URL");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception();
+        }
+    }
+
+    /**
      *
      * @param parameterString - formatted parameter string
      * @return 0 - if the user is not found

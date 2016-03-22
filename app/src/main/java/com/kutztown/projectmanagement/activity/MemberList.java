@@ -1,6 +1,9 @@
 package com.kutztown.projectmanagement.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatCallback;
@@ -13,8 +16,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,6 +25,7 @@ import android.widget.TextView;
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
+import com.kutztown.projectmanagement.network.HTTPHandler;
 
 import java.util.ArrayList;
 
@@ -71,13 +75,13 @@ public class MemberList extends Activity implements AppCompatCallback {
         });
 
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
-        if(!loggedIn){
+        if (!loggedIn) {
             startActivity(ActivityController.openLoginActivity(getApplicationContext()));
         }
         // Retrieve projects of current user
         this.memberList = getMembersFromProject();
 
-        if(this.memberList == null){
+        if (this.memberList == null) {
             this.memberList = new ArrayList<>();
         }
 
@@ -87,22 +91,77 @@ public class MemberList extends Activity implements AppCompatCallback {
 
         projectView.setAdapter(listAdapter);
 
+        final Context thisContext = this;
+
+        // On long click, delete user from database (opposite of add user)
+        projectView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                final String user = (String) projectView.getItemAtPosition(position);
+
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(thisContext);
+                dialogBuilder.setTitle("Delete user from Project?");
+                dialogBuilder.setMessage("Do you really want to remove " + user + " from the project?");
+                dialogBuilder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        HTTPHandler handler = new HTTPHandler();
+                        StringBuilder paramBuilder = new StringBuilder();
+                        paramBuilder.append("projectid=");
+                        paramBuilder.append(ApplicationData.currentProject.getProjectId());
+                        paramBuilder.append("&");
+                        paramBuilder.append("addeduser=");
+                        paramBuilder.append(user);
+                        try {
+                            handler.genericCall(paramBuilder.toString());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+                dialogBuilder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alert = dialogBuilder.create();
+
+                alert.show();
+
+                String clickedItem = (String) projectView.getItemAtPosition(position);
+                Log.d("debug", "Long clicked " + clickedItem);
+                return false;
+            }
+        });
 
         // Add addMember functionality to plusbutton
         final ImageButton plusButton = (ImageButton) findViewById(R.id.plus_buttom2);
         plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(ActivityController.openAddMembersToProjectActivity(getApplicationContext(),""));
+                startActivity(ActivityController.openAddMembersToProjectActivity(getApplicationContext(), ""));
             }
         });
     }
 
+    /**
+     * Do the opposite of adding a member
+     */
+    protected void removeMemberFromLists() {
+
+    }
+
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
-        if(!loggedIn){
+        if (!loggedIn) {
             startActivity(ActivityController.openLoginActivity(getApplicationContext()));
         }
     }
@@ -126,13 +185,14 @@ public class MemberList extends Activity implements AppCompatCallback {
 
     /**
      * Retrieve the projects from the logged in user and parse them into an arraylist
+     *
      * @return null if no projects, else arraylist of projects
      */
-    protected ArrayList<String> getMembersFromProject(){
+    protected ArrayList<String> getMembersFromProject() {
 
         String projectList = ApplicationData.currentProject.getMemberList();
         // refresh project
-        if(projectList == null){
+        if (projectList == null) {
             projectList = "";
         }
 
@@ -140,17 +200,20 @@ public class MemberList extends Activity implements AppCompatCallback {
 
         TextView header = (TextView) findViewById(R.id.header);
         Log.d("debug", "Member List: " + projectList);
-        if("None".equals(projectList) || "u''".equals(projectList)){
+        if ("None".equals(projectList) || "u''".equals(projectList)) {
             header.setText("There are no members in this project");
             return null;
-        }
-        else{
+        } else {
             header.setText("Members");
             String[] members = projectList.split("--");
 
-            for(String member : members){
-                // Wipe leftover python structures
-                member = member.substring(2, member.length()-1);
+            // Wipe python leftover from splitting list object
+            // Remove first 2 characters from very first item
+            members[0] = members[0].substring(2, members[0].length());
+            // Remove very last char from last item
+            members[members.length - 1] = members[members.length - 1].substring(0, members[members.length - 1].length() - 1);
+
+            for (String member : members) {
                 member = member.replace("\\s+", "");
                 memberArray.add(member);
             }
