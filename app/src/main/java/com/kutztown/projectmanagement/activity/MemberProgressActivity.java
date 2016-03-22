@@ -131,7 +131,8 @@ public class MemberProgressActivity extends AppCompatActivity {
             String[] internalList = s.split(",");
 
             for(String iS : internalList){
-                dataList.add(iS);
+                // clear spaces before adding
+                dataList.add(iS.replace(" ", ""));
             }
 
             TaskTableEntry entry = new TaskTableEntry(dataList);
@@ -140,18 +141,18 @@ public class MemberProgressActivity extends AppCompatActivity {
 
         }
 
-        Log.d("debug", objectList.get(0).writeAsGet());
-
         // yData is an array of individual values
-        float[] yData = {
-                (float) progress, (float) (100 - progress)
-        };
+        float[] yData = new float[objectList.size()];
 
         // xData is an array of individual labels
-        String[] xData = {
-                "Current project progress",
-                "Remaining progress"
-        };
+        String[] xData = new String[objectList.size()];
+
+        for(int i = 0; i < objectList.size(); i++){
+            xData[i] = objectList.get(i).getTaskName();
+            yData[i] = Float.parseFloat(
+                    objectList.get(i).getTaskProgress())/objectList.size()
+            ;
+        }
 
         PieGraph chart = new PieGraph(
                 xData,
