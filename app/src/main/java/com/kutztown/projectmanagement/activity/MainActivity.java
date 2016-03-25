@@ -197,7 +197,9 @@ public class MainActivity extends AppCompatActivity {
                 project = project.replaceAll("u'", "");
                 project = project.replaceAll("'", "");
                 if(!"".equals(project)) {
-                    projectArray.add(project);
+                    if(!"None".equals(project)) {
+                        projectArray.add(project);
+                    }
                 }
             }
         }

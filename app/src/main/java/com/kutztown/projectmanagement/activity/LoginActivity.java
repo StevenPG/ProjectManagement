@@ -381,7 +381,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         private String statusCode;
 
         UserLoginTask(String email, String password) {
-            mEmail = email.replaceAll(" ", "");
+            String noSpaceEmail = email.replaceAll(" ", "");
+            mEmail = noSpaceEmail.toLowerCase();
             mPassword = password;
         }
 
@@ -470,7 +471,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             //mEmail = email;
             final String pass = ApplicationData.myEncrytion.encrypt(password);
 
-            mEmail = email.replaceAll(" ", "");
+            String noSpaceEmail = email.replaceAll(" ", "");
+            mEmail = noSpaceEmail.toLowerCase();
             mPassword = pass;
             // mPassword = password;
 
