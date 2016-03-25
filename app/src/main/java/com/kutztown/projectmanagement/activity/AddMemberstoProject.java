@@ -82,13 +82,19 @@ public class AddMemberstoProject extends Activity implements AppCompatCallback {
         // Retrieve all app members
         memberList = getAllMembers();
 
+        ArrayList<String> memberListNoUnicodeChars = new ArrayList<>();
+
         if(memberList == null) {
             memberList = new ArrayList<>();
+        } else {
+            for(String member : memberList){
+                memberListNoUnicodeChars.add(member.substring(3, member.length()-1));
+            }
         }
 
         // Retrieve listview and add projects
         projectView = (ListView) findViewById(R.id.addMemberListView);
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.mainactivityrow, memberList);
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.mainactivityrow, memberListNoUnicodeChars);
         projectView.setAdapter(listAdapter);
 
         final ImageButton myButton = (ImageButton) findViewById(R.id.plus_buttom1);
