@@ -103,9 +103,6 @@ public class AddMemberstoProject extends Activity implements AppCompatCallback {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedEmail = (String) projectView.getItemAtPosition(position);
 
-                // Remove leftover python characters
-                selectedEmail = selectedEmail.substring(3, selectedEmail.length()-1);
-
                 // Build paramString
                 StringBuilder paramBuilder = new StringBuilder();
                 paramBuilder.append("?");
