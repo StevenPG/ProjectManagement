@@ -24,6 +24,8 @@ import java.util.ArrayList;
 
 public class MemberProgressActivity extends AppCompatActivity {
 
+    private ArrayList<TaskTableEntry> objectList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,7 +150,8 @@ public class MemberProgressActivity extends AppCompatActivity {
         String[] xData = new String[objectList.size()+1];
 
         for(int i = 0; i < objectList.size(); i++){
-            xData[i] = objectList.get(i).getTaskName();
+            xData[i] = objectList.get(i).getTaskName().substring(3,
+                    objectList.get(i).getTaskName().length()-1);
             yData[i] = Float.parseFloat(
                     objectList.get(i).getTaskProgress());
         }
