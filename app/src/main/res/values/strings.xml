@@ -49,4 +49,8 @@
     <string name="pick_a_priority">Pick a Member</string>
     <string name="pick_a_dependency">Pick a dependency</string>
     <string name="title_activity_task_view">TaskViewActivity</string>
+
+    <string name="message_subject">Message Subject</string>
+    <string name="message_body">Message Description</string>
+    <string name="message_send">Send Message</string>
 </resources>
