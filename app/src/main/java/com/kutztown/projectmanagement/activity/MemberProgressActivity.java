@@ -1,7 +1,7 @@
 package com.kutztown.projectmanagement.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -20,9 +20,13 @@ import com.kutztown.projectmanagement.data.TaskTableEntry;
 import com.kutztown.projectmanagement.graphing.PieGraph;
 import com.kutztown.projectmanagement.network.HTTPHandler;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class MemberProgressActivity extends AppCompatActivity {
+
+    private ArrayList<TaskTableEntry> objectList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +43,7 @@ public class MemberProgressActivity extends AppCompatActivity {
         });
 
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
-        if(!loggedIn) {
+        if (!loggedIn) {
             startActivity(ActivityController.openLoginActivity(getApplicationContext()));
         }
 
@@ -47,9 +51,9 @@ public class MemberProgressActivity extends AppCompatActivity {
         displayProjectProgress();
     }
 
-    public String[] buildTexts(float[] yData, String[] xData){
+    public String[] buildTexts(float[] yData, String[] xData) {
         String[] legend = new String[yData.length];
-        for(int i = 0; i < legend.length; i++){
+        for (int i = 0; i < legend.length; i++) {
             legend[i] = Float.toString(yData[i]) + "% - " + xData[i];
         }
         return legend;
@@ -73,10 +77,10 @@ public class MemberProgressActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
-        if(!loggedIn){
+        if (!loggedIn) {
             startActivity(ActivityController.openLoginActivity(getApplicationContext()));
         }
     }
@@ -84,7 +88,7 @@ public class MemberProgressActivity extends AppCompatActivity {
     /**
      * This method displays the current project's progress
      */
-    protected void displayProjectProgress(){
+    protected void displayProjectProgress() {
         // Try to guarantee that yData.length == xData.length
         // This is dummy data that will be filled correctly later
 
@@ -108,19 +112,26 @@ public class MemberProgressActivity extends AppCompatActivity {
         }
 
         // Remove brackets from front and back
-        dataFromDB = dataFromDB.substring(1, dataFromDB.length() -1);
+        dataFromDB = dataFromDB.substring(1, dataFromDB.length() - 1);
 
         // Split string by end of internalList
         String[] dataFromDBArray = dataFromDB.split("\\), ");
 
         Log.d("debug", "Data from DB: " + dataFromDB);
 
+        if("".equals(dataFromDB)){
+            Log.d("debug", "No tasks");
+            TextView chartname = (TextView) findViewById(R.id.ChartName);
+            chartname.setText("No tasks in project");
+            return;
+        }
+
         // Holds all of the objects created
         ArrayList<TaskTableEntry> objectList = new ArrayList<>();
 
         // Used multiple times inside the for loop
         ArrayList<String> dataList;
-        for(String s : dataFromDBArray){
+        for (String s : dataFromDBArray) {
             // remove open and close parenthesis to prep for adding into object
             s = s.replace("(", "");
             s = s.replace(")", "");
@@ -130,7 +141,7 @@ public class MemberProgressActivity extends AppCompatActivity {
 
             String[] internalList = s.split(",");
 
-            for(String iS : internalList){
+            for (String iS : internalList) {
                 // clear spaces before adding
                 dataList.add(iS.replace(" ", ""));
             }
@@ -142,21 +153,23 @@ public class MemberProgressActivity extends AppCompatActivity {
         }
 
         // yData is an array of individual values
-        float[] yData = new float[objectList.size()+1];
+        float[] yData = new float[objectList.size() + 1];
 
         // xData is an array of individual labels
-        String[] xData = new String[objectList.size()+1];
+        String[] xData = new String[objectList.size() + 1];
 
-        for(int i = 0; i < objectList.size(); i++){
-            xData[i] = objectList.get(i).getTaskName();
-            yData[i] = Float.parseFloat(
-                    objectList.get(i).getTaskProgress());
+        for (int i = 0; i < objectList.size(); i++) {
+            if (objectList.get(i) != null) {
+                xData[i] = objectList.get(i).getTaskName();
+                yData[i] = Float.parseFloat(
+                        objectList.get(i).getTaskProgress());
+            }
         }
 
         float remainingPercentage = 0;
 
         // get remaining percentage
-        for(TaskTableEntry entry : objectList){
+        for (TaskTableEntry entry : objectList) {
             remainingPercentage = remainingPercentage + (100 - Float.parseFloat(entry.getTaskProgress()));
         }
 
@@ -177,10 +190,10 @@ public class MemberProgressActivity extends AppCompatActivity {
         // Set title of chart
         TextView textView = (TextView) findViewById(R.id.ChartName);
         String projectName = ApplicationData.currentProject.getProjectName();
-        if("".equals(projectName) || projectName == null){
+        if ("".equals(projectName) || projectName == null) {
             projectName = "Error in Project Name";
         }
-        projectName = projectName.substring(2, ApplicationData.currentProject.getProjectName().length()-1);
+        projectName = projectName.substring(2, ApplicationData.currentProject.getProjectName().length() - 1);
         textView.setText("Task progress: " + ApplicationData.currentViewedMember + " in " + projectName);
 
         // Build text arrays for list view output

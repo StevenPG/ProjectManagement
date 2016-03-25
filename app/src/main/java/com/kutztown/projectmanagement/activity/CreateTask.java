@@ -1,14 +1,10 @@
 package com.kutztown.projectmanagement.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
@@ -28,24 +24,19 @@ import android.widget.Toast;
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
-import com.kutztown.projectmanagement.data.CommaListParser;
 import com.kutztown.projectmanagement.data.ProjectTableEntry;
-import com.kutztown.projectmanagement.data.TableEntry;
 import com.kutztown.projectmanagement.data.TaskDatePicker;
 import com.kutztown.projectmanagement.data.TaskTableEntry;
 import com.kutztown.projectmanagement.network.HTTPHandler;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 
 public class CreateTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
+    public static String dateString = "";
     public Spinner spinner1 = null;
     public Spinner spinner2 = null;
     public Spinner spinner3 = null;
-    public static String dateString = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +61,12 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
         itemArray[0] = itemArray[0].substring(2, itemArray[0].length());
 
         // Remove very last char from last item
-        itemArray[itemArray.length-1] = itemArray[itemArray.length-1].substring(0, itemArray[itemArray.length-1].length() -1);
+        itemArray[itemArray.length - 1] = itemArray[itemArray.length - 1].substring(0, itemArray[itemArray.length - 1].length() - 1);
 
         this.spinner1 = (Spinner) findViewById(R.id.spinner01);
         this.spinner1.setAdapter(
                 new ArrayAdapter<String>(this,
-                R.layout.mainactivityrow, itemArray)
+                        R.layout.mainactivityrow, itemArray)
         );
 
 
@@ -85,13 +76,14 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
         final TextView taskName = (TextView) findViewById(R.id.name_task);
 
         // this textview will be set whith the project name
-         final TextView projectName = (TextView) findViewById(R.id.name_project);
-        projectName.setText(ApplicationData.currentProject.getProjectName());
-         Button taskDate = (Button) findViewById(R.id.datepicker01);
+        final TextView projectName = (TextView) findViewById(R.id.name_project);
+        projectName.setText(ApplicationData.currentProject.getProjectName().substring(2,
+                ApplicationData.currentProject.getProjectName().length() - 1));
+        Button taskDate = (Button) findViewById(R.id.datepicker01);
         final Calendar c = Calendar.getInstance();
 
         // this textview will get a description of the task
-         final EditText taskDesc = (EditText) findViewById(R.id.task_description);
+        final EditText taskDesc = (EditText) findViewById(R.id.task_description);
 
         taskDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +117,7 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
                 String projectName = String.valueOf(ApplicationData.currentProject.getProjectId());
                 if (projectName.equals("") || task_desc.equals("") || task_name.equals("") || pickedPriority.equals("") ||
                         dateString.equals("") || dependency.equals("") || pickedName.equals("")) {
-                        missingInfo();
+                    missingInfo();
 
                 } else {
                     TaskTableEntry entry = new TaskTableEntry(
@@ -198,6 +190,7 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
         inflate.inflate(R.menu.menu, ApplicationData.amvMenu.getMenu());
         return true;
     }
+
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         ApplicationData.year = year;
         ApplicationData.month = monthOfYear;
@@ -222,8 +215,8 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
         // as you specify a parent activity in AndroidManifest.xml.
         return ApplicationData.contextMenu(this, item);
     }
-    private void missingInfo()
-    {
+
+    private void missingInfo() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateTask.this);
 
         // Setting Dialog Title
@@ -236,7 +229,7 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
         alertDialog.setIcon(R.drawable.icon);
 
         alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int which) {
+            public void onClick(DialogInterface dialog, int which) {
 
 
             }
