@@ -113,8 +113,18 @@
             android:label="@string/title_activity_task_view"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.kutztown.projectmanagement.activity.MemberProgressActivity" />
-        <activity android:name="com.kutztown.projectmanagement.activity.MessageActivity"></activity>
+        <activity
+            android:name="com.kutztown.projectmanagement.activity.MemberProgressActivity" />
+        <activity
+            android:name="com.kutztown.projectmanagement.activity.MessageActivity"
+            android:label="MessageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.kutztown.projectmanagement.activity.InboxActivity"
+            android:label="InboxActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
