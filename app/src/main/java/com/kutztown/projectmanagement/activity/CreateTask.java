@@ -107,8 +107,8 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
 
                 String pickedPriority = getSeverity.getText().toString();
                 String dependency = getDependecy.getText().toString();
-                String task_name = taskName.getText().toString().replace(" ", "");
-                String task_desc = taskDesc.getText().toString().replace(" ", "");
+                String task_name = taskName.getText().toString().replace(" ", "_");
+                String task_desc = taskDesc.getText().toString().replace(" ", "_");
                 String severity = getSeverity.getText().toString();
 
                 Log.d("debug", "Chosen Priority: " + pickedPriority);
