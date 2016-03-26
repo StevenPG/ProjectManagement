@@ -79,6 +79,13 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Clicked Text contains the project name
                 String clickedText = (String) parent.getItemAtPosition(position);
+
+                // Split on the colon and use the first piece before colon
+                String[] splitText = clickedText.split("/:/g");
+
+                clickedText = splitText[0];
+                Log.d("debug", "TEST: " + clickedText);
+
                 // TODO - Set the ApplicationData.currentProject value
                 // Retrieve the project from the DB and store it globally
                 HTTPHandler handler = new HTTPHandler();
@@ -139,6 +146,13 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Clicked Text contains the project name
                 String clickedText = (String) parent.getItemAtPosition(position);
+
+                // Split on the colon and use the first piece before colon
+                String[] splitText = clickedText.split(":");
+
+                clickedText = splitText[0];
+
+                Log.d("debug", "TEST: " + clickedText);
                 // TODO - Set the ApplicationData.currentProject value
                 // Retrieve the project from the DB and store it globally
                 HTTPHandler handler = new HTTPHandler();

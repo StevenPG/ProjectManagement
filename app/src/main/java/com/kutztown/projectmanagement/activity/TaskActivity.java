@@ -138,6 +138,11 @@ public class TaskActivity extends Activity implements AppCompatCallback {
                 // Clicked Text contains the project name
                 String clickedText = (String) parent.getItemAtPosition(position);
 
+                // Split on the colon and use the first piece before colon
+                String[] splitText = clickedText.split(":");
+
+                clickedText = splitText[0];
+
                 // Retrieve the project from the DB and store it globally
                 HTTPHandler handler = new HTTPHandler();
                 try {
@@ -207,6 +212,11 @@ public class TaskActivity extends Activity implements AppCompatCallback {
                 // Clicked Text contains the project name
                 String clickedText = (String) parent.getItemAtPosition(position);
 
+                // Split on the colon and use the first piece before colon
+                String[] splitText = clickedText.split(":");
+
+                clickedText = splitText[0];
+
                 // Retrieve the project from the DB and store it globally
                 HTTPHandler handler = new HTTPHandler();
                 try {
@@ -230,6 +240,11 @@ public class TaskActivity extends Activity implements AppCompatCallback {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Clicked Text contains the project name
                 String clickedText = (String) parent.getItemAtPosition(position);
+
+                // Split on the colon and use the first piece before colon
+                String[] splitText = clickedText.split(":");
+
+                clickedText = splitText[0];
 
                 // Retrieve the project from the DB and store it globally
                 HTTPHandler handler = new HTTPHandler();
@@ -263,6 +278,10 @@ public class TaskActivity extends Activity implements AppCompatCallback {
         for (String task : taskList) {
             HTTPHandler handler = new HTTPHandler();
             try {
+                // Split on the colon and use the first piece before colon
+                String[] splitText = task.split(":");
+                task = splitText[0];
+
                 TaskTableEntry currententry = (TaskTableEntry) handler.select(task, "TaskId", new TaskTableEntry(), "TaskTable");
                 Log.d("debug", currententry.getTaskProgress() + "Task progressLLLLL:");
                 Log.d("debug", currententry.writeAsGet());
@@ -276,7 +295,8 @@ public class TaskActivity extends Activity implements AppCompatCallback {
         }
 
         for (TaskTableEntry t : taskTableEntries) {
-            tasks.add(String.valueOf(t.getTaskID()));
+            tasks.add(String.valueOf(t.getTaskID()) + ": " +
+                    t.getTaskName().substring(2, t.getTaskName().length() - 1));
         }
 
         return tasks;
@@ -311,7 +331,26 @@ public class TaskActivity extends Activity implements AppCompatCallback {
                 // Wipe leftover python structures
                 task = task.replaceAll("u'", "");
                 task = task.replaceAll("'", "");
-                taskArray.add(task);
+                if (!"".equals(task)) {
+                    if (!"None".equals(task)) {
+                        // Get the project name of project
+                        TaskTableEntry entry = null;
+                        try {
+                            Log.d("debug", task);
+                            entry = (TaskTableEntry) new HTTPHandler().select(
+                                    task, "TaskId", new TaskTableEntry(), "TaskTable"
+                            );
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        if (entry != null && entry.getTaskName() != null) {
+                            taskArray.add(task + ": " + entry.getTaskName().substring(2,
+                                    entry.getTaskName().length() - 1));
+                        } else {
+                            taskArray.add(task);
+                        }
+                    }
+                }
             }
         }
 
