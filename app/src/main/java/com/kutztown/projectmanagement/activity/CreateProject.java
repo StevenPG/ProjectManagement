@@ -68,8 +68,8 @@ public class CreateProject extends AppCompatActivity {
                 // Enter project into database
                 String currentUserEmail = ApplicationData.currentUser.getEmail();
                 currentUserEmail = currentUserEmail.substring(2, currentUserEmail.length() - 1);
-                projectName = projectName.replace(" ", "");
-                projectDesc = projectDesc.replace(" ", "");
+                projectName = projectName.replace(" ", "_");
+                projectDesc = projectDesc.replace(" ", "_");
                 HTTPHandler handler = new HTTPHandler();
                 ProjectTableEntry entry = new ProjectTableEntry(
                         currentUserEmail,
