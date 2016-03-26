@@ -159,8 +159,9 @@ public class ProgressActivity extends AppCompatActivity {
         String[] xData = new String[objectList.size() + 1];
 
         for (int i = 0; i < objectList.size(); i++) {
-            if (objectList.get(i) != null) {
-                xData[i] = objectList.get(i).getTaskName();
+            if (objectList.get(i) != null && objectList.get(i).getTaskName() != null) {
+                xData[i] = objectList.get(i).getTaskName().substring(2,
+                        objectList.get(i).getTaskName().length()-1);
                 yData[i] = Float.parseFloat(
                         objectList.get(i).getTaskProgress());
             }
@@ -194,7 +195,7 @@ public class ProgressActivity extends AppCompatActivity {
             projectName = "Error in Project Name";
         }
         projectName = projectName.substring(2, ApplicationData.currentProject.getProjectName().length() - 1);
-        textView.setText("Task progress: " + ApplicationData.currentViewedMember + " in " + projectName);
+        textView.setText("Task progress in " + projectName);
 
         // Build text arrays for list view output
         String[] legend = buildTexts(yData, xData);
