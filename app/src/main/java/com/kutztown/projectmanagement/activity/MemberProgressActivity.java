@@ -159,8 +159,9 @@ public class MemberProgressActivity extends AppCompatActivity {
         String[] xData = new String[objectList.size() + 1];
 
         for (int i = 0; i < objectList.size(); i++) {
-            if (objectList.get(i) != null) {
-                xData[i] = objectList.get(i).getTaskName();
+            if (objectList.get(i) != null && objectList.get(i).getTaskName() != null) {
+                xData[i] = objectList.get(i).getTaskName().substring(2,
+                        objectList.get(i).getTaskName().length()-1);
                 yData[i] = Float.parseFloat(
                         objectList.get(i).getTaskProgress());
             }
