@@ -27,6 +27,7 @@ import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.data.ProjectTableEntry;
 import com.kutztown.projectmanagement.data.TaskDatePicker;
 import com.kutztown.projectmanagement.data.TaskTableEntry;
+import com.kutztown.projectmanagement.data.UserTableEntry;
 import com.kutztown.projectmanagement.network.HTTPHandler;
 
 import java.util.Calendar;
@@ -118,10 +119,17 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
                 if (projectName.equals("") || task_desc.equals("") || task_name.equals("") || pickedPriority.equals("") ||
                         dateString.equals("") || dependency.equals("") || pickedName.equals("")) {
                     missingInfo();
-
                 } else {
+                    UserTableEntry selectedUser = null;
+                    try {
+                        selectedUser = (UserTableEntry) new HTTPHandler().select(getName.getText().toString(),
+                                "email", new UserTableEntry(), "UserTable");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                     TaskTableEntry entry = new TaskTableEntry(
-                            String.valueOf(ApplicationData.currentUser.getUserId()),
+                            String.valueOf(selectedUser.getUserId()),
                             projectName,
                             task_name,
                             task_desc,

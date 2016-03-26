@@ -17,6 +17,7 @@ import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.data.TaskTableEntry;
+import com.kutztown.projectmanagement.data.UserTableEntry;
 import com.kutztown.projectmanagement.graphing.PieGraph;
 import com.kutztown.projectmanagement.network.HTTPHandler;
 
@@ -129,6 +130,21 @@ public class MemberProgressActivity extends AppCompatActivity {
         // Holds all of the objects created
         ArrayList<TaskTableEntry> objectList = new ArrayList<>();
 
+        // Grab currentViewedMember
+        UserTableEntry currentMember = null;
+        try {
+            currentMember = (UserTableEntry) new HTTPHandler().select(
+                    ApplicationData.currentViewedMember, "email", new UserTableEntry(), "UserTable"
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("debug", "Failed to find currentViewedMember in database");
+        } finally {
+            if(currentMember == null){
+                currentMember = new UserTableEntry("", "");
+            }
+        }
+
         // Used multiple times inside the for loop
         ArrayList<String> dataList;
         for (String s : dataFromDBArray) {
@@ -148,7 +164,12 @@ public class MemberProgressActivity extends AppCompatActivity {
 
             TaskTableEntry entry = new TaskTableEntry(dataList);
 
-            objectList.add(entry);
+            //TODO Only add the entry if the user in task is the currentViewedMember
+            if(entry.getUser().equals(String.valueOf(currentMember.getUserId()))) {
+                objectList.add(entry);
+            } else {
+                // Don't add this task
+            }
 
         }
 
@@ -161,7 +182,7 @@ public class MemberProgressActivity extends AppCompatActivity {
         for (int i = 0; i < objectList.size(); i++) {
             if (objectList.get(i) != null && objectList.get(i).getTaskName() != null) {
                 xData[i] = objectList.get(i).getTaskName().substring(2,
-                        objectList.get(i).getTaskName().length()-1);
+                        objectList.get(i).getTaskName().length() - 1);
                 yData[i] = Float.parseFloat(
                         objectList.get(i).getTaskProgress());
             }
@@ -199,10 +220,6 @@ public class MemberProgressActivity extends AppCompatActivity {
 
         // Build text arrays for list view output
         String[] legend = buildTexts(yData, xData);
-
-        // TODO - Created a bullet listview with correct colors by asking graph for colors
-        // TODO - Tutorial at this location:
-        // TODO -   http://www.technotalkative.com/android-bullets-in-listview/
 
         // Display xData in list view
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
