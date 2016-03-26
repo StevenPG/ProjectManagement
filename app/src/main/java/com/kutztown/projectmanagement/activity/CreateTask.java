@@ -131,8 +131,8 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
                     TaskTableEntry entry = new TaskTableEntry(
                             String.valueOf(selectedUser.getUserId()),
                             projectName,
-                            task_name,
-                            task_desc,
+                            task_name.replace(" ", "_"),
+                            task_desc.replace(" ", "_"),
                             "0",
                             "",
                             pickedPriority.replace(" ", ""),
@@ -147,7 +147,7 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
                         Toast.makeText(getApplicationContext(), "task successfully created", Toast.LENGTH_SHORT).show();
                         // after inserting into db, pull back out with unique id
                         TaskTableEntry currentTask = (TaskTableEntry)
-                                handler.select(taskName.getText().toString(), "TaskName",
+                                handler.select(taskName.getText().toString().replace(" ", "_"), "TaskName",
                                         new TaskTableEntry(), "TaskTable");
 
                         Log.d("debug2", "CurrentProjectId: " + String.valueOf(ApplicationData.currentProject.getProjectId()));
@@ -181,6 +181,7 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.d("debug", "Error creating new task ");
+                        Toast.makeText(getApplicationContext(), "Error creating new task", Toast.LENGTH_LONG);
                     }
 
                     // head on back to task view

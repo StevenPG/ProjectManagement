@@ -1,19 +1,14 @@
 package com.kutztown.projectmanagement.activity;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -26,7 +21,6 @@ import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.data.ProjectTableEntry;
 import com.kutztown.projectmanagement.network.HTTPHandler;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -85,6 +79,13 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Clicked Text contains the project name
                 String clickedText = (String) parent.getItemAtPosition(position);
+
+                // Split on the colon and use the first piece before colon
+                String[] splitText = clickedText.split("/:/g");
+
+                clickedText = splitText[0];
+                Log.d("debug", "TEST: " + clickedText);
+
                 // TODO - Set the ApplicationData.currentProject value
                 // Retrieve the project from the DB and store it globally
                 HTTPHandler handler = new HTTPHandler();
@@ -145,6 +146,13 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Clicked Text contains the project name
                 String clickedText = (String) parent.getItemAtPosition(position);
+
+                // Split on the colon and use the first piece before colon
+                String[] splitText = clickedText.split(":");
+
+                clickedText = splitText[0];
+
+                Log.d("debug", "TEST: " + clickedText);
                 // TODO - Set the ApplicationData.currentProject value
                 // Retrieve the project from the DB and store it globally
                 HTTPHandler handler = new HTTPHandler();
@@ -198,7 +206,22 @@ public class MainActivity extends AppCompatActivity {
                 project = project.replaceAll("'", "");
                 if(!"".equals(project)) {
                     if(!"None".equals(project)) {
-                        projectArray.add(project);
+                        // Get the project name of project
+                        ProjectTableEntry entry = null;
+                        try {
+                            Log.d("debug", project);
+                            entry = (ProjectTableEntry) new HTTPHandler().select(
+                                    project, "ProjectId", new ProjectTableEntry(), "ProjectTable"
+                            );
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        if (entry != null && entry.getProjectName() != null) {
+                            projectArray.add(project + ": " + entry.getProjectName().substring(2,
+                                    entry.getProjectName().length()-1));
+                        } else {
+                            projectArray.add(project);
+                        }
                     }
                 }
             }
