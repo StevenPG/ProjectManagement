@@ -30,7 +30,7 @@
                     android:src="@drawable/plus_icon"
                     android:layout_height="wrap_content" />
                 <android.support.v7.widget.ActionMenuView
-                    android:id="@+id/amvMenu"
+                    android:id="@+id/amvMenu08"
                     android:layout_gravity="start"
                     android:layout_width="wrap_content"
                     android:layout_height="?attr/actionBarSize"

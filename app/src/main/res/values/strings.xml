@@ -49,4 +49,5 @@
     <string name="pick_a_priority">Pick a Member</string>
     <string name="pick_a_dependency">Pick a dependency</string>
     <string name="title_activity_task_view">TaskViewActivity</string>
+    <string name="title_activity_member_progress">MemberProgressActivity</string>
 </resources>

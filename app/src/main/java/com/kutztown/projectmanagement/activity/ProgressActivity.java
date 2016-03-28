@@ -25,9 +25,9 @@ public class ProgressActivity extends AppCompatActivity {
         setContentView(R.layout.activity_progress);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setDisplayShowHomeEnabled(false);
-        getSupportActionBar().setTitle(null);
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+      //  getSupportActionBar().setDisplayShowHomeEnabled(false);
+        //getSupportActionBar().setTitle(null);
 
         ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu);
         ApplicationData.amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
