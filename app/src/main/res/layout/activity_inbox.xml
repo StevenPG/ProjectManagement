@@ -45,6 +45,20 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="60dp">
+
+        <ListView
+            android:id="@+id/inboxListView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/transparent"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="#CCCCCC"
+            android:dividerHeight="1dp"
+            android:paddingLeft="2dp" >
+        </ListView>
+
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
