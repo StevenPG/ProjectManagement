@@ -46,6 +46,7 @@ public class MemberView extends AppCompatActivity {
         final Button taskB = (Button)findViewById(R.id.task1_ld_button);
         final Button calendarB = (Button) findViewById(R.id.calendar1_id_button);
         final Button membersB = (Button) findViewById(R.id.members1_ld_button);
+        final Button messageB = (Button) findViewById(R.id.message1_ld_button);
 
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
         if(!loggedIn){
@@ -80,6 +81,12 @@ public class MemberView extends AppCompatActivity {
             }
         });
 
+        messageB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(ActivityController.openActivityInbox(getApplicationContext()));
+            }
+        });
     }
 
     @Override

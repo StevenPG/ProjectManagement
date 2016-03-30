@@ -3,18 +3,21 @@ package com.kutztown.projectmanagement.controller;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Message;
 
 import com.kutztown.projectmanagement.activity.AddMemberstoProject;
 import com.kutztown.projectmanagement.activity.CalendarActivity;
 import com.kutztown.projectmanagement.activity.CreateAccountActivity;
 import com.kutztown.projectmanagement.activity.CreateProject;
 import com.kutztown.projectmanagement.activity.CreateTask;
+import com.kutztown.projectmanagement.activity.InboxActivity;
 import com.kutztown.projectmanagement.activity.LeaderView;
 import com.kutztown.projectmanagement.activity.LoginActivity;
 import com.kutztown.projectmanagement.activity.MainActivity;
 import com.kutztown.projectmanagement.activity.MemberList;
 import com.kutztown.projectmanagement.activity.MemberProgressActivity;
 import com.kutztown.projectmanagement.activity.MemberView;
+import com.kutztown.projectmanagement.activity.MessageActivity;
 import com.kutztown.projectmanagement.activity.ProfileActivity;
 import com.kutztown.projectmanagement.activity.ProgressActivity;
 import com.kutztown.projectmanagement.activity.TaskActivity;
@@ -97,5 +100,12 @@ public class ActivityController extends Application{
         Intent myIntent = new Intent(appContext, TaskViewActivity.class);
         return myIntent;
     }
-
+    public static Intent openActivityMessage(Context appContext){
+        Intent myIntent = new Intent(appContext, MessageActivity.class);
+        return myIntent;
+    }
+    public static Intent openActivityInbox(Context appContext){
+        Intent myIntent = new Intent(appContext, InboxActivity.class);
+        return myIntent;
+    }
 }
