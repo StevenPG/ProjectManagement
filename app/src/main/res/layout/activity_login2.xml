@@ -99,6 +99,13 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password Must Be Longer Than 4 Characters"
+                android:id="@+id/textView2"
+                android:layout_gravity="center_horizontal" />
+
             <Button
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"
