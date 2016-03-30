@@ -1,6 +1,8 @@
 package com.kutztown.projectmanagement.activity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ActionMenuView;
@@ -36,7 +38,8 @@ public class InboxActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setTitle(null);
-        ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu09);
+
+        ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu02);
         ApplicationData.amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -92,13 +95,13 @@ public class InboxActivity extends AppCompatActivity {
 
         ArrayList memberArray = new ArrayList();
 
-        TextView header = (TextView) findViewById(R.id.header);
+        //TextView header = (TextView) findViewById(R.id.header);
         Log.d("debug", "Member List: " + projectList);
         if ("None".equals(projectList) || "u''".equals(projectList)) {
-            header.setText("There are no members in this project");
+            //header.setText("There are no members in this project");
             return null;
         } else {
-            header.setText("Members");
+            //header.setText("Members");
             String[] members = projectList.split("--");
 
             // Wipe python leftover from splitting list object
