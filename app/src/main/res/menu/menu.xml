@@ -14,11 +14,15 @@
         />
     <item
         android:orderInCategory="3"
-        android:title="Member Profile"
+        android:title="Profile"
         android:id="@+id/profile"/>
     <item
         android:orderInCategory="5"
         android:title="Main Menu"
         android:id="@+id/mainmenuview"/>
+    <item
+        android:orderInCategory="7"
+        android:title="Theme"
+        android:id="@+id/theme"/>
 
 </menu>
