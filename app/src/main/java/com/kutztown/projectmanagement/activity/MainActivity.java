@@ -184,6 +184,9 @@ public class MainActivity extends AppCompatActivity {
      */
     protected ArrayList<String> getProjectsFromUser(){
 
+        String userFirstName = ApplicationData.currentUser.getFirstName();
+        String userLastName = ApplicationData.currentUser.getLastName();
+        String userFullName = userFirstName + " " + userLastName;
         String projectList = ApplicationData.currentUser.getProjectList();
         if(projectList == null){
             projectList = "";
@@ -194,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         TextView header = (TextView) findViewById(R.id.Header);
         Log.d("debug", "Project List: " + projectList);
         if("None".equals(projectList) || "".equals(projectList)){
-            header.setText("Click \"+\" to create a project");
+            header.setText("Welcome " + userFullName + "," + "\n" + "Click \"+\" to create a project");
             return null;
         } else {
             header.setText("Project List");

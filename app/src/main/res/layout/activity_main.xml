@@ -56,7 +56,6 @@
         tools:context="com.kutztown.projectmanagement.activity.LeaderView"
         tools:showIn="@layout/activity_leader_view">
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
