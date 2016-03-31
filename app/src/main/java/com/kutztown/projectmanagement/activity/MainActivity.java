@@ -185,12 +185,10 @@ public class MainActivity extends AppCompatActivity {
     protected ArrayList<String> getProjectsFromUser(){
 
         String userFirstName = ApplicationData.currentUser.getFirstName();
-        if(userFirstName.equals("None"))
-        {
+        if(userFirstName.equals("None")) {
             userFirstName = "";
         }
-        else
-        {
+        else {
             userFirstName = " " + userFirstName;
         }
 
