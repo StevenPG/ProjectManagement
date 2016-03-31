@@ -54,7 +54,14 @@ public class LeaderView extends AppCompatActivity {
         final Button taskB = (Button)findViewById(R.id.task_ld_button);
         final Button calendarB = (Button) findViewById(R.id.calendar_id_button);
         final Button membersB = (Button) findViewById(R.id.members_ld_button);
+        final Button messageB = (Button) findViewById(R.id.message_ld_button);
 
+        messageB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(ActivityController.openActivityInbox(getApplicationContext()));
+            }
+        });
         progressB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
