@@ -20,6 +20,7 @@ import com.kutztown.projectmanagement.activity.ProfileActivity;
 import com.kutztown.projectmanagement.activity.ProgressActivity;
 import com.kutztown.projectmanagement.activity.TaskActivity;
 import com.kutztown.projectmanagement.activity.TaskViewActivity;
+import com.kutztown.projectmanagement.activity.ThemeActivity;
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.graphing.GraphingTest;
 
@@ -98,10 +99,15 @@ public class ActivityController extends Application{
         Intent myIntent = new Intent(appContext, TaskViewActivity.class);
         return myIntent;
     }
-    public static Intent openMessageActivity(Context appContext)
+    public static Intent openActivityMessage(Context appContext)
     {
         Intent myIntent = new Intent(appContext, MessageActivity.class);
         return  myIntent;
+    }
+
+    public static Intent openThemeActivity(Context appContext){
+        Intent myIntent = new Intent(appContext, ThemeActivity.class);
+        return myIntent;
     }
 
 }

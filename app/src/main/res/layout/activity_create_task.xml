@@ -65,6 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:paddingLeft="18dp"
                 android:hint="Task Name"
                 android:background="#FFFFFF"/>
 
@@ -73,6 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:paddingLeft="18dp"
                 android:hint="Project Name"
                 android:background="#FFFFFF"/>
 
@@ -83,7 +85,8 @@
                 android:lines="2"
                 android:scrollbars="vertical"
                 android:layout_marginTop="15dp"
-                android:hint="task Description"
+                android:paddingLeft="18dp"
+                android:hint="Task Description"
                 android:background="#FFFFFF"/>
 
             <Spinner

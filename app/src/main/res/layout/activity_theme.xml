@@ -23,14 +23,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="#FFFFFF"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:id="@+id/plus_button"
-                    android:layout_gravity="end"
-                    android:background="#FFFFFF"
-                    android:paddingRight="10dp"
-                    android:src="@drawable/plus_icon"
-                    android:layout_height="wrap_content" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:contentDescription="Logo"
@@ -49,27 +42,34 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.kutztown.projectmanagement.activity.LeaderView"
-        tools:showIn="@layout/activity_leader_view">
+        android:layout_marginTop="60dp"
+        >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Project List"
-            android:id="@+id/Header"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="Theme"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:id="@+id/textView"
             android:layout_gravity="center_horizontal" />
 
-        <ListView
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/ThemeSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ProjectListView"
-            android:layout_gravity="center_horizontal"
-            android:clickable="false" />
+            android:adjustViewBounds="true"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/banner_logo" />
+
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
