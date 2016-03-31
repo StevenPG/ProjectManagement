@@ -57,7 +57,7 @@ public class TaskViewActivity extends AppCompatActivity {
 
         // Assign the textfield to 0
         final TextView progressText = (TextView) findViewById(R.id.seekbarProgress);
-        progressText.setText(SeekBarLabel);
+        progressText.setText(SeekBarLabel + "%");
         final Button buttonText = (Button) findViewById(R.id.updateSubmitButton);
 
         progressBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
