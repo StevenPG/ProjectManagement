@@ -114,6 +114,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+
             android:name="com.kutztown.projectmanagement.activity.MemberProgressActivity"
             android:label="MemberProgressActivity"
             android:theme="@style/AppTheme.NoActionBar"
@@ -122,9 +123,13 @@
             android:name="com.kutztown.projectmanagement.activity.MessageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:label="MemberPregressActivity">
+            android:label="MemberPregressActivity"/>
 
-        </activity>
+        <activity
+            android:name="com.kutztown.projectmanagement.activity.InboxActivity"
+            android:label="InboxActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

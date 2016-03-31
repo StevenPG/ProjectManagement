@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.kutztown.projectmanagement.activity.MessageActivity">
+    tools:context="com.kutztown.projectmanagement.activity.InboxActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -44,25 +44,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="60dp"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:text="Messaging"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:id="@+id/textView"
-            android:layout_gravity="center_horizontal" />
+        android:layout_marginTop="60dp">
 
         <ListView
             android:id="@+id/inboxListView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
             android:background="@android:color/transparent"
             android:cacheColorHint="@android:color/transparent"
@@ -70,53 +58,6 @@
             android:dividerHeight="1dp"
             android:paddingLeft="2dp" >
         </ListView>
-
-        <!-- <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/message_subject"
-            android:layout_marginTop="30dp"
-            android:paddingLeft="15dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:id="@+id/message_subject_field"
-            android:lines="1"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/message_body"
-            android:paddingLeft="15dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:id="@+id/message_body_field"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Send Message"
-            android:layout_gravity="center"
-            android:paddingLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:id="@+id/createProject"
-            /> -->
 
     </LinearLayout>
 
