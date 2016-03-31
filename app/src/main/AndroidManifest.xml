@@ -117,16 +117,11 @@
             android:label="@string/title_activity_task_view"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-<<<<<<< HEAD
         <activity
-
             android:name="com.kutztown.projectmanagement.activity.MemberProgressActivity"
             android:label="MemberProgressActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
-=======
-        <activity android:name="com.kutztown.projectmanagement.activity.MemberProgressActivity" />
->>>>>>> 9877cbd2910cd7318560bf866c26777dd0bbcf8f
         <activity
             android:name="com.kutztown.projectmanagement.activity.MessageActivity"
             android:screenOrientation="portrait"
@@ -141,7 +136,7 @@
         <activity
             android:name="com.kutztown.projectmanagement.activity.ThemeActivity"
             android:label="@string/title_activity_theme"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
