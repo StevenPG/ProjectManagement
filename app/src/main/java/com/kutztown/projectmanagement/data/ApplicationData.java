@@ -131,20 +131,19 @@ public final class ApplicationData {
             case R.id.logout:
                 Log.d("debug", "Selected Logout");
                 ApplicationData.logoutUser();
-                context.startActivity(ActivityController.
-                        openLoginActivity(context));
+                context.startActivity(ActivityController.openLoginActivity(context));
                 return true;
             case R.id.profile:
                 Log.d("debug", "Selected Profile");
-                context.startActivity(ActivityController.
-                        openProfileActivity(context));
+                context.startActivity(ActivityController.openProfileActivity(context));
                 return true;
             case R.id.mainmenuview:
                 Log.d("debug", "Selected Main Menu view");
-                context.startActivity(ActivityController.
-                openMainActivity(context));
+                context.startActivity(ActivityController.openMainActivity(context));
+            case R.id.theme:
+                Log.d("debug", "Selected Theme");
+                context.startActivity(ActivityController.openThemeActivity(context));
         }
        return true;
     }
-
 }
