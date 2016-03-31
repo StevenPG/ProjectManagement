@@ -9,6 +9,7 @@ import com.kutztown.projectmanagement.activity.CalendarActivity;
 import com.kutztown.projectmanagement.activity.CreateAccountActivity;
 import com.kutztown.projectmanagement.activity.CreateProject;
 import com.kutztown.projectmanagement.activity.CreateTask;
+import com.kutztown.projectmanagement.activity.InboxActivity;
 import com.kutztown.projectmanagement.activity.LeaderView;
 import com.kutztown.projectmanagement.activity.LoginActivity;
 import com.kutztown.projectmanagement.activity.MainActivity;
@@ -103,6 +104,10 @@ public class ActivityController extends Application{
     {
         Intent myIntent = new Intent(appContext, MessageActivity.class);
         return  myIntent;
+    }
+    public static Intent openActivityInbox(Context appContext){
+        Intent myIntent = new Intent(appContext, InboxActivity.class);
+        return myIntent;
     }
 
     public static Intent openThemeActivity(Context appContext){
