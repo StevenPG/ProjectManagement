@@ -67,7 +67,7 @@ public class AddMemberstoProject extends Activity implements AppCompatCallback {
         ApplicationData.delegate.getSupportActionBar().setDisplayShowHomeEnabled(false);
         ApplicationData.delegate.getSupportActionBar().setTitle(null);
 
-        ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu);
+        ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu20);
         ApplicationData.amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {

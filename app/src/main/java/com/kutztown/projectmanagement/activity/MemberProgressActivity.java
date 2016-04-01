@@ -42,6 +42,7 @@ public class MemberProgressActivity extends AppCompatActivity {
                 return onOptionsItemSelected(menuItem);
             }
         });
+        toolbar.showOverflowMenu();
 
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
         if (!loggedIn) {

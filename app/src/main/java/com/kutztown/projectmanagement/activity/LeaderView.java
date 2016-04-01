@@ -89,7 +89,12 @@ public class LeaderView extends AppCompatActivity {
                 startActivity(ActivityController.openMemberList(getApplicationContext()));
             }
         });
-
+       messageB.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               startActivity(ActivityController.openActivityMessage(getApplicationContext()));
+           }
+       });
     }
 
     @Override
