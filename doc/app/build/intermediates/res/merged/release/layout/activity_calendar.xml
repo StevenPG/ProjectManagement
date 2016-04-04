@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.kutztown.projectmanagement.activity.CalendarActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.PopupOverlay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#82cffd"
+            android:paddingBottom="5dp">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#FFFFFF"
+                app:popupTheme="@style/AppTheme.PopupOverlay" >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:contentDescription="Logo"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/banner_logo"/>
+                <android.support.v7.widget.ActionMenuView
+                    android:id="@+id/amvMenu01"
+                    android:layout_gravity="start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?attr/actionBarSize"
+                    />
+            </android.support.v7.widget.Toolbar>
+        </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="75dp"
+            android:text="Calendar"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:id="@+id/leader_prj_label"
+            android:layout_gravity="center_horizontal" />
+
+   <CalendarView
+       android:id="@+id/CalendarView"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginLeft="16dp"
+       android:layout_marginRight="16dp"
+       android:shownWeekCount="5"
+       android:showWeekNumber="false"
+       />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Date"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:id="@+id/date_display"
+        android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

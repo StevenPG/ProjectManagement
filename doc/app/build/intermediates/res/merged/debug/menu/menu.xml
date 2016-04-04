@@ -1,0 +1,29 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        />
+    <item
+        android:title="Logout"
+        android:orderInCategory="99"
+        android:id="@+id/logout"
+        />
+    <item
+        android:orderInCategory="2"
+        android:title="Profile"
+        android:id="@+id/profile"/>
+    <item
+        android:orderInCategory="1"
+        android:title="Main Menu"
+        android:id="@+id/mainmenuview"/>
+    <item
+        android:orderInCategory="3"
+        android:title="Theme"
+        android:id="@+id/theme"/>
+
+</menu>

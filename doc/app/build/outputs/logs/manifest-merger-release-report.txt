@@ -1,0 +1,308 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:2:1-142:12
+	package
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:3:5-53
+		INJECTED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml
+		INJECTED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml
+		INJECTED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml
+		INJECTED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.GET_ACCOUNTS
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:6:5-71
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:6:22-68
+uses-permission#android.permission.READ_PROFILE
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:7:5-71
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:7:22-68
+uses-permission#android.permission.READ_CONTACTS
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:8:5-72
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:8:22-69
+uses-permission#android.permission.INTERNET
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:9:5-67
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:9:22-64
+application
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:11:5-140:19
+MERGED from [com.android.support:appcompat-v7:23.1.1] D:\GitRepositories\ProjectManagement\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] D:\GitRepositories\ProjectManagement\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:design:23.1.1] D:\GitRepositories\ProjectManagement\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:23.1.1] D:\GitRepositories\ProjectManagement\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] D:\GitRepositories\ProjectManagement\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] D:\GitRepositories\ProjectManagement\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] D:\GitRepositories\ProjectManagement\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:14:9-41
+	android:supportsRtl
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:15:9-35
+	android:allowBackup
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:12:9-35
+	android:icon
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:13:9-43
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:16:9-40
+activity#com.kutztown.projectmanagement.graphing.GraphingTest
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:17:9-22:59
+	android:screenOrientation
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:21:13-49
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:20:13-65
+	android:configChanges
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:19:13-48
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:22:13-56
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:18:13-80
+activity#com.kutztown.projectmanagement.activity.SplashActivity
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:23:9-34:20
+	android:screenOrientation
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:28:13-49
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:26:13-47
+	android:noHistory
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:27:13-37
+	android:configChanges
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:25:13-48
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:24:13-82
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:29:13-33:29
+action#android.intent.action.MAIN
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:30:17-69
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:30:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:32:17-77
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:32:27-74
+activity#com.kutztown.projectmanagement.activity.ProgressActivity
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:35:9-39:59
+	android:screenOrientation
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:38:13-49
+	android:configChanges
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:37:13-48
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:39:13-56
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:36:13-84
+activity#com.kutztown.projectmanagement.activity.LoginActivity
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:40:9-45:59
+	android:screenOrientation
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:44:13-49
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:43:13-57
+	android:configChanges
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:42:13-48
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:45:13-56
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:41:13-81
+activity#com.kutztown.projectmanagement.activity.CreateAccountActivity
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:46:9-52:59
+	android:screenOrientation
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:51:13-49
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:50:13-66
+	android:noHistory
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:49:13-37
+	android:configChanges
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:48:13-48
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:52:13-56
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:47:13-89
+activity#com.kutztown.projectmanagement.activity.MainActivity
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:53:9-58:59
+	android:screenOrientation
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:57:13-49
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:56:13-56
+	android:configChanges
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:55:13-48
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:58:13-56
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:54:13-80
+activity#com.kutztown.projectmanagement.activity.CreateProject
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:59:9-65:59
+	android:screenOrientation
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:64:13-49
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:63:13-66
+	android:noHistory
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:62:13-37
+	android:configChanges
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:61:13-48
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:65:13-56
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:60:13-81
+activity#com.kutztown.projectmanagement.activity.LeaderView
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:66:9-71:59
+	android:screenOrientation
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:70:13-49
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:69:13-63
+	android:configChanges
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:68:13-48
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:71:13-56
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:67:13-78
+activity#com.kutztown.projectmanagement.activity.MemberView
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:72:9-77:59
+	android:screenOrientation
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:76:13-49
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:75:13-63
+	android:configChanges
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:74:13-48
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:77:13-56
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:73:13-78
+activity#com.kutztown.projectmanagement.activity.MemberList
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:78:9-83:59
+	android:screenOrientation
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:82:13-49
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:81:13-63
+	android:configChanges
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:80:13-48
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:83:13-56
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:79:13-78
+activity#com.kutztown.projectmanagement.activity.TaskActivity
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:84:9-89:59
+	android:screenOrientation
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:88:13-49
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:87:13-56
+	android:configChanges
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:86:13-48
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:89:13-56
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:85:13-80
+activity#com.kutztown.projectmanagement.activity.CalendarActivity
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:90:9-95:59
+	android:screenOrientation
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:94:13-49
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:93:13-60
+	android:configChanges
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:92:13-48
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:95:13-56
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:91:13-84
+activity#com.kutztown.projectmanagement.activity.ProfileActivity
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:96:9-102:59
+	android:screenOrientation
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:101:13-49
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:100:13-69
+	android:noHistory
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:98:13-37
+	android:configChanges
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:99:13-48
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:102:13-56
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:97:13-83
+activity#com.kutztown.projectmanagement.activity.AddMemberstoProject
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:103:9-108:59
+	android:screenOrientation
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:107:13-49
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:106:13-73
+	android:configChanges
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:105:13-48
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:108:13-56
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:104:13-87
+activity#com.kutztown.projectmanagement.activity.CreateTask
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:109:9-114:59
+	android:screenOrientation
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:113:13-49
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:112:13-63
+	android:noHistory
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:111:13-37
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:114:13-56
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:110:13-78
+activity#com.kutztown.projectmanagement.activity.TaskViewActivity
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:115:9-119:59
+	android:screenOrientation
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:118:13-49
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:117:13-61
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:119:13-56
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:116:13-84
+activity#com.kutztown.projectmanagement.activity.MemberProgressActivity
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:120:9-124:51
+	android:screenOrientation
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:124:13-49
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:122:13-51
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:123:13-56
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:121:13-90
+activity#com.kutztown.projectmanagement.activity.MessageActivity
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:125:9-129:53
+	android:screenOrientation
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:127:13-49
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:129:13-51
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:128:13-56
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:126:13-83
+activity#com.kutztown.projectmanagement.activity.InboxActivity
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:131:9-135:59
+	android:screenOrientation
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:134:13-49
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:133:13-42
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:135:13-56
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:132:13-81
+activity#com.kutztown.projectmanagement.activity.ThemeActivity
+ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:136:9-139:59
+	android:label
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:138:13-57
+	android:theme
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:139:13-56
+	android:name
+		ADDED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml:137:13-81
+uses-sdk
+INJECTED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:appcompat-v7:23.1.1] D:\GitRepositories\ProjectManagement\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] D:\GitRepositories\ProjectManagement\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:design:23.1.1] D:\GitRepositories\ProjectManagement\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:appcompat-v7:23.1.1] D:\GitRepositories\ProjectManagement\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] D:\GitRepositories\ProjectManagement\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:23.1.1] D:\GitRepositories\ProjectManagement\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] D:\GitRepositories\ProjectManagement\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] D:\GitRepositories\ProjectManagement\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
+	android:targetSdkVersion
+		INJECTED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml
+		INJECTED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml
+		INJECTED from D:\GitRepositories\ProjectManagement\app\src\main\AndroidManifest.xml
