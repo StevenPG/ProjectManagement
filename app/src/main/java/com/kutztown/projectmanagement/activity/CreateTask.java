@@ -31,6 +31,7 @@ import com.kutztown.projectmanagement.data.UserTableEntry;
 import com.kutztown.projectmanagement.network.HTTPHandler;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class CreateTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
@@ -38,6 +39,7 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
     public Spinner spinner1 = null;
     public Spinner spinner2 = null;
     public Spinner spinner3 = null;
+    static Calendar c = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,8 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
+        Date today = new Date();
+        c.setTime(today);
         getSupportActionBar().setTitle(null);
         ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu09);
         ApplicationData.amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
@@ -81,7 +85,7 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
         projectName.setText(ApplicationData.currentProject.getProjectName().substring(2,
                 ApplicationData.currentProject.getProjectName().length() - 1));
         Button taskDate = (Button) findViewById(R.id.datepicker01);
-        final Calendar c = Calendar.getInstance();
+
 
         // this textview will get a description of the task
         final EditText taskDesc = (EditText) findViewById(R.id.task_description);
@@ -91,6 +95,7 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
             public void onClick(View v) {
                 DialogFragment newFragment = new TaskDatePicker();
                 newFragment.show(getFragmentManager(), "datePicker");
+                c = Calendar.getInstance();
             }
 
         });
@@ -120,72 +125,97 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
                         dateString.equals("") || dependency.equals("") || pickedName.equals("")) {
                     missingInfo();
                 } else {
-                    UserTableEntry selectedUser = null;
-                    try {
-                        selectedUser = (UserTableEntry) new HTTPHandler().select(getName.getText().toString(),
-                                "email", new UserTableEntry(), "UserTable");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    boolean testing = true;
+                    Log.d("Year_Application", String.valueOf(ApplicationData.year));
+                    Log.d("Year_Calendar", String.valueOf(c.get(Calendar.YEAR)));
 
-                    TaskTableEntry entry = new TaskTableEntry(
-                            String.valueOf(selectedUser.getUserId()),
-                            projectName,
-                            task_name.replace(" ", "_"),
-                            task_desc.replace(" ", "_"),
-                            "0",
-                            "",
-                            pickedPriority.replace(" ", ""),
-                            "",
-                            "");
+                    if ( ApplicationData.year < c.get(Calendar.YEAR) )
+                     {
+                         String wrongYear = "the year is wrong for the due date task. you chose a prior years for the due date";
+                         wrongDate(wrongYear);
+                         testing = false;
+                     }
+                     if (ApplicationData.month <= c.get(Calendar.MONTH) && ApplicationData.year <= c.get(Calendar.YEAR))
+                     {
+                         String wrongMonth = "The month for the due date can not be prior to the present month";
+                         wrongDate(wrongMonth);
+                         testing = false;
+                     }
+                    if (ApplicationData.month == c.get(Calendar.MONTH) && ApplicationData.day <= c.get(Calendar.DAY_OF_MONTH)) {
+                         String wrongDay = "the due date is prior to the present day. Please choose a day after the present day" +
+                                 "for the task due date";
+                         wrongDate(wrongDay);
+                        testing = false;
+                     }
+                     if (testing) {
 
-                    HTTPHandler handler = new HTTPHandler();
-                    try {
-                        // Insert the new task
-                        handler.insert(entry, "TaskTable");
+                         UserTableEntry selectedUser = null;
+                         try {
+                             selectedUser = (UserTableEntry) new HTTPHandler().select(getName.getText().toString(),
+                                     "email", new UserTableEntry(), "UserTable");
+                         } catch (Exception e) {
+                             e.printStackTrace();
+                         }
 
-                        Toast.makeText(getApplicationContext(), "task successfully created", Toast.LENGTH_SHORT).show();
-                        // after inserting into db, pull back out with unique id
-                        TaskTableEntry currentTask = (TaskTableEntry)
-                                handler.select(taskName.getText().toString().replace(" ", "_"), "TaskName",
-                                        new TaskTableEntry(), "TaskTable");
+                         TaskTableEntry entry = new TaskTableEntry(
+                                 String.valueOf(selectedUser.getUserId()),
+                                 projectName,
+                                 task_name.replace(" ", "_"),
+                                 task_desc.replace(" ", "_"),
+                                 "0",
+                                 "",
+                                 pickedPriority.replace(" ", ""),
+                                 "",
+                                 "");
 
-                        Log.d("debug2", "CurrentProjectId: " + String.valueOf(ApplicationData.currentProject.getProjectId()));
-                        String currentTaskList = ApplicationData.currentProject.getTaskList();
-                        currentTaskList = currentTaskList.substring(2, currentTaskList.length() - 1);
+                         HTTPHandler handler = new HTTPHandler();
+                         try {
+                             // Insert the new task
+                             handler.insert(entry, "TaskTable");
 
-                        Log.d("debug", currentTaskList);
-                        Log.d("debug", currentTaskList + "--" + currentTask.getTaskID());
+                             Toast.makeText(getApplicationContext(), "task successfully created", Toast.LENGTH_SHORT).show();
+                             // after inserting into db, pull back out with unique id
+                             TaskTableEntry currentTask = (TaskTableEntry)
+                                     handler.select(taskName.getText().toString().replace(" ", "_"), "TaskName",
+                                             new TaskTableEntry(), "TaskTable");
 
-                        // updateString
-                        Log.d("debug", "tasklist=\"" +
-                                currentTaskList + "--" + currentTask.getTaskID() +
-                                "\"_WHERE_ProjectID=\"" + ApplicationData.currentProject.getProjectId() + "\"");
+                             Log.d("debug2", "CurrentProjectId: " + String.valueOf(ApplicationData.currentProject.getProjectId()));
+                             String currentTaskList = ApplicationData.currentProject.getTaskList();
+                             currentTaskList = currentTaskList.substring(2, currentTaskList.length() - 1);
 
-                        // add the created task to project's tasklist
-                        handler.update(
-                                "tasklist=\"" +
-                                        currentTaskList + "--" + currentTask.getTaskID() +
-                                        "\"_WHERE_ProjectID=\"" +
-                                        ApplicationData.currentProject.getProjectId() + "\""
-                                , "ProjectTable");
+                             Log.d("debug", currentTaskList);
+                             Log.d("debug", currentTaskList + "--" + currentTask.getTaskID());
 
-                        // Retrieve the project with the new tasklist
-                        ApplicationData.currentProject = (ProjectTableEntry)
-                                handler.select(
-                                        String.valueOf(ApplicationData.currentProject.getProjectId()),
-                                        "projectid",
-                                        new ProjectTableEntry(),
-                                        "ProjectTable");
+                             // updateString
+                             Log.d("debug", "tasklist=\"" +
+                                     currentTaskList + "--" + currentTask.getTaskID() +
+                                     "\"_WHERE_ProjectID=\"" + ApplicationData.currentProject.getProjectId() + "\"");
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Log.d("debug", "Error creating new task ");
-                        Toast.makeText(getApplicationContext(), "Error creating new task", Toast.LENGTH_LONG);
-                    }
+                             // add the created task to project's tasklist
+                             handler.update(
+                                     "tasklist=\"" +
+                                             currentTaskList + "--" + currentTask.getTaskID() +
+                                             "\"_WHERE_ProjectID=\"" +
+                                             ApplicationData.currentProject.getProjectId() + "\""
+                                     , "ProjectTable");
 
-                    // head on back to task view
-                    startActivity(ActivityController.openTaskActivity(getApplicationContext()));
+                             // Retrieve the project with the new tasklist
+                             ApplicationData.currentProject = (ProjectTableEntry)
+                                     handler.select(
+                                             String.valueOf(ApplicationData.currentProject.getProjectId()),
+                                             "projectid",
+                                             new ProjectTableEntry(),
+                                             "ProjectTable");
+
+                         } catch (Exception e) {
+                             e.printStackTrace();
+                             Log.d("debug", "Error creating new task ");
+                             Toast.makeText(getApplicationContext(), "Error creating new task", Toast.LENGTH_LONG).show();
+                         }
+
+                         // head on back to task view
+                         startActivity(ActivityController.openTaskActivity(getApplicationContext()));
+                     }
                 }
             }
         });
@@ -247,5 +277,27 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
         // Showing Alert Message
         alertDialog.show();
     }
+    private void wrongDate(String str) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateTask.this);
+
+        // Setting Dialog Title
+        alertDialog.setTitle("Due date set for earlier than current date");
+
+        // Setting Dialog Message
+        alertDialog.setMessage(str);
+        // Setting Icon to Dialog
+        alertDialog.setIcon(R.drawable.icon);
+
+        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+
+            }
+        });
+
+        // Showing Alert Message
+        alertDialog.show();
+    }
+
 
 }
