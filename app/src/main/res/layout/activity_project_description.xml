@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.kutztown.projectmanagement.activity.CreateProject">
+    tools:context="com.kutztown.projectmanagement.activity.ProjectDescriptionActivityActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                     android:layout_gravity="center"
                     android:src="@drawable/banner_logo"/>
                 <android.support.v7.widget.ActionMenuView
-                    android:id="@+id/amvMenu02"
+                    android:id="@+id/amvMenu16"
                     android:layout_width="wrap_content"
                     android:layout_gravity="start"
                     android:layout_height="?attr/actionBarSize"/>
@@ -39,6 +39,7 @@
 
         </LinearLayout>
     </android.support.design.widget.AppBarLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,8 +50,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="Create Project"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="Project Description"
             android:textSize="22sp"
             android:textStyle="bold"
             android:id="@+id/textView"
@@ -59,65 +61,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/project_name"
-            android:layout_marginTop="30dp"
-            android:paddingLeft="15dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:id="@+id/project_name"
-            android:lines="1"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/project_description"
-            android:paddingLeft="15dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:id="@+id/projectDescField"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/project_leader"
-            android:paddingLeft="15dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:enabled="false" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:id="@+id/projectLeaderEditText"
-            android:enabled="false" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Create"
-            android:layout_gravity="center"
-            android:paddingLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:id="@+id/createProject"
-            />
-
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="Description Here"
+            android:textSize="20sp"
+            android:id="@+id/descriptionTextView"/>
 
     </LinearLayout>
 

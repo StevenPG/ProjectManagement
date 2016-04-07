@@ -48,6 +48,7 @@ public class LeaderView extends AppCompatActivity {
         TextView header = (TextView) findViewById(R.id.leader_prj_label);
         String projectName = ApplicationData.currentProject.getProjectName();
         projectName = projectName.substring(2, ApplicationData.currentProject.getProjectName().length()-1);
+        projectName = projectName.replaceAll("_"," ");
         header.setText(projectName);
 
         final Button progressB = (Button)findViewById(R.id.progress_ld_button);
@@ -55,6 +56,7 @@ public class LeaderView extends AppCompatActivity {
         final Button calendarB = (Button) findViewById(R.id.calendar_id_button);
         final Button membersB = (Button) findViewById(R.id.members_ld_button);
         final Button messageB = (Button) findViewById(R.id.message_ld_button);
+        final Button descriptionB = (Button) findViewById(R.id.description_ld_button);
 
         messageB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,12 +91,20 @@ public class LeaderView extends AppCompatActivity {
                 startActivity(ActivityController.openMemberList(getApplicationContext()));
             }
         });
-       messageB.setOnClickListener(new View.OnClickListener() {
+
+        messageB.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                startActivity(ActivityController.openActivityMessage(getApplicationContext()));
            }
-       });
+        });
+
+        descriptionB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(ActivityController.openProjectDescriptionActivity(getApplicationContext()));
+            }
+        });
     }
 
     @Override

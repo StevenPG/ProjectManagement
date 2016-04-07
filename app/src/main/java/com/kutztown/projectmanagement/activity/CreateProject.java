@@ -50,6 +50,20 @@ public class CreateProject extends AppCompatActivity {
         final EditText projectNameText = (EditText) findViewById(R.id.project_name);
         final EditText projectDescText = (EditText) findViewById(R.id.projectDescField);
 
+        String leaderWholeName = "";
+        String first = ApplicationData.currentUser.getFirstName();
+        String last = ApplicationData.currentUser.getLastName();
+
+        if(!first.equals("None") && !last.equals("None"))
+        {
+            first = first.substring(2,first.length()-1);
+            last = last.substring(2,last.length()-1);
+            leaderWholeName = first + " " +last;
+        }
+
+        EditText projectLeaderText = (EditText) findViewById(R.id.projectLeaderEditText);
+        projectLeaderText.setText(leaderWholeName);
+
 
         // Add onclick to button
         Button projectB = (Button) findViewById(R.id.createProject);

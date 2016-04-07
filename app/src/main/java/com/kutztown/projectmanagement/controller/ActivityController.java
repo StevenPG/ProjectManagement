@@ -19,6 +19,7 @@ import com.kutztown.projectmanagement.activity.MemberView;
 import com.kutztown.projectmanagement.activity.MessageActivity;
 import com.kutztown.projectmanagement.activity.ProfileActivity;
 import com.kutztown.projectmanagement.activity.ProgressActivity;
+import com.kutztown.projectmanagement.activity.ProjectDescriptionActivity;
 import com.kutztown.projectmanagement.activity.TaskActivity;
 import com.kutztown.projectmanagement.activity.TaskViewActivity;
 import com.kutztown.projectmanagement.activity.ThemeActivity;
@@ -115,4 +116,8 @@ public class ActivityController extends Application{
         return myIntent;
     }
 
+    public static Intent openProjectDescriptionActivity(Context appContext){
+        Intent myIntent = new Intent(appContext, ProjectDescriptionActivity.class);
+        return myIntent;
+    }
 }

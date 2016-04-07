@@ -212,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
                 // Wipe leftover python structures
                 project = project.replaceAll("u'", "");
                 project = project.replaceAll("'", "");
+
                 if(!"".equals(project)) {
                     if(!"None".equals(project)) {
                         // Get the project name of project
@@ -225,8 +226,9 @@ public class MainActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         if (entry != null && entry.getProjectName() != null) {
-                            projectArray.add(project + ": " + entry.getProjectName().substring(2,
-                                    entry.getProjectName().length()-1));
+                            String projectName = project + ": " + entry.getProjectName().substring(2, entry.getProjectName().length() - 1);
+                            projectName = projectName.replaceAll("_", " ");
+                            projectArray.add(projectName);
                         } else {
                             projectArray.add(project);
                         }

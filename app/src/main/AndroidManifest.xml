@@ -46,8 +46,8 @@
         <activity
             android:name="com.kutztown.projectmanagement.activity.CreateAccountActivity"
             android:configChanges="orientation"
-            android:noHistory="true"
             android:label="@string/title_activity_create_account"
+            android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -59,8 +59,8 @@
         <activity
             android:name="com.kutztown.projectmanagement.activity.CreateProject"
             android:configChanges="orientation"
-            android:noHistory="true"
             android:label="@string/title_activity_create_project"
+            android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -95,9 +95,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.ProfileActivity"
-            android:noHistory="true"
             android:configChanges="orientation"
             android:label="@string/title_activity_profile_activitty"
+            android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -108,8 +108,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.CreateTask"
-            android:noHistory="true"
             android:label="@string/title_activity_create_task"
+            android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -120,15 +120,13 @@
         <activity
             android:name="com.kutztown.projectmanagement.activity.MemberProgressActivity"
             android:label="MemberProgressActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.MessageActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
             android:label="MessageActivity"
-          />
-
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.InboxActivity"
             android:label="InboxActivity"
@@ -138,11 +136,18 @@
             android:name="com.kutztown.projectmanagement.activity.ThemeActivity"
             android:label="@string/title_activity_theme"
             android:theme="@style/AppTheme.NoActionBar" />
-        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <activity
+            android:name="com.kutztown.projectmanagement.activity.ProjectDescriptionActivity"
+            android:label="@string/title_activity_project_description"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--
+             ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>
