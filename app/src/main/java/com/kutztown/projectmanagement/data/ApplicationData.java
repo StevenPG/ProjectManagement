@@ -140,9 +140,11 @@ public final class ApplicationData {
             case R.id.mainmenuview:
                 Log.d("debug", "Selected Main Menu view");
                 context.startActivity(ActivityController.openMainActivity(context));
+                return true;
             case R.id.theme:
                 Log.d("debug", "Selected Theme");
                 context.startActivity(ActivityController.openThemeActivity(context));
+                return true;
         }
        return true;
     }

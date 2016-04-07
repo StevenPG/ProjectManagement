@@ -42,8 +42,8 @@ public class ThemeActivity extends AppCompatActivity {
         ApplicationData.amvMenu = (ActionMenuView) toolbar.findViewById(R.id.amvMenu13);
         ApplicationData.amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                return onOptionsItemSelected(item);
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                return onOptionsItemSelected(menuItem);
             }
         });
 
@@ -114,6 +114,7 @@ public class ThemeActivity extends AppCompatActivity {
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     } */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -121,6 +122,7 @@ public class ThemeActivity extends AppCompatActivity {
         inflate.inflate(R.menu.menu, ApplicationData.amvMenu.getMenu());
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -128,4 +130,5 @@ public class ThemeActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         return ApplicationData.contextMenu(this, item);
     }
+
 }
