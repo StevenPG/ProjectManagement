@@ -135,7 +135,7 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
                          wrongDate(wrongYear);
                          testing = false;
                      }
-                     if (ApplicationData.month <= c.get(Calendar.MONTH) && ApplicationData.year <= c.get(Calendar.YEAR))
+                     if (ApplicationData.month < c.get(Calendar.MONTH) && ApplicationData.year <= c.get(Calendar.YEAR))
                      {
                          String wrongMonth = "The month for the due date can not be prior to the present month";
                          wrongDate(wrongMonth);

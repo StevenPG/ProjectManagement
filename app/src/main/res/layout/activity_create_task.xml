@@ -41,6 +41,10 @@
         </LinearLayout>
 
     </android.support.design.widget.AppBarLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -93,7 +97,7 @@
             android:layout_marginTop="15dp"
             android:background="#FFFFFF"
             android:hint="Task Description"
-            android:lines="2"
+            android:lines="4"
             android:paddingLeft="15dp"
             android:scrollbars="vertical" />
 
@@ -166,5 +170,6 @@
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
+    </ScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

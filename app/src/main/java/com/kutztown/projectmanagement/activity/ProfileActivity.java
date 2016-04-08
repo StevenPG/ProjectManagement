@@ -43,6 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 return onOptionsItemSelected(menuItem);
+
             }
         });
 
@@ -52,9 +53,8 @@ public class ProfileActivity extends AppCompatActivity {
         }
         final ImageView myImage = (ImageView) findViewById(R.id.pic);
         final EditText name = (EditText) findViewById(R.id.profile_name);
-        final EditText user_id= (EditText) findViewById(R.id.user_email);
+        final TextView user_id= (TextView) findViewById(R.id.user_email);
         final EditText user_position = (EditText) findViewById(R.id.user_position);
-        final EditText start_date = (EditText) findViewById(R.id.start_date);
         final EditText phone = (EditText) findViewById(R.id.phone);
         final EditText user_bio = (EditText) findViewById(R.id.biography);
         final Button clearButton = (Button) findViewById(R.id.clear);
@@ -71,7 +71,6 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 user_position.setText("");
-                start_date.setText("");
                 phone.setText("");
                 user_bio.setText("");
             }
