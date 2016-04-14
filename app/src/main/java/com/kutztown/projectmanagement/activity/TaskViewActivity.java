@@ -114,7 +114,7 @@ public class TaskViewActivity extends AppCompatActivity {
                             handler.update(
                                     "taskprogress=\"" +
                                             String.valueOf(currentProgressValue) +
-                                            "\"--WHERE--taskname=\"" +
+                                            "\"**WHERE**taskname=\"" +
                                             taskName.replace(" ", "._") + "\""
                                     , "TaskTable");
                 } catch (Exception e) {
