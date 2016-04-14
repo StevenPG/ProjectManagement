@@ -195,7 +195,7 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
                              handler.update(
                                      "tasklist=\"" +
                                              currentTaskList + "--" + currentTask.getTaskID() +
-                                             "\"_WHERE_ProjectID=\"" +
+                                             "\"--WHERE--ProjectID=\"" +
                                              ApplicationData.currentProject.getProjectId() + "\""
                                      , "ProjectTable");
 

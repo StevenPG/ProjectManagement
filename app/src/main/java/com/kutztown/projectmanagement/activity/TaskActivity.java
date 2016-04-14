@@ -112,7 +112,8 @@ public class TaskActivity extends Activity implements AppCompatCallback {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Clicked Text contains the project name
-                String clickedText = (String) parent.getItemAtPosition(position);
+                String clickedTextWithSpaces = (String) parent.getItemAtPosition(position);
+                String clickedText = clickedTextWithSpaces.replace(" ", "_");
 
                 // Retrieve the project from the DB and store it globally
                 HTTPHandler handler = new HTTPHandler();
@@ -136,7 +137,8 @@ public class TaskActivity extends Activity implements AppCompatCallback {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Clicked Text contains the project name
-                String clickedText = (String) parent.getItemAtPosition(position);
+                String clickedTextWithSpaces = (String) parent.getItemAtPosition(position);
+                String clickedText = clickedTextWithSpaces.replace(" ", "_");
 
                 // Split on the colon and use the first piece before colon
                 String[] splitText = clickedText.split(":");
@@ -210,7 +212,8 @@ public class TaskActivity extends Activity implements AppCompatCallback {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Clicked Text contains the project name
-                String clickedText = (String) parent.getItemAtPosition(position);
+                String clickedTextWithSpaces = (String) parent.getItemAtPosition(position);
+                String clickedText = clickedTextWithSpaces.replace(" ", "_");
 
                 // Split on the colon and use the first piece before colon
                 String[] splitText = clickedText.split(":");
@@ -239,7 +242,8 @@ public class TaskActivity extends Activity implements AppCompatCallback {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Clicked Text contains the project name
-                String clickedText = (String) parent.getItemAtPosition(position);
+                String clickedTextWithSpaces = (String) parent.getItemAtPosition(position);
+                String clickedText = clickedTextWithSpaces.replace(" ", "_");
 
                 // Split on the colon and use the first piece before colon
                 String[] splitText = clickedText.split(":");
