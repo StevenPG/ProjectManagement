@@ -1,9 +1,6 @@
 package com.kutztown.projectmanagement.activity;
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.kutztown.project.projectmanagement.R;
@@ -23,7 +19,11 @@ import com.kutztown.projectmanagement.data.ApplicationData;
 
 public class ThemeActivity extends AppCompatActivity {
 
+    /**
+     * The spinner that contains available themes
+     */
     private String array_spinner[];
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.

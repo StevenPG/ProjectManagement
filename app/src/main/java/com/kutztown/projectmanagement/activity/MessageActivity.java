@@ -31,7 +31,14 @@ import java.util.Collections;
 
 public class MessageActivity extends AppCompatActivity {
 
+    /**
+     * Attribute containing array of messages
+     */
     ArrayList<String> messageArray = null;
+
+    /**
+     * Listview that holds values from messageArray
+     */
     ListView messageListView = null;
 
     @Override

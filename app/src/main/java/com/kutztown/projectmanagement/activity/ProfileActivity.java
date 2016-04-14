@@ -114,6 +114,11 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(ActivityController.openLoginActivity(getApplicationContext()));
         }
     }
+
+    /**
+     * Does not let the user progress if information is missing from fields. Generates a dialog
+     * to alert the user that this issue has occurred.
+     */
     private void MissingProfileInfo() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
 

@@ -12,6 +12,7 @@ import java.util.Date;
 /**
  * @author Steven Gsntz
  * @date 3/26/2016.
+ * Modified by Tyler Mariano 4/13/2016
  */
 public class MessageTableEntry implements TableEntry, Comparable<MessageTableEntry> {
 
