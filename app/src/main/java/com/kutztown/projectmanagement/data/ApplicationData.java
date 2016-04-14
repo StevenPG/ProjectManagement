@@ -79,6 +79,7 @@ public final class ApplicationData {
      */
     static public UserTableEntry currentUser;
     static public TaskTableEntry currentTask;
+    static public MessageTableEntry currentMessage;
 
     /**
      * This flag keeps track of whether or not the user
