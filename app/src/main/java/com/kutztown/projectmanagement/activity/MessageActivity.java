@@ -26,6 +26,8 @@ import com.kutztown.projectmanagement.data.UserTableEntry;
 import com.kutztown.projectmanagement.network.HTTPHandler;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class MessageActivity extends AppCompatActivity {
 
@@ -61,7 +63,7 @@ public class MessageActivity extends AppCompatActivity {
         }
 
         messageListView = (ListView) findViewById(R.id.messageListView);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.right_message, messageArray);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.left_message, messageArray);
         messageListView.setAdapter(adapter);
 
         // Retrieve messages of current user;
@@ -73,6 +75,7 @@ public class MessageActivity extends AppCompatActivity {
         }*/
 
         final EditText messageEditText = (EditText) findViewById(R.id.messageEditText);
+        messageEditText.requestFocus();
 
         final Button send = (Button) findViewById(R.id.sendButton);
         send.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +85,7 @@ public class MessageActivity extends AppCompatActivity {
 
                 //message = "You: " + messageEditText.getText().toString();
                 message = messageEditText.getText().toString();
-                messageArray.add("You: " + message);
+                messageArray.add(sender.substring(0, sender.indexOf("@")) + ": " + message);
 
                 HTTPHandler handler = new HTTPHandler();
                 MessageTableEntry entry = new MessageTableEntry(sender,receiver,message);
@@ -124,6 +127,7 @@ public class MessageActivity extends AppCompatActivity {
     protected ArrayList<String> getMessagesBetweenUsers(String sender, String receiver){
 
         ArrayList<String> messageArray = new ArrayList<String>();
+        ArrayList<MessageTableEntry> totalMessageArray = new ArrayList<MessageTableEntry>();
         ArrayList<TableEntry> senderTableArray = new ArrayList<TableEntry>();
         ArrayList<TableEntry> receiverTableArray = new ArrayList<TableEntry>();
 
@@ -143,7 +147,10 @@ public class MessageActivity extends AppCompatActivity {
             Log.d("debug", senderEntry.getMessage());
 
             if(senderEntry.getReceiver().equals(receiver))
-                messageArray.add(senderEntry.getMessage().replace("_"," "));
+            {
+                senderEntry.setMessage(sender.substring(0, sender.indexOf("@")) + ": " + senderEntry.getMessage());
+                totalMessageArray.add(senderEntry);
+            }
         }
 
         for(TableEntry receiverMessageTable : receiverTableArray){
@@ -151,14 +158,17 @@ public class MessageActivity extends AppCompatActivity {
             Log.d("debug", receiverEntry.getMessage());
 
             if(receiverEntry.getReceiver().equals(sender))
-                messageArray.add(receiverEntry.getMessage().replace("_"," "));
+            {
+                receiverEntry.setMessage(receiver.substring(0, receiver.indexOf("@")) + ": " + receiverEntry.getMessage());
+                totalMessageArray.add(receiverEntry);
+            }
         }
 
-        //Log.d("debug", "COUNT: " + messageTableArray.size());
+        Collections.sort(totalMessageArray);
 
-        //entry = (MessageTableEntry) messageTableArray.get(0);
-            //Log.d("debug", entry.getMessage());
-            //messageArray.add(entry.getMessage());
+        for(MessageTableEntry total : totalMessageArray){
+            messageArray.add(total.getMessage().replace("_"," "));
+        }
 
         return messageArray;
     }

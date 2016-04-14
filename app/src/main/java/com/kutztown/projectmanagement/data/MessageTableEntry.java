@@ -13,7 +13,7 @@ import java.util.Date;
  * @author Steven Gsntz
  * @date 3/26/2016.
  */
-public class MessageTableEntry implements TableEntry {
+public class MessageTableEntry implements TableEntry, Comparable<MessageTableEntry> {
 
     // Attribute list
     public int MessageId;
@@ -61,10 +61,12 @@ public class MessageTableEntry implements TableEntry {
 
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM d HH:mm:ss zz yyyy");
         String dateStr = messageTableEntry.get(6);
-        dateStr = dateStr.substring(2, dateStr.length()-1);
+        //dateStr = dateStr.substring(2, dateStr.length()-1);
         ParsePosition pos = new ParsePosition(0);
 
         this.Date = sdf.parse(dateStr.replace("_", " "),pos);
+
+        Log.d("debug", "DATE: " + dateStr);
     }
 
     public MessageTableEntry(int MessageId, String Sender, String Receiver, String Subject, String Message) {
@@ -110,6 +112,11 @@ public class MessageTableEntry implements TableEntry {
                 this.Date.toString().replace(" ", "_") + "\"";
     }
 
+    public void setMessage(String message)
+    {
+        this.Message = message;
+    }
+
     public String getSender()
     {
         return Sender;
@@ -125,6 +132,11 @@ public class MessageTableEntry implements TableEntry {
         return Message;
     }
 
+    public Date getDateTime()
+    {
+        return Date;
+    }
+
     public ArrayList<String> getConversation(String senderEmail, String receiverEmail)
     {
         ArrayList<String> conversation = new ArrayList<String>();
@@ -136,7 +148,15 @@ public class MessageTableEntry implements TableEntry {
         return conversation;
     }
 
-
+    @Override
+    public int compareTo(MessageTableEntry o) {
+        if (getDateTime() == null || o.getDateTime() == null)
+        {
+            Log.d("debug", "ERROR: Null Message Date");
+            return 0;
+        }
+        return getDateTime().compareTo(o.getDateTime());
+    }
 
     @Override
     public String getColumnString() {
