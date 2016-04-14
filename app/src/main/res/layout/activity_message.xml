@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="60dp"
-        >
+        android:weightSum="1">
 
         <TextView
             android:layout_width="wrap_content"
@@ -55,21 +55,42 @@
             android:text="Messaging"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:id="@+id/textView"
+            android:id="@+id/message_header"
             android:layout_gravity="center_horizontal" />
 
         <ListView
-            android:id="@+id/inboxListView"
+            android:id="@+id/messageListView"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginBottom="60dp"
+            android:layout_height="375dp"
             android:layout_marginTop="5dp"
             android:background="@android:color/transparent"
             android:cacheColorHint="@android:color/transparent"
             android:divider="#CCCCCC"
             android:dividerHeight="1dp"
+            android:transcriptMode="alwaysScroll"
+            android:stackFromBottom="true"
             android:paddingLeft="2dp" >
         </ListView>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:id="@+id/messageEditText"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Send"
+                android:id="@+id/sendButton" />
+        </LinearLayout>
 
         <!-- <TextView
             android:layout_width="wrap_content"

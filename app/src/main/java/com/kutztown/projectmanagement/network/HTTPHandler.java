@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.data.CommaListParser;
+import com.kutztown.projectmanagement.data.MessageTableEntry;
 import com.kutztown.projectmanagement.data.ProgressTableEntry;
 import com.kutztown.projectmanagement.data.ProjectTableEntry;
 import com.kutztown.projectmanagement.data.TableEntry;
@@ -215,6 +216,98 @@ public class HTTPHandler {
         }
     }
 
+    /* Made A Second One Just So I Don't Break Things */
+    public ArrayList<TableEntry> selectAllTwo(String searchValue,
+                                           String searchRecord,
+                                           TableEntry entry,
+                                           String table) throws ServerNotRunningException{
+        // Approute for select is always select
+        String approute = "select";
+
+        if (!this.pingServer(ApplicationData.SERVER_IP)) {
+            throw new ServerNotRunningException();
+        }
+
+        ArrayList<TableEntry> messageList = new ArrayList<>();
+
+        try {
+            String parameterString = "search=" + searchValue
+                    + "&record=" + searchRecord + "&table=" + table;
+
+            URL url = buildURL(ApplicationData.SERVER_IP,
+                    ApplicationData.SERVER_PORT,
+                    approute, false, parameterString);
+
+            Log.d("debug", parameterString);
+
+            WebTask task = new WebTask(url);
+            task.execute((Void) null);
+
+            while (!task.grabString) {
+                // Busy wait until the connection is done
+                //Log.d("debug", "Busy waiting until connection is done");
+            }
+            String stringEntry = task.dataString;
+
+            // If the server returned a 0, nothing was found
+            if(stringEntry.charAt(0) == '0'){
+                throw new Exception("Nothing was found");
+            }
+
+            // If there was an issue, a 2 will be returned
+            if(stringEntry.charAt(0) == '-' && stringEntry.charAt(1) == '1'){
+                throw new Exception("Search query wasn't filled out right");
+            }
+
+            // Break into pieces
+            ArrayList<String> messageArray = new ArrayList<>();
+            Log.d("debug", "TEST: " + stringEntry);
+            //stringEntry = stringEntry.replace(")","");
+            //stringEntry = stringEntry.replace("(","");
+            String[] messageDB = stringEntry.split("\\(");
+
+
+
+            for(int i = 0; i < messageDB.length; i++){
+                // Remove last piece of python list
+                messageDB[i] = messageDB[i].replace(")","");
+                messageDB[i] = messageDB[i].replace("(", "");
+                String[] messageParts = messageDB[i].split(",");
+
+                messageArray = new ArrayList<>();
+
+                for(int j = 0; j < messageParts.length; j++){
+                    // Remove last piece of python list
+                    //String[] message = messages[i].split(",");
+                    //message = message[.replace("),","");
+
+                    //remove uniqueId section
+                    if(messageParts[j].length() < 3){
+                        messageParts[j] = "";
+                    } else {
+                        messageParts[j] = messageParts[j].substring(3, messageParts[j].length()-1);
+                    }
+
+                    // Remove final bracket
+                    //member.replace("\\)]", "");
+
+                    // Print each member for debugging
+                    Log.d("debug", messageParts[j]);
+                    messageArray.add(messageParts[j]);
+                }
+
+                messageList.add(new MessageTableEntry(messageArray));
+            }
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return messageList;
+    }
+
     public ArrayList<TableEntry> selectAll(String searchValue,
                                            String searchRecord,
                                            TableEntry entry,
@@ -300,6 +393,8 @@ public class HTTPHandler {
                 memberList.add(new TaskTableEntry(builder));
             else if(entry instanceof ProjectTableEntry)
                 memberList.add(new ProjectTableEntry(builder));
+            else if(entry instanceof MessageTableEntry)
+                memberList.add(new MessageTableEntry(builder));
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

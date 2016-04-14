@@ -58,12 +58,6 @@ public class LeaderView extends AppCompatActivity {
         final Button messageB = (Button) findViewById(R.id.message_ld_button);
         final Button descriptionB = (Button) findViewById(R.id.description_ld_button);
 
-        messageB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(ActivityController.openActivityInbox(getApplicationContext()));
-            }
-        });
         progressB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +89,7 @@ public class LeaderView extends AppCompatActivity {
         messageB.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               startActivity(ActivityController.openActivityMessage(getApplicationContext()));
+               startActivity(ActivityController.openActivityInbox(getApplicationContext()));
            }
         });
 

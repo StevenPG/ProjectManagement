@@ -75,7 +75,7 @@ public class InboxActivity extends AppCompatActivity {
                 String user = (String) ListView.getItemAtPosition(position);
                 Log.d("debug", "Clicked on " + user);
                 ApplicationData.currentViewedMember = user;
-                startActivity(ActivityController.openActivityMessage(getApplicationContext()));
+                startActivity(ActivityController.openActivityMessage(getApplicationContext(),user));
             }
         });
     }

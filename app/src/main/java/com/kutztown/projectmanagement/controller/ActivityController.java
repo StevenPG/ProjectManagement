@@ -101,9 +101,10 @@ public class ActivityController extends Application{
         Intent myIntent = new Intent(appContext, TaskViewActivity.class);
         return myIntent;
     }
-    public static Intent openActivityMessage(Context appContext)
+    public static Intent openActivityMessage(Context appContext, String receiver)
     {
         Intent myIntent = new Intent(appContext, MessageActivity.class);
+        myIntent.putExtra("receiver", receiver);
         return  myIntent;
     }
     public static Intent openActivityInbox(Context appContext){
@@ -116,7 +117,7 @@ public class ActivityController extends Application{
         return myIntent;
     }
 
-    public static Intent openProjectDescriptionActivity(Context appContext){
+    public static Intent openProjectDescriptionActivity(Context appContext) {
         Intent myIntent = new Intent(appContext, ProjectDescriptionActivity.class);
         return myIntent;
     }
