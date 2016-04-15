@@ -85,7 +85,7 @@ public class MemberView extends AppCompatActivity {
         messageB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(ActivityController.openActivityMessage(getApplicationContext()));
+                startActivity(ActivityController.openActivityInbox(getApplicationContext()));
             }
         });
 

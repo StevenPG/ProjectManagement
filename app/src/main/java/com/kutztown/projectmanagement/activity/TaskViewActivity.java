@@ -100,17 +100,23 @@ public class TaskViewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 HTTPHandler handler = new HTTPHandler();
 
-                // Retrieve the taskName and substring away pytohn stuff
+                // Retrieve the taskName and substring away python stuff
                 String taskName = ApplicationData.currentTask.getTaskName();
                 taskName = taskName.substring(2, taskName.length() - 1);
 
                 try {
-                    handler.update(
-                            "taskprogress=\"" +
+                    Log.d("issue122", "taskName: " + taskName);
+                    Log.d("issue122", String.valueOf(currentProgressValue));
+                    Log.d("issue122", "taskprogress=\"" +
                                     String.valueOf(currentProgressValue) +
                                     "\"_WHERE_taskname=\"" +
-                                    taskName + "\""
-                            , "TaskTable");
+                                    taskName.replace(" ", "_") + "\"");
+                            handler.update(
+                                    "taskprogress=\"" +
+                                            String.valueOf(currentProgressValue) +
+                                            "\"**WHERE**taskname=\"" +
+                                            taskName.replace(" ", "._") + "\""
+                                    , "TaskTable");
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.d("debug", "Failed to update progress...");

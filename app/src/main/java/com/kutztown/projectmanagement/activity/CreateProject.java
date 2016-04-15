@@ -75,6 +75,14 @@ public class CreateProject extends AppCompatActivity {
                 String projectName = projectNameText.getText().toString();
                 String projectDesc = projectDescText.getText().toString();
 
+                // Short circuit method if entries contain '**'
+                if(ApplicationData.checkIfContainsDoubleStar(getApplicationContext(), projectName, true)){
+                    return;
+                }
+                if(ApplicationData.checkIfContainsDoubleStar(getApplicationContext(), projectDesc, true)){
+                    return;
+                }
+
                 // print values for debugging
                 Log.d("debug", "ProjectName: " + projectName);
                 Log.d("debug", "Project Desc:" + projectDesc);
@@ -89,8 +97,6 @@ public class CreateProject extends AppCompatActivity {
                         currentUserEmail,
                         projectName,
                         projectDesc);
-
-                // TODO NEED TO ADD PROJECT TO CURRENT USER'S PROJECTLIST
 
                 // Assign entry as the current project
                 ApplicationData.currentProject = entry;
@@ -117,21 +123,21 @@ public class CreateProject extends AppCompatActivity {
                     // Adding the first project
                     if (currentProjectList.length() == 0) {
                         handler.update("projectlist=\"" +
-                                ApplicationData.currentProject.getProjectId() + "\"_WHERE_UserID=\"" +
+                                ApplicationData.currentProject.getProjectId() + "\"**WHERE**UserID=\"" +
                                 ApplicationData.currentUser.getUserId() + "\""
                                 , "UserTable");
                         Log.d("debug", "ProjectID onCreateProject: " + String.valueOf(ApplicationData.currentProject.getProjectId()));
                     } else {
                         Log.d("debug", "user's projectlist=\"" +
                                 currentProjectList.substring(2, currentProjectList.length() - 1) + "--" +
-                                ApplicationData.currentProject.getProjectId() + "\"_WHERE_UserID=\"" +
+                                ApplicationData.currentProject.getProjectId() + "\"**WHERE**UserID=\"" +
                                 ApplicationData.currentUser.getUserId() + "\"");
 
                         // Concat the project if projectlist is not empty
                         if (currentProjectList.equals("")) {
                             handler.update(
                                     "projectlist=\"" +
-                                            ApplicationData.currentProject.getProjectId() + "\"_WHERE_UserID=\"" +
+                                            ApplicationData.currentProject.getProjectId() + "\"**WHERE**UserID=\"" +
                                             ApplicationData.currentUser.getUserId() + "\""
                                     , "UserTable");
                         } else {
@@ -141,7 +147,7 @@ public class CreateProject extends AppCompatActivity {
                             handler.update(
                                     "projectlist=\"" +
                                             currentProjectList.substring(2, currentProjectList.length() - 1) + "--" +
-                                            ApplicationData.currentProject.getProjectId() + "\"_WHERE_UserID=\"" +
+                                            ApplicationData.currentProject.getProjectId() + "\"--WHERE--UserID=\"" +
                                             ApplicationData.currentUser.getUserId() + "\""
                                     , "UserTable");
                         }

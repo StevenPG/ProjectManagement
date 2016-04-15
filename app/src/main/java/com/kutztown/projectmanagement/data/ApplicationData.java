@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
@@ -79,6 +80,7 @@ public final class ApplicationData {
      */
     static public UserTableEntry currentUser;
     static public TaskTableEntry currentTask;
+    static public MessageTableEntry currentMessage;
 
     /**
      * This flag keeps track of whether or not the user
@@ -119,6 +121,24 @@ public final class ApplicationData {
     public static int day = 0;
     public static int year = 0;
     public static int month = 0;
+
+    /**
+     * Universal method that creates a toast whenever a user tries to create
+     * something that contains '--'. This is used internally as a concatenater,
+     * and therefore cannot be entered in 'create' field.
+     */
+    static public boolean checkIfContainsDoubleStar(Context context, String testString, boolean displayToast){
+        if(testString.contains("**")){
+            if(displayToast){
+                Toast.makeText(context, "Field cannot contain ** !", Toast.LENGTH_SHORT).show();
+                return true;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
 
     /**
      * This will get called every time the context menu is opened and

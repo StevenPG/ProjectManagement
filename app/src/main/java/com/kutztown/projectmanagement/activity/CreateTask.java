@@ -114,6 +114,16 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
                 String dependency = getDependecy.getText().toString();
                 String task_name = taskName.getText().toString().replace(" ", "_");
                 String task_desc = taskDesc.getText().toString().replace(" ", "_");
+
+                // Check for doublestar
+                // Short circuit method if entries contain '**'
+                if(ApplicationData.checkIfContainsDoubleStar(getApplicationContext(), task_name, true)){
+                    return;
+                }
+                if(ApplicationData.checkIfContainsDoubleStar(getApplicationContext(), task_desc, true)){
+                    return;
+                }
+
                 String severity = getSeverity.getText().toString();
 
                 Log.d("debug", "Chosen Priority: " + pickedPriority);
@@ -195,7 +205,7 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
                              handler.update(
                                      "tasklist=\"" +
                                              currentTaskList + "--" + currentTask.getTaskID() +
-                                             "\"_WHERE_ProjectID=\"" +
+                                             "\"**WHERE**ProjectID=\"" +
                                              ApplicationData.currentProject.getProjectId() + "\""
                                      , "ProjectTable");
 
