@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private UserLoginTask mAuthTask = null;
     private CreateAccountTask mCATask = null;
+    private  boolean buttonClicked = true;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -89,6 +90,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 attemptLogin();
+
             }
         });
 
@@ -98,6 +100,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View v) {
                 attemptCreateAccount();
+
+
             }
         });
 
@@ -520,7 +524,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
                 ApplicationData.isLoggedIn = true;
 
-                startActivity(ActivityController.openMainActivity(getApplicationContext()));
+                startActivity(ActivityController.openProfileActivity(getApplicationContext()));
             } else {
                 mPasswordView.requestFocus();
 
