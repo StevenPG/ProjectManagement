@@ -107,6 +107,12 @@ public class CreateProject extends AppCompatActivity {
                 // If the projectlist is a python None, set it to empty.
                 if (currentProjectList.equals("None")) {
                     currentProjectList = "";
+                } else if(currentProjectList.equals("")){
+                    // If it is already empty, just do nothing
+                } else {
+                    // It is something other than none or empty, so it has something
+                    // Remove any duplicates that exist
+                    currentProjectList = ApplicationData.removeDuplicates(currentProjectList);
                 }
 
                 try {
@@ -199,5 +205,4 @@ public class CreateProject extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         return ApplicationData.contextMenu(this, item);
     }
-
 }
