@@ -193,6 +193,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         String projectList = ApplicationData.currentUser.getProjectList();
+
+        // Clean the project list before viewing
+        projectList = ApplicationData.removeDuplicates(projectList);
+
         if(projectList == null){
             projectList = "";
         }

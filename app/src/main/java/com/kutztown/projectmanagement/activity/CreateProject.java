@@ -107,6 +107,12 @@ public class CreateProject extends AppCompatActivity {
                 // If the projectlist is a python None, set it to empty.
                 if (currentProjectList.equals("None")) {
                     currentProjectList = "";
+                } else if(currentProjectList.equals("")){
+                    // If it is already empty, just do nothing
+                } else {
+                    // It is something other than none or empty, so it has something
+                    // Remove any duplicates that exist
+                    currentProjectList = ApplicationData.removeDuplicates(currentProjectList);
                 }
 
                 try {
@@ -128,16 +134,16 @@ public class CreateProject extends AppCompatActivity {
                                 , "UserTable");
                         Log.d("debug", "ProjectID onCreateProject: " + String.valueOf(ApplicationData.currentProject.getProjectId()));
                     } else {
-                        Log.d("debug", "user's projectlist=\"" +
+                        Log.d("createbugcheck", "user's projectlist=\"" +
                                 currentProjectList.substring(2, currentProjectList.length() - 1) + "--" +
-                                ApplicationData.currentProject.getProjectId() + "\"**WHERE**UserID=\"" +
+                                ApplicationData.currentProject.getProjectId() + "\"%20WHERE%20UserID=\"" +
                                 ApplicationData.currentUser.getUserId() + "\"");
 
                         // Concat the project if projectlist is not empty
                         if (currentProjectList.equals("")) {
                             handler.update(
                                     "projectlist=\"" +
-                                            ApplicationData.currentProject.getProjectId() + "\"**WHERE**UserID=\"" +
+                                            ApplicationData.currentProject.getProjectId() + "\"**WHERE*UserID=\"" +
                                             ApplicationData.currentUser.getUserId() + "\""
                                     , "UserTable");
                         } else {
@@ -147,7 +153,7 @@ public class CreateProject extends AppCompatActivity {
                             handler.update(
                                     "projectlist=\"" +
                                             currentProjectList.substring(2, currentProjectList.length() - 1) + "--" +
-                                            ApplicationData.currentProject.getProjectId() + "\"--WHERE--UserID=\"" +
+                                            ApplicationData.currentProject.getProjectId() + "\"**WHERE**UserID=\"" +
                                             ApplicationData.currentUser.getUserId() + "\""
                                     , "UserTable");
                         }
@@ -199,5 +205,4 @@ public class CreateProject extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         return ApplicationData.contextMenu(this, item);
     }
-
 }

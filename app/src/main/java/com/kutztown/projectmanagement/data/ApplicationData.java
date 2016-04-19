@@ -22,22 +22,26 @@ import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.Encryption;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 /**
  * Created by Steven Gantz on 1/28/2016.
- *
+ * <p/>
  * This class contains all data data used
  * by the application that can be altered
  * between compilations.
- *
+ * <p/>
  * Note: All values are final, const, and data, that is
- *  they cannot be changed or updated and are constant.
- *  All attributes should be in ALL_CAPS to denote their
- *  immutable status
- *
+ * they cannot be changed or updated and are constant.
+ * All attributes should be in ALL_CAPS to denote their
+ * immutable status
+ * <p/>
  * Usage:
- *
+ * <p/>
  * ApplicationData.<attribute>
- *
  */
 public final class ApplicationData {
 
@@ -93,7 +97,7 @@ public final class ApplicationData {
     /**
      * Run this to logout before sending user back to loginActivity
      */
-    static public void logoutUser(){
+    static public void logoutUser() {
         ApplicationData.isLoggedIn = false;
         ApplicationData.currentProject = null;
         ApplicationData.currentUser = null;
@@ -107,13 +111,14 @@ public final class ApplicationData {
     // when adding user to a particular project
     final public static String ProjectName = "ProjectName";
 
-    static public boolean checkIfLoggedIn(Context appContext){
-        if(ApplicationData.isLoggedIn){
+    static public boolean checkIfLoggedIn(Context appContext) {
+        if (ApplicationData.isLoggedIn) {
             return true;
         } else {
             return false;
         }
     }
+
     /* instance of a variable to be used for the class encrytion to handle methods called.
      * it is used to enscrypt the user password before being saved in the database
      */
@@ -127,9 +132,9 @@ public final class ApplicationData {
      * something that contains '--'. This is used internally as a concatenater,
      * and therefore cannot be entered in 'create' field.
      */
-    static public boolean checkIfContainsDoubleStar(Context context, String testString, boolean displayToast){
-        if(testString.contains("**")){
-            if(displayToast){
+    static public boolean checkIfContainsDoubleStar(Context context, String testString, boolean displayToast) {
+        if (testString.contains("**")) {
+            if (displayToast) {
                 Toast.makeText(context, "Field cannot contain ** !", Toast.LENGTH_SHORT).show();
                 return true;
             } else {
@@ -141,13 +146,56 @@ public final class ApplicationData {
     }
 
     /**
+     * Place all of the elements of the string into a list without their
+     * separators. Then remove any duplicates, before re-creating into a string.
+     */
+    static public String removeDuplicates(String duplicateString) {
+        ArrayList<String> itemList = new ArrayList<>();
+
+        if (duplicateString.charAt(0) == 'u') {
+            duplicateString = duplicateString.substring(2, duplicateString.length() - 1);
+        }
+
+        // Split the string up into parts
+        String[] itemArray = duplicateString.split("--");
+
+        // Add the string into a list
+        for (String item : itemArray) {
+            itemList.add(item);
+        }
+
+        // Remove any duplicate pairings inside the list
+
+        // Add everything to a set which will not allow duplicates, then get back
+        // Using a linkedHashSet will preserve order which we want.
+        Set<String> noDupes = new LinkedHashSet<>();
+        noDupes.addAll(itemList);
+
+        // Clear the list and add items from set
+        itemList.clear();
+        itemList.addAll(noDupes);
+
+        // TODO - Turn the list into a string separated by the delimiter
+        StringBuilder builder = new StringBuilder();
+        for (String item : itemList) {
+            builder.append(item);
+            builder.append("--");
+        }
+
+        Log.d("dupe", builder.toString());
+
+        return builder.toString();
+    }
+
+    /**
      * This will get called every time the context menu is opened and
      * will pass the relevant stuff to do other stuff.
+     *
      * @param context
      * @param item
      */
-    static public boolean contextMenu(Context context, MenuItem item){
-        switch(item.getItemId()){
+    static public boolean contextMenu(Context context, MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.logout:
                 Log.d("debug", "Selected Logout");
                 ApplicationData.logoutUser();
@@ -166,6 +214,6 @@ public final class ApplicationData {
                 context.startActivity(ActivityController.openThemeActivity(context));
                 return true;
         }
-       return true;
+        return true;
     }
 }
