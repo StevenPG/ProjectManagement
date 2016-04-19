@@ -13,11 +13,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
+import com.kutztown.projectmanagement.controller.ListViewAdapter;
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.data.TaskTableEntry;
 import com.kutztown.projectmanagement.network.HTTPHandler;
@@ -32,7 +34,9 @@ import java.util.zip.Inflater;
 
 public class CalendarActivity extends AppCompatActivity {
     ArrayList<String> taskList = null;
+    ArrayList<String> dates = null;
     ListView taskView = null;
+    ListViewAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +61,14 @@ public class CalendarActivity extends AppCompatActivity {
         // Retrieve tasks of current user
         this.taskList = getTasksFromProject();
         taskView = (ListView) findViewById(R.id.list);
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.mainactivityrow, this.taskList);
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.right_message, this.taskList);
         taskView.setAdapter(listAdapter);
+
+
+
+       // myAdapter = new ListViewAdapter(this,dueD,null);
+
+       // taskView.setAdapter(myAdapter);
 
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
         if(!loggedIn){
@@ -119,7 +129,7 @@ public class CalendarActivity extends AppCompatActivity {
         }
         ArrayList taskArray = new ArrayList();
 
-        TextView header = (TextView) findViewById(R.id.header);
+        //TextView header = (TextView) findViewById(R.id.header);
         Log.d("debug", "Task List: " + taskList);
         if ("None".equals(taskList)) {
             //header.setText("No tasks have been assigned");
@@ -127,6 +137,7 @@ public class CalendarActivity extends AppCompatActivity {
         } else {
           //  header.setText("All Tasks");
             String[] tasks = taskList.split("--");
+
 
             for (String task : tasks) {
                 // Wipe leftover python structures
@@ -145,8 +156,11 @@ public class CalendarActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         if (entry != null && entry.getTaskName() != null) {
-                            taskArray.add(task + ": " + entry.getTaskName().substring(2,
+                            taskArray.add(entry.getTaskName().substring(2,
                                     entry.getTaskName().length() - 1));
+                            dates.add(entry.getTaskDueDate().substring(2,ApplicationData.currentTask.getTaskDueDate().length()-1));
+
+
                         } else {
                             taskArray.add(task);
                         }
@@ -157,6 +171,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         return taskArray;
     }
+
 
 
 }

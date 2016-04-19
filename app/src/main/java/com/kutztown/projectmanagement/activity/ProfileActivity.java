@@ -66,12 +66,12 @@ public class ProfileActivity extends AppCompatActivity {
         final Button updateP = (Button)findViewById(R.id.update_profile);
         final EditText lastName = (EditText) findViewById(R.id.profile_nameL);
         UserTableEntry selectedUser = new UserTableEntry();
+        user_bio.setText(ApplicationData.currentUser.getBio().replace("_", " ").substring(2, ApplicationData.currentUser.getBio().length() - 1));
 
-       /* name.setText(ApplicationData.currentUser.getFirstName().substring(2, ApplicationData.currentUser.getFirstName().length() - 1));
+
+        name.setText(ApplicationData.currentUser.getFirstName().substring(2, ApplicationData.currentUser.getFirstName().length() - 1));
         lastName.setText(ApplicationData.currentUser.getLastName().substring(2, ApplicationData.currentUser.getLastName().length() - 1));
         user_id.setText(ApplicationData.currentUser.getEmail().substring(2, ApplicationData.currentUser.getEmail().length() - 1));
-       // user_position.setText(ApplicationData.currentUser.get);
-        user_bio.setText(ApplicationData.currentUser.getBio().substring(2, ApplicationData.currentUser.getLastName().length() - 1));
         passw = ApplicationData.currentUser.getPassword().substring(2, ApplicationData.currentUser.getPassword().length() - 1);
 
         clearButton.setOnClickListener(new View.OnClickListener() {
@@ -100,12 +100,14 @@ public class ProfileActivity extends AppCompatActivity {
 
                     HTTPHandler handler = new HTTPHandler();
                     try {
-                        //return "firstname,lastname,email,password,bio,projectlist,picture";
-                      //  handler.update("firstname=\"John\"%20where%20email=\"emailaddress@.kutztown.edu\"", "usertable");
 
-                       handler.update("firstname=\"" + SName + "\"lastname=\"" +lastN+
-                                "\"email=\""+ email + "\"password=\"" + passw + "\"bio=\"" + biography+
-                                "\"projectList=\""+ "one" + "\"picture=\"" + "two" + "\"%20where%20email=\""+ email +"\"", "usertable");
+                        Log.d("onetime", "firstname=\"" + SName + "\", lastname=\"" +lastN+
+                                "\",email=\""+ email + "\",bio=\"" + biography+
+                                "\"%20where%20email=\""+ email +
+                                "\"");
+
+                       handler.update("firstname=\""+SName+"\",lastname=\"" +lastN+ "\",bio=\"" +biography.replace(" ", "_")+
+                                   "\"%20where%20email=\""+ email+ "\"", "usertable");
                         Toast.makeText(getApplicationContext(), "User profile Update", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -114,7 +116,7 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 }
             }
-        }); */
+        });
 
     }
     @Override
