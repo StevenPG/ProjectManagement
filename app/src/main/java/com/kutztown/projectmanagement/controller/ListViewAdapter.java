@@ -14,17 +14,19 @@ import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
 
+import java.util.ArrayList;
+
 public class ListViewAdapter extends BaseAdapter{
 
         Activity context;
-        String dates1[];
-        String tasks1[];
+        String [] dates1;
+        String[] tasks1;
 
-        public ListViewAdapter(Activity context, String[]dates1, String[] tasks1) {
+        public ListViewAdapter(Activity context, String[] dates1, String[] tasks1) {
             super();
             this.context = context;
             this.dates1 = dates1;
-            this.tasks1 = tasks1;
+            this.tasks1 =tasks1;
         }
 
         public int getCount() {
