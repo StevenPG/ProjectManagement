@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,17 +18,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.data.ApplicationData;
+import com.kutztown.projectmanagement.data.UserTableEntry;
+import com.kutztown.projectmanagement.network.HTTPHandler;
 
 public class ProfileActivity extends AppCompatActivity {
-    private String biography = "";
-    private String SName = "";
-    private String email = "";
-    private String SPhone = "";
-    private String SPosition = "";
+     private  String biography = "";
+     private String SName = "";
+     private   String email = "";
+     private String SPhone = "";
+     private   String SPosition = "";
+     private String lastN ="";
+     private String passw = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,23 +61,25 @@ public class ProfileActivity extends AppCompatActivity {
         final EditText name = (EditText) findViewById(R.id.profile_name);
         final TextView user_id= (TextView) findViewById(R.id.user_email);
         final EditText user_position = (EditText) findViewById(R.id.user_position);
-        final EditText phone = (EditText) findViewById(R.id.phone);
         final EditText user_bio = (EditText) findViewById(R.id.biography);
         final Button clearButton = (Button) findViewById(R.id.clear);
         final Button updateP = (Button)findViewById(R.id.update_profile);
-        biography = user_bio.getText().toString();
-        SName = name.getText().toString();
-        email = user_id.getText().toString();
-        SPhone = name.getText().toString();
-        SPosition = user_position.getText().toString();
+        final EditText lastName = (EditText) findViewById(R.id.profile_nameL);
+        UserTableEntry selectedUser = new UserTableEntry();
+        user_bio.setText(ApplicationData.currentUser.getBio().replace("_", " ").substring(2, ApplicationData.currentUser.getBio().length() - 1));
 
 
+        name.setText(ApplicationData.currentUser.getFirstName().substring(2, ApplicationData.currentUser.getFirstName().length() - 1));
+        lastName.setText(ApplicationData.currentUser.getLastName().substring(2, ApplicationData.currentUser.getLastName().length() - 1));
+        user_id.setText(ApplicationData.currentUser.getEmail().substring(2, ApplicationData.currentUser.getEmail().length() - 1));
+        passw = ApplicationData.currentUser.getPassword().substring(2, ApplicationData.currentUser.getPassword().length() - 1);
 
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                name.setText("");
+                lastName.setText("");
                 user_position.setText("");
-                phone.setText("");
                 user_bio.setText("");
             }
         });
@@ -79,11 +87,33 @@ public class ProfileActivity extends AppCompatActivity {
         updateP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (biography.equals("") || SName.equals("") || email.equals("") || SPhone.equals("")
-                        || SPosition.equals("") ){
+
+                biography = user_bio.getText().toString();
+                SName = name.getText().toString();
+                email = user_id.getText().toString();
+                SPosition = user_position.getText().toString();
+                lastN = lastName.getText().toString();
+                if (biography.equals("") || SName.equals("") || SPosition.equals("") || lastN.equals("")) {
                     MissingProfileInfo();
                 } else {
-                 // finfo to be sent to the database
+
+
+                    HTTPHandler handler = new HTTPHandler();
+                    try {
+
+                        Log.d("onetime", "firstname=\"" + SName + "\", lastname=\"" +lastN+
+                                "\",email=\""+ email + "\",bio=\"" + biography+
+                                "\"%20where%20email=\""+ email +
+                                "\"");
+
+                       handler.update("firstname=\""+SName+"\",lastname=\"" +lastN+ "\",bio=\"" +biography.replace(" ", "_")+
+                                   "\"%20where%20email=\""+ email+ "\"", "usertable");
+                        Toast.makeText(getApplicationContext(), "User profile Update", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d("debug", "Error Updating user profile ");
+                        Toast.makeText(getApplicationContext(), "Error updating user profile", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });

@@ -372,7 +372,6 @@ public class CreateAccountActivity extends AppCompatActivity implements LoaderCa
                     Log.d("debug", "User wasn't found");
                 }
                 ApplicationData.isLoggedIn = true;
-
                 startActivity(ActivityController.openMainActivity(getApplicationContext()));
             } else {
                 mPasswordView.requestFocus();

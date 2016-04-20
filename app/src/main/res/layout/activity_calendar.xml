@@ -57,20 +57,46 @@
    <CalendarView
        android:id="@+id/CalendarView"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
+       android:layout_height="250dp"
        android:layout_marginLeft="16dp"
        android:layout_marginRight="16dp"
        android:shownWeekCount="5"
        android:showWeekNumber="false"
        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Current Date"
+        android:layout_weight="1"
+        android:text="Due Date"
         android:textSize="22sp"
         android:textStyle="bold"
+        android:textAlignment="center"
         android:id="@+id/date_display"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        />
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:text="Tasks"
+                android:id="@+id/tasklist"/>
+        </LinearLayout>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/list"
+            android:divider="@color/colorBanner"
+            android:clickable="true">
+
+        </ListView>
+
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
