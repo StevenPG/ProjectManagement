@@ -154,11 +154,15 @@ public class CalendarActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                      if (entry != null && entry.getTaskDueDate() !=null) {
-                         Log.d("DEBUG: ", entry.getTaskDueDate());
+                         Log.d("DEBUG: ", "Task due date: " + entry.getTaskDueDate());
                          String trimDate = String.valueOf(entry.getTaskDueDate());
-                         trimDate = trimDate.substring(2, trimDate.length()-2);
-                         dates.add(trimDate);
-                        }
+                         if (trimDate.equals("u''")) {
+                             trimDate = trimDate.substring(2, trimDate.length() - 1);
+                         } else {
+                             trimDate = trimDate.substring(2, trimDate.length() - 2);
+                             dates.add(trimDate);
+                         }
+                     }
                         else {
                            // this.dates = new ArrayList<>();
                         }

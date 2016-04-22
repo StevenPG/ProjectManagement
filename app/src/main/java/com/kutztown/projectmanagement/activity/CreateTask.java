@@ -173,9 +173,9 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
                                  task_name.replace(" ", "_"),
                                  task_desc.replace(" ", "_"),
                                  "0",
-                                 dateString.replace(" ", "-"),
-                                 pickedPriority.replace(" ", ""),
                                  "",
+                                 pickedPriority.replace(" ", ""),
+                                 dateString.replace(" ", "-"),
                                  "");
 
                          HTTPHandler handler = new HTTPHandler();

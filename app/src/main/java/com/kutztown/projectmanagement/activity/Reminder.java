@@ -81,8 +81,7 @@ public class Reminder extends AppCompatActivity {
         private Activity context;
         private ArrayList<String> dates12 = null;
         private ArrayList<String> tasks12 = null;
-
-
+       
         private ListViewAdapter1(Activity context, ArrayList<String> dates1, ArrayList<String> tasks1) {
             super();
             this.dates12 = new ArrayList<>();
