@@ -14,14 +14,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+
 import android.widget.CalendarView;
-import android.widget.ListAdapter;
+
 import android.widget.ListView;
 import android.widget.TextView;
-
+import android.widget.AdapterView;
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
 import com.kutztown.projectmanagement.controller.ListViewAdapter;
@@ -162,7 +160,7 @@ public class CalendarActivity extends AppCompatActivity {
                          dates.add(trimDate);
                         }
                         else {
-                            this.dates = new ArrayList<>();
+                           // this.dates = new ArrayList<>();
                         }
                         if (entry != null && entry.getTaskName() != null) {
                             taskArray.add(entry.getTaskName().substring(2,
@@ -237,7 +235,7 @@ public class CalendarActivity extends AppCompatActivity {
                     taskView = (ListView) findViewById(R.id.list);
                     myadapter = new ListViewAdapter(CalendarActivity.this,dates,taskList);
                     taskView.setAdapter(myadapter);
-                    myadapter.notifyDataSetChanged();
+                    Log.d ("Apdater", "Apdater count:" + myadapter.getCount());
                     if (!(dueTask.isEmpty() && datesTask.isEmpty()))
                     {
                         startActivity(openReminderActivity(getApplicationContext(),dueTask,datesTask));
