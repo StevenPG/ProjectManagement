@@ -1,7 +1,10 @@
 package com.kutztown.projectmanagement.activity;
 
+import android.content.Context;
 import android.database.DataSetObserver;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -31,14 +34,22 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
+import java.util.logging.LogRecord;
 import java.util.zip.Inflater;
 
+import static com.kutztown.projectmanagement.controller.ActivityController.openReminderActivity;
+
 public class CalendarActivity extends AppCompatActivity {
-    ArrayList<String> taskList = null;
-    ArrayList<String> dates = null;
-    ListView taskView = null;
-    ListAdapter myAdapter;
+  private   ArrayList<String> taskList = null;
+   private ArrayList<String> dates = null;
+    private ListView taskView = null;
+    private ListViewAdapter myadapter;
+   private CalendarView myCalendar;
+   private ArrayList<String> dueTask = null;
+   private ArrayList<String> datesTask = null;
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,41 +69,25 @@ public class CalendarActivity extends AppCompatActivity {
                 return onOptionsItemSelected(menuItem);
             }
         });
-        final CalendarView myCalendar = (CalendarView) findViewById(R.id.CalendarView);
+         myCalendar = (CalendarView) findViewById(R.id.CalendarView);
         myCalendar.setShownWeekCount(4);
-        // Retrieve tasks of current user
-        this.taskList = getTasksFromProject();
-        if (this.taskList == null) {
+
+
+
+       if (this.taskList == null) {
             this.taskList = new ArrayList<>();
+
+        }
+        if (this.dates == null)
+        {
             this.dates = new ArrayList<>();
         }
-        taskView = (ListView) findViewById(R.id.list);
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.right_message, this.taskList);
-
-        taskView.setAdapter(listAdapter);
-        Log.d("date","this is d:" +dates.size());
-
-
-
-      // myAdapter = new ListViewAdapter(this,,null);
-
-      // taskView.setAdapter(myAdapter);
+        new Thread(new gettingTask()).start();
 
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
         if(!loggedIn){
             startActivity(ActivityController.openLoginActivity(getApplicationContext()));
         }
-
-        final TextView myText = (TextView) findViewById(R.id.date_display);
-        myCalendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month,
-                                            int dayOfMonth) {
-
-
-            }
-        });
 
 
     }
@@ -128,7 +123,6 @@ public class CalendarActivity extends AppCompatActivity {
      */
     protected ArrayList<String> getTasksFromProject() {
         String taskList = null;
-
         if (ApplicationData.currentProject == null) {
             Log.d("debug", "There is no current project");
             taskList = "";
@@ -161,8 +155,11 @@ public class CalendarActivity extends AppCompatActivity {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        if (entry != null && entry.getTaskDueDate() !=null) {
-                            dates.add(entry.getTaskDueDate());
+                     if (entry != null && entry.getTaskDueDate() !=null) {
+                         Log.d("DEBUG: ", entry.getTaskDueDate());
+                         String trimDate = String.valueOf(entry.getTaskDueDate());
+                         trimDate = trimDate.substring(2, trimDate.length()-2);
+                         dates.add(trimDate);
                         }
                         else {
                             this.dates = new ArrayList<>();
@@ -181,6 +178,75 @@ public class CalendarActivity extends AppCompatActivity {
 
         return taskArray;
     }
+
+    public void dueDatessetter(String date)
+    {   List<Long> dates1 = new ArrayList<Long>();
+
+        //String date = "22/3/2014";
+        String parts[] = date.split("/");
+        int day = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
+        int year = Integer.parseInt(parts[2]);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+        dates1.add(calendar.getTimeInMillis());
+         myCalendar.setSelected(true);
+
+    }
+
+    public void checkDueTask(ArrayList<String> d, ArrayList<String> t){
+         dueTask = new ArrayList<>();
+         datesTask = new ArrayList<>();
+       final int five = 5;
+        Calendar c = Calendar.getInstance();
+       final int pd = c.get(Calendar.DAY_OF_MONTH);
+       final int pm = c.get(Calendar.MONTH) + 1;
+        final int py = c.get(Calendar.YEAR);
+        for (int i = 0; i < d.size(); i++)
+        {
+            String cleanD = d.get(i);
+            String parts[] = cleanD.split("-");
+            int month = Integer.parseInt(parts[0]);
+            int day = Integer.parseInt(parts[1]);
+            int year = Integer.parseInt(parts[2]);
+            if (py == year && pm == month && (day - pd <= five && day - pd > 0))
+            {
+                dueTask.add(t.get(i));
+                datesTask.add(d.get(i));
+
+            }
+            Log.d("Debug", "dueTask:" + dueTask.size());
+            Log.d("Debug", "dateTask:" + datesTask.size());
+            Log.d("Debug", " due date:" + datesTask.toString());
+            Log.d("Debug", "task Name:" + dueTask.toString());
+
+        }
+
+    }
+    private class gettingTask implements Runnable {
+
+        public void run() {
+
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    taskList = getTasksFromProject();
+                    checkDueTask(dates, taskList);
+                    taskView = (ListView) findViewById(R.id.list);
+                    myadapter = new ListViewAdapter(CalendarActivity.this,dates,taskList);
+                    taskView.setAdapter(myadapter);
+                    myadapter.notifyDataSetChanged();
+                    if (!(dueTask.isEmpty() && datesTask.isEmpty()))
+                    {
+                        startActivity(openReminderActivity(getApplicationContext(),dueTask,datesTask));
+                    }
+
+                    }
+                });
+            }
+}
 
 
 }

@@ -193,6 +193,8 @@ public class HTTPHandler {
             // Parse the string into an arraylist
             ArrayList<String> parsedList = CommaListParser.parseString(stringEntry);
 
+            //Log.d("DEBUG-->", entry);
+
             // build the object using the arraylist as a parameter
             if(entry instanceof UserTableEntry)
                 entry = new UserTableEntry(parsedList);

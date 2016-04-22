@@ -135,10 +135,12 @@
         <activity
             android:name="com.kutztown.projectmanagement.activity.ThemeActivity"
             android:label="@string/title_activity_theme"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.ProjectDescriptionActivity"
             android:label="@string/title_activity_project_description"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -151,7 +153,8 @@
         <activity
             android:name="com.kutztown.projectmanagement.activity.Reminder"
             android:label="@string/title_activity_reminder"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.kutztown.projectmanagement.controller;
 
+import android.content.Context;
 import android.widget.BaseAdapter;
 
 /**
@@ -13,26 +14,32 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
+import com.kutztown.projectmanagement.activity.CalendarActivity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ListViewAdapter extends BaseAdapter{
 
-        Activity context;
-        String [] dates1;
-        String[] tasks1;
+       private CalendarActivity context;
+       private ArrayList<String> dates1 = null;
+        private ArrayList<String> tasks1 = null;
 
-        public ListViewAdapter(Activity context, String[] dates1, String[] tasks1) {
+
+        public ListViewAdapter(CalendarActivity context,ArrayList<String> dates1, ArrayList<String> tasks1) {
             super();
+            this.dates1 = new ArrayList<>();
+            this.tasks1 = new ArrayList<>();
             this.context = context;
             this.dates1 = dates1;
-            this.tasks1 =tasks1;
+            this.tasks1 = tasks1;
         }
 
         public int getCount() {
             // TODO Auto-generated method stub
-            return dates1.length;
+            return tasks1.size();
         }
+
 
         public Object getItem(int position) {
             // TODO Auto-generated method stub
@@ -57,10 +64,10 @@ public class ListViewAdapter extends BaseAdapter{
 
             if (convertView == null)
             {
-                convertView = inflater.inflate(R.layout.calendar,null);
                 holder = new ViewHolder();
-                holder.dates = (TextView) convertView.findViewById(R.id.date);
-                holder.tasks = (TextView) convertView.findViewById(R.id.task);
+                convertView = inflater.inflate(R.layout.calendar,null);
+                holder.dates = (TextView) convertView.findViewById(R.id.dates1);
+                holder.tasks = (TextView) convertView.findViewById(R.id.tasks);
                 convertView.setTag(holder);
             }
             else
@@ -68,11 +75,13 @@ public class ListViewAdapter extends BaseAdapter{
                 holder = (ViewHolder) convertView.getTag();
             }
 
-            holder.dates.setText(dates1[position]);
-            holder.tasks.setText(tasks1[position]);
+
+            holder.tasks.setText(tasks1.get(position));
+            holder.dates.setText(dates1.get(position));
 
             return convertView;
         }
+
 
 
 }

@@ -103,9 +103,13 @@ public class TaskTableEntry implements TableEntry {
             this.taskName = taskTableEntry.get(3);
             this.taskDesc = taskTableEntry.get(4);
             this.taskProgress = taskTableEntry.get(5);
-            this.taskStatus = taskTableEntry.get(6);
-            this.taskPriority = taskTableEntry.get(7);
-            this.taskDueDate = taskTableEntry.get(8);
+            //this.taskStatus = taskTableEntry.get(6);
+            //this.taskPriority = taskTableEntry.get(7);
+            this.taskDueDate = taskTableEntry.get(6);
+
+            Log.d("Debug","Hector" + taskTableEntry.get(6));
+
+            this.taskPriority = "";
             this.taskStatus = "";
             this.taskDep = "";
         }

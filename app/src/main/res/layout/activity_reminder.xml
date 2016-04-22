@@ -40,9 +40,11 @@
         </LinearLayout>
 
     </android.support.design.widget.AppBarLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -51,41 +53,24 @@
             android:textColor="#82cffd"
             android:text="Task Due Date Reminder"
             android:layout_marginTop="70dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="100dp">
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                 >
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/dates_due"
-            android:scrollbars="none">
-        </ListView>
-            </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:textColor="#82cffd"
+                android:id="@+id/dismish"
+                android:text="Please hit the back button to go back"
+                android:layout_marginTop="10dp"
+                />
+
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none"
-            android:id="@+id/dates_task"
-            >
+            android:id="@+id/list_date"
+            android:scrollbars="vertical">
         </ListView>
         </LinearLayout>
-    </LinearLayout>
-
-
 
 </android.support.design.widget.CoordinatorLayout>

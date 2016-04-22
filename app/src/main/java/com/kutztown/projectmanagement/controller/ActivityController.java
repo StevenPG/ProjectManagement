@@ -20,11 +20,14 @@ import com.kutztown.projectmanagement.activity.MessageActivity;
 import com.kutztown.projectmanagement.activity.ProfileActivity;
 import com.kutztown.projectmanagement.activity.ProgressActivity;
 import com.kutztown.projectmanagement.activity.ProjectDescriptionActivity;
+import com.kutztown.projectmanagement.activity.Reminder;
 import com.kutztown.projectmanagement.activity.TaskActivity;
 import com.kutztown.projectmanagement.activity.TaskViewActivity;
 import com.kutztown.projectmanagement.activity.ThemeActivity;
 import com.kutztown.projectmanagement.data.ApplicationData;
 import com.kutztown.projectmanagement.graphing.GraphingTest;
+
+import java.util.ArrayList;
 
 /**
  * Created by Steven Gantz on 1/26/2016.
@@ -119,6 +122,13 @@ public class ActivityController extends Application{
 
     public static Intent openProjectDescriptionActivity(Context appContext) {
         Intent myIntent = new Intent(appContext, ProjectDescriptionActivity.class);
+        return myIntent;
+    }
+    public static Intent openReminderActivity(Context appContext,ArrayList<String> dates, ArrayList<String> tasks)
+    {
+        Intent myIntent = new Intent(appContext, Reminder.class);
+        myIntent.putStringArrayListExtra("Dates", dates);
+        myIntent.putStringArrayListExtra("Tasks", tasks);
         return myIntent;
     }
 }
