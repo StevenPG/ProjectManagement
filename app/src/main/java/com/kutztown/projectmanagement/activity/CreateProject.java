@@ -112,7 +112,7 @@ public class CreateProject extends AppCompatActivity {
                 } else {
                     // It is something other than none or empty, so it has something
                     // Remove any duplicates that exist
-                    currentProjectList = ApplicationData.removeDuplicates(currentProjectList);
+                    // TODO currentProjectList = ApplicationData.removeDuplicates(currentProjectList);
                 }
 
                 try {

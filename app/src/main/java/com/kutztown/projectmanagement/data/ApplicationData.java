@@ -184,7 +184,9 @@ public final class ApplicationData {
 
         Log.d("dupe", builder.toString());
 
-        return builder.toString();
+        String removedDoubles = builder.toString().replace("---", "--");
+
+        return removedDoubles;
     }
 
     /**
