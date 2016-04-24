@@ -1,0 +1,16 @@
+Short Version:
+- When we started, we needed a way to communicate b/t server and client. Writing requests from scratch was a hassle.
+- Created library to easily pass data from client to server. Lib has bunch of obj that mirror database areas.
+- Lib designed so we could build objects w/ relevant data, and ask object to send a request built from data objects.
+- Sped up dev time on client, allowed for quick and easy database calls.
+
+- Server side written in Python, using micro-framework Flask and container Tornado.
+- Ran into a problem late in semester, Flask could only field so many requests. 
+- Started crashing it when multiple people used App.
+- Fixed this by putting the web service inside a framework container called Tornado.
+- Tornado manages these problems by creating a new Flask instance when needed
+- Chose to use SQLite3 as our database and used Python's built-in sqlite3 lib
+
+- Ran into same problem on server as on client, database calls were a hassle from scratch
+- Wrote an abstraction tool to make the calls easier and only one line of code
+- Back end dev work went smoother as pre-created requests came out of client into server, and server used abstraction tool to make database calls.
