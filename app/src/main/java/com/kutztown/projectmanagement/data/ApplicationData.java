@@ -64,7 +64,7 @@ public final class ApplicationData {
      * 3000ms seems to be the best length of time
      * debug: 500ms
      */
-    final static public int SPLASH_TIME_OUT = 100;
+    final static public int SPLASH_TIME_OUT = 2000;
 
     /**
      * Globally hold the current viewed member

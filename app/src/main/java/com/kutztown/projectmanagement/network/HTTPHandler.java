@@ -490,27 +490,26 @@ public class HTTPHandler {
      * @return - The web service version as a string.
      */
     public String getWSVersion(){
-        String version = null;
         if(!this.pingServer(ApplicationData.SERVER_IP)){
             return "X";
         }
-
+        URL url = null;
         try {
-            URL url = buildURL(ApplicationData.SERVER_IP,
+            url = buildURL(ApplicationData.SERVER_IP,
                     ApplicationData.SERVER_PORT,"version",
                     false, "");
-
-            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-
-            version = readFromURLConnection(httpURLConnection);
         } catch (MalformedURLException e) {
-            //e.printStackTrace();
-            return "URL Error";
-        } catch (IOException e) {
-            //e.printStackTrace();
-            return "Can't reach page";
+            e.printStackTrace();
         }
 
+        WebTask task = new WebTask(url);
+        task.execute((Void) null);
+
+        while (!task.grabString) {
+            // Busy wait until the connection is done
+            //Log.d("debug", "Busy waiting until connection is done");
+        }
+        String version = task.dataString;
         return version;
     }
 

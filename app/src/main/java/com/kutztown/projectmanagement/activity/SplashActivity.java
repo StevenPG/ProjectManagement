@@ -2,6 +2,7 @@ package com.kutztown.projectmanagement.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -29,7 +30,7 @@ import java.util.Calendar;
  * application or instance.
  */
 public class SplashActivity extends Activity {
-    public SharePreferenceCheck  methodO = new SharePreferenceCheck();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +49,22 @@ public class SplashActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        // Get the current app version
+        // Code Source: http://stackoverflow.com/questions/3874775/detect-my-apps-own-androidversioncode-at-run-time
+        int versioncode = 1;
+        String versionName = "Version Not Found";
+        try {
+            versioncode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+            versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            // just use the default values
+        }
+
+        TextView appVersionName = (TextView) findViewById(R.id.version);
+        appVersionName.setText("App Version: " + versionName);
+
+        // Get the current web service version
 
         // Set the current date
         TextView date = (TextView) findViewById(R.id.date);

@@ -38,6 +38,8 @@ import com.kutztown.projectmanagement.exception.ServerNotRunningException;
 import com.kutztown.projectmanagement.exception.ValueAlreadyExistsException;
 import com.kutztown.projectmanagement.network.HTTPHandler;
 
+import org.w3c.dom.Text;
+
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,6 +113,29 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        // Visual stuff for screen
+        // Get the current app version
+        // Code Source: http://stackoverflow.com/questions/3874775/detect-my-apps-own-androidversioncode-at-run-time
+        int versioncode = 1;
+        String versionName = "Version Not Found";
+        try {
+            versioncode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+            versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            // just use the default values
+        }
+
+        // Assignments to text fields
+        TextView verName = (TextView) findViewById(R.id.versionname);
+        TextView verCode = (TextView) findViewById(R.id.versioncode);
+        TextView webVer = (TextView) findViewById(R.id.webversion);
+        verName.setText("App Version: " + versionName);
+        verCode.setText("GooglePlay Version: " + versioncode);
+
+        // Get the current web service version
+        String wsversion = new HTTPHandler().getWSVersion();
+        webVer.setText("Web Service Version: " + wsversion);
     }
 
     private void populateAutoComplete() {
