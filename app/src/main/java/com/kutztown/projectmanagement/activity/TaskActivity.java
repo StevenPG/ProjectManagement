@@ -1,6 +1,7 @@
 package com.kutztown.projectmanagement.activity;
 
 import android.app.Activity;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatCallback;
@@ -165,6 +166,14 @@ public class TaskActivity extends Activity implements AppCompatCallback {
                 }
             }
         });
+
+        ImageButton button = (ImageButton) findViewById(R.id.plus_buttom1);
+        if(!ApplicationData.currentUser.getEmail().equals(ApplicationData.currentProject.getLeaderList())){
+            button.setEnabled(false);
+            button.setVisibility(View.INVISIBLE);
+        } else {
+            // User is a leader and can press the button
+        }
     }
 
     @Override
