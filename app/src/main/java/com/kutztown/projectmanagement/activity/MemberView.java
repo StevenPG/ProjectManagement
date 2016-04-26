@@ -133,12 +133,12 @@ public class MemberView extends AppCompatActivity {
         //bigImg = (ImageView) findViewById(R.id.big_logo);
         ImageView miniLogo = (ImageView) findViewById(R.id.mini_logo);
         LinearLayout colorBar = (LinearLayout) findViewById(R.id.color_bar);
-        Button progressB = (Button)findViewById(R.id.progress_ld_button);
-        Button taskB = (Button)findViewById(R.id.task_ld_button);
-        Button calendarB = (Button) findViewById(R.id.calendar_id_button);
-        Button membersB = (Button) findViewById(R.id.members_ld_button);
-        Button messageB = (Button) findViewById(R.id.message_ld_button);
-        Button descriptionB = (Button) findViewById(R.id.description_ld_button);
+        Button progressB = (Button)findViewById(R.id.progress1_ld_button);
+        Button taskB = (Button)findViewById(R.id.task1_ld_button);
+        Button calendarB = (Button) findViewById(R.id.calendar1_id_button);
+        Button membersB = (Button) findViewById(R.id.members1_ld_button);
+        Button messageB = (Button) findViewById(R.id.message1_ld_button);
+        Button descriptionB = (Button) findViewById(R.id.description1_ld_button);
 
         if(!ApplicationData.theme.equals("default"))
         {
