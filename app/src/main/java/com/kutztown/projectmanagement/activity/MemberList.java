@@ -113,6 +113,13 @@ public class MemberList extends Activity implements AppCompatCallback {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
+                Log.d("debug52", "Current user: " + ApplicationData.currentUser.getEmail());
+                Log.d("debug52", "Leader of project: " + ApplicationData.currentProject.getLeaderList());
+
+                if(!ApplicationData.currentUser.getEmail().equals(ApplicationData.currentProject.getLeaderList())){
+                    return true;
+                }
+
                 final String user = (String) projectView.getItemAtPosition(position);
 
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(thisContext);
