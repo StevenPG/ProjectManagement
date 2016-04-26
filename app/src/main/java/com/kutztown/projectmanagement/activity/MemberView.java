@@ -10,6 +10,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kutztown.project.projectmanagement.R;
@@ -35,6 +37,8 @@ public class MemberView extends AppCompatActivity {
                 return onOptionsItemSelected(menuItem);
             }
         });
+
+        checkTheme();
 
         // Set the correct name on project
         TextView header = (TextView) findViewById(R.id.leader_prj_label);
@@ -124,5 +128,83 @@ public class MemberView extends AppCompatActivity {
 
     }
 
+    public void checkTheme()
+    {
+        //bigImg = (ImageView) findViewById(R.id.big_logo);
+        ImageView miniLogo = (ImageView) findViewById(R.id.mini_logo);
+        LinearLayout colorBar = (LinearLayout) findViewById(R.id.color_bar);
+        Button progressB = (Button)findViewById(R.id.progress_ld_button);
+        Button taskB = (Button)findViewById(R.id.task_ld_button);
+        Button calendarB = (Button) findViewById(R.id.calendar_id_button);
+        Button membersB = (Button) findViewById(R.id.members_ld_button);
+        Button messageB = (Button) findViewById(R.id.message_ld_button);
+        Button descriptionB = (Button) findViewById(R.id.description_ld_button);
 
+        if(!ApplicationData.theme.equals("default"))
+        {
+            switch(ApplicationData.theme)
+            {
+                case "Banana":
+                        colorBar.setBackgroundResource(R.color.color_banana);
+                        miniLogo.setImageResource(R.drawable.banner_logo_banana);
+                        progressB.setBackgroundResource(R.color.color_banana);
+                        taskB.setBackgroundResource(R.color.color_banana);
+                        calendarB.setBackgroundResource(R.color.color_banana);
+                        membersB.setBackgroundResource(R.color.color_banana);
+                        messageB.setBackgroundResource(R.color.color_banana);
+                        descriptionB.setBackgroundResource(R.color.color_banana);
+                        //bigImg.setImageResource(R.drawable.banner_logo_banana);
+                        ApplicationData.theme = "Banana";
+                        break;
+                    case "Peach":
+                        colorBar.setBackgroundResource(R.color.color_peach);
+                        miniLogo.setImageResource(R.drawable.banner_logo_peach);
+                        progressB.setBackgroundResource(R.color.color_peach);
+                        taskB.setBackgroundResource(R.color.color_peach);
+                        calendarB.setBackgroundResource(R.color.color_peach);
+                        membersB.setBackgroundResource(R.color.color_peach);
+                        messageB.setBackgroundResource(R.color.color_peach);
+                        descriptionB.setBackgroundResource(R.color.color_peach);
+                        //bigImg.setImageResource(R.drawable.banner_logo_peach);
+                        ApplicationData.theme = "Peach";
+                        break;
+                    case "Strawberry":
+                        colorBar.setBackgroundResource(R.color.color_strawberry);
+                        miniLogo.setImageResource(R.drawable.banner_logo_strawberry);
+                        progressB.setBackgroundResource(R.color.color_strawberry);
+                        taskB.setBackgroundResource(R.color.color_strawberry);
+                        calendarB.setBackgroundResource(R.color.color_strawberry);
+                        membersB.setBackgroundResource(R.color.color_strawberry);
+                        messageB.setBackgroundResource(R.color.color_strawberry);
+                        descriptionB.setBackgroundResource(R.color.color_strawberry);
+                        //bigImg.setImageResource(R.drawable.banner_logo_strawberry);
+                        ApplicationData.theme = "Strawberry";
+                        break;
+                    case "Mellon":
+                        colorBar.setBackgroundResource(R.color.color_mellon);
+                        miniLogo.setImageResource(R.drawable.banner_logo_mellon);
+                        progressB.setBackgroundResource(R.color.color_mellon);
+                        taskB.setBackgroundResource(R.color.color_mellon);
+                        calendarB.setBackgroundResource(R.color.color_mellon);
+                        membersB.setBackgroundResource(R.color.color_mellon);
+                        messageB.setBackgroundResource(R.color.color_mellon);
+                        descriptionB.setBackgroundResource(R.color.color_mellon);
+                        //bigImg.setImageResource(R.drawable.banner_logo_mellon);
+                        ApplicationData.theme = "Mellon";
+                        break;
+                    default:
+                        colorBar.setBackgroundResource(R.color.color_default);
+                        miniLogo.setImageResource(R.drawable.banner_logo);
+                        progressB.setBackgroundResource(R.color.color_default);
+                        taskB.setBackgroundResource(R.color.color_default);
+                        calendarB.setBackgroundResource(R.color.color_default);
+                        membersB.setBackgroundResource(R.color.color_default);
+                        messageB.setBackgroundResource(R.color.color_default);
+                        descriptionB.setBackgroundResource(R.color.color_default);
+                        //bigImg.setImageResource(R.drawable.banner_logo);
+                        ApplicationData.theme = "Default";
+                        break;
+            }
+        }
+    }
 }

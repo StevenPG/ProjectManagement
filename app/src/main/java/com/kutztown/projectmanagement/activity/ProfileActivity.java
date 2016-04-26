@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,8 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+
+        checkTheme();
 
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
         if(!loggedIn){
@@ -172,5 +175,59 @@ public class ProfileActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    public void checkTheme()
+    {
+        //bigImg = (ImageView) findViewById(R.id.big_logo);
+        ImageView miniLogo = (ImageView) findViewById(R.id.mini_logo);
+        LinearLayout colorBar = (LinearLayout) findViewById(R.id.color_bar);
+        Button clearButton = (Button) findViewById(R.id.clear);
+        Button updateP = (Button)findViewById(R.id.update_profile);
 
+        if(!ApplicationData.theme.equals("default"))
+        {
+            switch(ApplicationData.theme)
+            {
+                case "Banana":
+                    colorBar.setBackgroundResource(R.color.color_banana);
+                    miniLogo.setImageResource(R.drawable.banner_logo_banana);
+                    //bigImg.setImageResource(R.drawable.banner_logo_banana);
+                    clearButton.setBackgroundResource(R.color.color_banana);
+                    updateP.setBackgroundResource(R.color.color_banana);
+                    ApplicationData.theme = "Banana";
+                    break;
+                case "Peach":
+                    colorBar.setBackgroundResource(R.color.color_peach);
+                    miniLogo.setImageResource(R.drawable.banner_logo_peach);
+                    //bigImg.setImageResource(R.drawable.banner_logo_peach);
+                    clearButton.setBackgroundResource(R.color.color_peach);
+                    updateP.setBackgroundResource(R.color.color_peach);
+                    ApplicationData.theme = "Peach";
+                    break;
+                case "Strawberry":
+                    colorBar.setBackgroundResource(R.color.color_strawberry);
+                    miniLogo.setImageResource(R.drawable.banner_logo_strawberry);
+                    //bigImg.setImageResource(R.drawable.banner_logo_strawberry);
+                    clearButton.setBackgroundResource(R.color.color_strawberry);
+                    updateP.setBackgroundResource(R.color.color_strawberry);
+                    ApplicationData.theme = "Strawberry";
+                    break;
+                case "Mellon":
+                    colorBar.setBackgroundResource(R.color.color_mellon);
+                    miniLogo.setImageResource(R.drawable.banner_logo_mellon);
+                    //bigImg.setImageResource(R.drawable.banner_logo_mellon);
+                    clearButton.setBackgroundResource(R.color.color_mellon);
+                    updateP.setBackgroundResource(R.color.color_mellon);
+                    ApplicationData.theme = "Mellon";
+                    break;
+                default:
+                    colorBar.setBackgroundResource(R.color.color_default);
+                    miniLogo.setImageResource(R.drawable.banner_logo);
+                    //bigImg.setImageResource(R.drawable.banner_logo);
+                    clearButton.setBackgroundResource(R.color.color_default);
+                    updateP.setBackgroundResource(R.color.color_default);
+                    ApplicationData.theme = "Default";
+                    break;
+            }
+        }
+    }
 }

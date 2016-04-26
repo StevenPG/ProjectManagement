@@ -93,6 +93,7 @@ public final class ApplicationData {
      * valid access to each activity and the generated content.
      */
     static public boolean isLoggedIn = false;
+    static public String theme = "Default";
 
     /**
      * Run this to logout before sending user back to loginActivity

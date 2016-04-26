@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,6 +45,8 @@ public class MemberProgressActivity extends AppCompatActivity {
             }
         });
         toolbar.showOverflowMenu();
+
+        checkTheme();
 
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
         if (!loggedIn) {
@@ -227,5 +231,49 @@ public class MemberProgressActivity extends AppCompatActivity {
                 this, R.layout.activity_progress_listview, legend);
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
+    }
+
+    public void checkTheme()
+    {
+        //bigImg = (ImageView) findViewById(R.id.big_logo);
+        ImageView miniLogo = (ImageView) findViewById(R.id.mini_logo);
+        LinearLayout colorBar = (LinearLayout) findViewById(R.id.color_bar);
+
+        if(!ApplicationData.theme.equals("default"))
+        {
+            switch(ApplicationData.theme)
+            {
+                case "Banana":
+                        colorBar.setBackgroundResource(R.color.color_banana);
+                        miniLogo.setImageResource(R.drawable.banner_logo_banana);
+                        //bigImg.setImageResource(R.drawable.banner_logo_banana);
+                        ApplicationData.theme = "Banana";
+                        break;
+                    case "Peach":
+                        colorBar.setBackgroundResource(R.color.color_peach);
+                        miniLogo.setImageResource(R.drawable.banner_logo_peach);
+                        //bigImg.setImageResource(R.drawable.banner_logo_peach);
+                        ApplicationData.theme = "Peach";
+                        break;
+                    case "Strawberry":
+                        colorBar.setBackgroundResource(R.color.color_strawberry);
+                        miniLogo.setImageResource(R.drawable.banner_logo_strawberry);
+                        //bigImg.setImageResource(R.drawable.banner_logo_strawberry);
+                        ApplicationData.theme = "Strawberry";
+                        break;
+                    case "Mellon":
+                        colorBar.setBackgroundResource(R.color.color_mellon);
+                        miniLogo.setImageResource(R.drawable.banner_logo_mellon);
+                        //bigImg.setImageResource(R.drawable.banner_logo_mellon);
+                        ApplicationData.theme = "Mellon";
+                        break;
+                    default:
+                        colorBar.setBackgroundResource(R.color.color_default);
+                        miniLogo.setImageResource(R.drawable.banner_logo);
+                        //bigImg.setImageResource(R.drawable.banner_logo);
+                        ApplicationData.theme = "Default";
+                        break;
+            }
+        }
     }
 }

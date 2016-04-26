@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -56,6 +59,9 @@ public class Reminder extends AppCompatActivity {
                 return onOptionsItemSelected(menuItem);
             }
         });
+
+        checkTheme();
+
         Intent d = getIntent();
         datesTask = new ArrayList<>();
         dueTask = new ArrayList<>();
@@ -134,5 +140,61 @@ public class Reminder extends AppCompatActivity {
             return convertView;
         }
 
+    }
+
+    public void checkTheme()
+    {
+        //bigImg = (ImageView) findViewById(R.id.big_logo);
+        ImageView miniLogo = (ImageView) findViewById(R.id.mini_logo);
+        LinearLayout colorBar = (LinearLayout) findViewById(R.id.color_bar);
+        TextView labelOne = (TextView) findViewById(R.id.label_1);
+        TextView labelTwo = (TextView) findViewById(R.id.label_2);
+
+        if(!ApplicationData.theme.equals("default"))
+        {
+            switch(ApplicationData.theme)
+            {
+                case "Banana":
+                        colorBar.setBackgroundResource(R.color.color_banana);
+                        miniLogo.setImageResource(R.drawable.banner_logo_banana);
+                        //bigImg.setImageResource(R.drawable.banner_logo_banana);
+                        labelOne.setTextColor(ContextCompat.getColor(this, R.color.color_banana));
+                        labelTwo.setTextColor(ContextCompat.getColor(this,R.color.color_banana));
+                        ApplicationData.theme = "Banana";
+                        break;
+                    case "Peach":
+                        colorBar.setBackgroundResource(R.color.color_peach);
+                        miniLogo.setImageResource(R.drawable.banner_logo_peach);
+                        //bigImg.setImageResource(R.drawable.banner_logo_peach);
+                        labelOne.setTextColor(ContextCompat.getColor(this, R.color.color_peach));
+                        labelTwo.setTextColor(ContextCompat.getColor(this, R.color.color_peach));
+                        ApplicationData.theme = "Peach";
+                        break;
+                    case "Strawberry":
+                        colorBar.setBackgroundResource(R.color.color_strawberry);
+                        miniLogo.setImageResource(R.drawable.banner_logo_strawberry);
+                        //bigImg.setImageResource(R.drawable.banner_logo_strawberry);
+                        labelOne.setTextColor(ContextCompat.getColor(this, R.color.color_strawberry));
+                        labelTwo.setTextColor(ContextCompat.getColor(this, R.color.color_strawberry));
+                        ApplicationData.theme = "Strawberry";
+                        break;
+                    case "Mellon":
+                        colorBar.setBackgroundResource(R.color.color_mellon);
+                        miniLogo.setImageResource(R.drawable.banner_logo_mellon);
+                        //bigImg.setImageResource(R.drawable.banner_logo_mellon);
+                        labelOne.setTextColor(ContextCompat.getColor(this, R.color.color_mellon));
+                        labelTwo.setTextColor(ContextCompat.getColor(this, R.color.color_mellon));
+                        ApplicationData.theme = "Mellon";
+                        break;
+                    default:
+                        colorBar.setBackgroundResource(R.color.color_default);
+                        miniLogo.setImageResource(R.drawable.banner_logo);
+                        //bigImg.setImageResource(R.drawable.banner_logo);
+                        labelOne.setTextColor(ContextCompat.getColor(this, R.color.color_default));
+                        labelTwo.setTextColor(ContextCompat.getColor(this, R.color.color_default));
+                        ApplicationData.theme = "Default";
+                        break;
+            }
+        }
     }
 }

@@ -12,10 +12,11 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.PopupOverlay">
         <LinearLayout
+            android:id="@+id/color_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:background="#82cffd"
+            android:background="@color/color_default"
             android:paddingBottom="5dp">
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -25,6 +26,7 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay" >
 
                 <ImageView
+                    android:id="@+id/mini_logo"
                     android:layout_width="wrap_content"
                     android:contentDescription="Logo"
                     android:layout_height="wrap_content"

@@ -17,6 +17,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +61,8 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
                 return onOptionsItemSelected(menuItem);
             }
         });
+
+        checkTheme();
 
         String[] itemArray = ApplicationData.currentProject.getMemberList().split("--");
 
@@ -309,5 +313,59 @@ public class CreateTask extends AppCompatActivity implements DatePickerDialog.On
         alertDialog.show();
     }
 
+    public void checkTheme()
+    {
+        //bigImg = (ImageView) findViewById(R.id.big_logo);
+        ImageView miniLogo = (ImageView) findViewById(R.id.mini_logo);
+        LinearLayout colorBar = (LinearLayout) findViewById(R.id.color_bar);
+        Button taskDate = (Button) findViewById(R.id.datepicker01);
+        Button createTask = (Button) findViewById(R.id.create_task);
 
+        if(!ApplicationData.theme.equals("default"))
+        {
+            switch(ApplicationData.theme)
+            {
+                case "Banana":
+                        colorBar.setBackgroundResource(R.color.color_banana);
+                        miniLogo.setImageResource(R.drawable.banner_logo_banana);
+                        //bigImg.setImageResource(R.drawable.banner_logo_banana);
+                        taskDate.setBackgroundResource(R.color.color_banana);
+                        createTask.setBackgroundResource(R.color.color_banana);
+                        ApplicationData.theme = "Banana";
+                        break;
+                    case "Peach":
+                        colorBar.setBackgroundResource(R.color.color_peach);
+                        miniLogo.setImageResource(R.drawable.banner_logo_peach);
+                        //bigImg.setImageResource(R.drawable.banner_logo_peach);
+                        taskDate.setBackgroundResource(R.color.color_peach);
+                        createTask.setBackgroundResource(R.color.color_peach);
+                        ApplicationData.theme = "Peach";
+                        break;
+                    case "Strawberry":
+                        colorBar.setBackgroundResource(R.color.color_strawberry);
+                        miniLogo.setImageResource(R.drawable.banner_logo_strawberry);
+                        //bigImg.setImageResource(R.drawable.banner_logo_strawberry);
+                        taskDate.setBackgroundResource(R.color.color_strawberry);
+                        createTask.setBackgroundResource(R.color.color_strawberry);
+                        ApplicationData.theme = "Strawberry";
+                        break;
+                    case "Mellon":
+                        colorBar.setBackgroundResource(R.color.color_mellon);
+                        miniLogo.setImageResource(R.drawable.banner_logo_mellon);
+                        //bigImg.setImageResource(R.drawable.banner_logo_mellon);
+                        taskDate.setBackgroundResource(R.color.color_mellon);
+                        createTask.setBackgroundResource(R.color.color_mellon);
+                        ApplicationData.theme = "Mellon";
+                        break;
+                    default:
+                        colorBar.setBackgroundResource(R.color.color_default);
+                        miniLogo.setImageResource(R.drawable.banner_logo);
+                        //bigImg.setImageResource(R.drawable.banner_logo);
+                        taskDate.setBackgroundResource(R.color.color_default);
+                        createTask.setBackgroundResource(R.color.color_default);
+                        ApplicationData.theme = "Default";
+                        break;
+            }
+        }
+    }
 }

@@ -13,10 +13,11 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <LinearLayout
+            android:id="@+id/color_bar"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#82cffd"
+            android:background="@color/color_default"
             android:paddingBottom="5dp">
 
         <android.support.v7.widget.Toolbar
@@ -26,6 +27,7 @@
             android:background="#FFFFFF"
             app:popupTheme="@style/AppTheme.PopupOverlay">
         <ImageView
+            android:id="@+id/mini_logo"
             android:layout_width="wrap_content"
             android:contentDescription="Logo"
             android:layout_height="wrap_content"
@@ -50,7 +52,8 @@
             android:layout_width="match_parent"
             android:textSize="20dp"
             android:textAlignment="center"
-            android:textColor="#82cffd"
+            android:textColor="@color/color_default"
+            android:id="@+id/label_1"
             android:text="Task Due Date Reminder"
             android:layout_marginTop="70dp" />
             <TextView
@@ -59,8 +62,8 @@
                 android:textAlignment="center"
                 android:textSize="16sp"
                 android:layout_gravity="center"
-                android:textColor="#82cffd"
-                android:id="@+id/dismish"
+                android:textColor="@color/color_default"
+                android:id="@+id/label_2"
                 android:text="Please hit the back button to go back"
                 android:layout_marginTop="10dp"
                 />
