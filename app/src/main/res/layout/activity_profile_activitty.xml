@@ -112,6 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:hint="Enter Your positon"
                 android:textSize="14sp"
                 android:paddingBottom="5dp"
                 />

@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kutztown.project.projectmanagement.R;
 import com.kutztown.projectmanagement.controller.ActivityController;
@@ -59,7 +60,7 @@ public class MessageActivity extends AppCompatActivity {
                 return onOptionsItemSelected(menuItem);
             }
         });
-
+        Toast.makeText(getApplicationContext(), "Please click inside edit text for keyboard", Toast.LENGTH_LONG).show();
         checkTheme();
 
         Intent intent = getIntent();

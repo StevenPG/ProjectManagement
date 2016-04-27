@@ -6,6 +6,7 @@
     import android.content.SharedPreferences;
     import android.widget.Toast;
 
+    import com.kutztown.projectmanagement.activity.ProfileActivity;
     import com.kutztown.projectmanagement.activity.SplashActivity;
     import com.kutztown.projectmanagement.controller.ActivityController;
     import com.kutztown.projectmanagement.data.ApplicationData;
@@ -16,24 +17,20 @@
      * the user will be redirected to the main screen without having to login.
      */
     public class SharePreferenceCheck extends Application {
-        public boolean preference(Context context ) {
-
-            SharedPreferences setting = context.getSharedPreferences(ApplicationData.PREFERENCE_FILENAME, MODE_PRIVATE);
-
-            if (setting.contains(ApplicationData.PREFERENCE_FILENAME)) {
-                return true;
-            } else {
-                return false;
-            }
+        public String preference(ProfileActivity context) {
+            String position = "";
+            SharedPreferences setting = context.getSharedPreferences(ApplicationData.PREFERENCE_FILENAME, Context.MODE_PRIVATE);
+            position = setting.getString(ApplicationData.PREFERENCE_FILENAME,"" );
+            return position;
         }
         // this method will be used in the create account screen. its purpose is to
         // save a key, value of the user's name in the sharepreference database. it will be
         // use to allow the user to go to the main screen of the app without having to login.
-        public void WriteToSharePrefference(Context context, String UserName)
+        public void WriteToSharePrefference(Context context, String userPosition)
         {
-            SharedPreferences setting = context.getSharedPreferences(ApplicationData.PREFERENCE_FILENAME, MODE_PRIVATE);
+            SharedPreferences setting = context.getSharedPreferences(ApplicationData.PREFERENCE_FILENAME, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = setting.edit();
-            editor.putString(ApplicationData.PREFERENCE_FILENAME, UserName);
+            editor.putString(ApplicationData.PREFERENCE_FILENAME, userPosition);
             editor.apply();
 
         }
