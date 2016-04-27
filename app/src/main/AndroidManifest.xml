@@ -126,6 +126,7 @@
             android:name="com.kutztown.projectmanagement.activity.MessageActivity"
             android:label="MessageActivity"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.kutztown.projectmanagement.activity.InboxActivity"
