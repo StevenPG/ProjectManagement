@@ -56,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         checkTheme();
 
+
         boolean loggedIn = ApplicationData.checkIfLoggedIn(getApplicationContext());
         if(!loggedIn){
             startActivity(ActivityController.openLoginActivity(getApplicationContext()));
@@ -70,13 +71,11 @@ public class ProfileActivity extends AppCompatActivity {
         final EditText lastName = (EditText) findViewById(R.id.profile_nameL);
         UserTableEntry selectedUser = new UserTableEntry();
         user_bio.setText(ApplicationData.currentUser.getBio().replace("_", " ").substring(2, ApplicationData.currentUser.getBio().length() - 1));
-
-
+        user_position.setText(ApplicationData.myPreference.preference(this));
         name.setText(ApplicationData.currentUser.getFirstName().substring(2, ApplicationData.currentUser.getFirstName().length() - 1));
         lastName.setText(ApplicationData.currentUser.getLastName().substring(2, ApplicationData.currentUser.getLastName().length() - 1));
         user_id.setText(ApplicationData.currentUser.getEmail().substring(2, ApplicationData.currentUser.getEmail().length() - 1));
         passw = ApplicationData.currentUser.getPassword().substring(2, ApplicationData.currentUser.getPassword().length() - 1);
-
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,17 +99,22 @@ public class ProfileActivity extends AppCompatActivity {
                     MissingProfileInfo();
                 } else {
 
-
+                    ApplicationData.myPreference.WriteToSharePrefference(ProfileActivity.this,user_position.getText().toString() );
+                    Log.d("position", user_position.getText().toString());
+                    lastName.setText("");
+                    user_position.setText("");
+                    user_bio.setText("");
+                    name.setText("");
                     HTTPHandler handler = new HTTPHandler();
                     try {
 
-                        Log.d("onetime", "firstname=\"" + SName + "\", lastname=\"" +lastN+
-                                "\",email=\""+ email + "\",bio=\"" + biography+
-                                "\"%20where%20email=\""+ email +
+                        Log.d("onetime", "firstname=\"" + SName + "\", lastname=\"" + lastN +
+                                "\",email=\"" + email + "\",bio=\"" + biography +
+                                "\"%20where%20email=\"" + email +
                                 "\"");
 
-                       handler.update("firstname=\""+SName+"\",lastname=\"" +lastN+ "\",bio=\"" +biography.replace(" ", "_")+
-                                   "\"%20where%20email=\""+ email+ "\"", "usertable");
+                       handler.update("firstname=\"" + SName + "\",lastname=\"" + lastN + "\",bio=\"" + biography.replace(" ", "_") +
+                               "\"%20where%20email=\"" + email + "\"", "usertable");
                         Toast.makeText(getApplicationContext(), "User profile Update", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         e.printStackTrace();

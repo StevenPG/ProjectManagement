@@ -72,7 +72,7 @@ public final class ApplicationData {
     static public String currentViewedMember;
 
     // Share preference check attributes
-    final static public String PREFERENCE_FILENAME = "UserName";
+    final static public String PREFERENCE_FILENAME = "UserPosition";
     final static public SharePreferenceCheck myPreference = new SharePreferenceCheck();
     static public boolean answer = false;
     static public AppCompatDelegate delegate;
